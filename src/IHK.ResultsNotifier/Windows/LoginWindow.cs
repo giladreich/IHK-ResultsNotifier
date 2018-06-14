@@ -10,6 +10,7 @@ namespace IHK.ResultsNotifier.Windows
         private readonly string DEFAULT_USER;
         private readonly string DEFAULT_PASS;
 
+        private HttpClientIHK webClient;
 
         public LoginWindow()
         {
@@ -23,10 +24,18 @@ namespace IHK.ResultsNotifier.Windows
             if (!IsValidCredintials())
                 return;
 
+            webClient = new HttpClientIHK();
+
             string username = tbxUser.Text;
             string password = tbxPassword.Text;
+            if (!webClient.AuthenticateUser(username, password))
+            {
+                MessageBox.Show("Failed to login. " +
+                                "Check your internet connection or username/password.");
+                return;
+            }
 
-            new MainWindow().Show(this);
+            new MainWindow(webClient).Show(this);
             Hide();
         }
 

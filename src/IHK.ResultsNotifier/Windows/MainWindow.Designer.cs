@@ -68,16 +68,16 @@
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 56.70383F));
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.32333F));
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 12F));
-            this.panelMain.Size = new System.Drawing.Size(804, 498);
+            this.panelMain.Size = new System.Drawing.Size(981, 540);
             this.panelMain.TabIndex = 2;
             // 
             // lbxLogs
             // 
             this.lbxLogs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbxLogs.FormattingEnabled = true;
-            this.lbxLogs.Location = new System.Drawing.Point(15, 341);
+            this.lbxLogs.Location = new System.Drawing.Point(15, 370);
             this.lbxLogs.Name = "lbxLogs";
-            this.lbxLogs.Size = new System.Drawing.Size(774, 141);
+            this.lbxLogs.Size = new System.Drawing.Size(951, 154);
             this.lbxLogs.TabIndex = 2;
             // 
             // panelBody
@@ -96,12 +96,12 @@
             this.panelBody.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBody.DraggableForm = false;
             this.panelBody.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.panelBody.Location = new System.Drawing.Point(15, 66);
+            this.panelBody.Location = new System.Drawing.Point(15, 71);
             this.panelBody.Name = "panelBody";
             this.panelBody.RowCount = 2;
             this.panelBody.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78.49056F));
             this.panelBody.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.50943F));
-            this.panelBody.Size = new System.Drawing.Size(774, 269);
+            this.panelBody.Size = new System.Drawing.Size(951, 293);
             this.panelBody.TabIndex = 3;
             // 
             // label8
@@ -110,7 +110,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.label8.Location = new System.Drawing.Point(0, 243);
+            this.label8.Location = new System.Drawing.Point(0, 267);
             this.label8.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(65, 26);
@@ -125,7 +125,7 @@
             this.customTableLayoutPanel1.ColumnCount = 3;
             this.customTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.16518F));
             this.customTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.83481F));
-            this.customTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 124F));
+            this.customTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 125F));
             this.customTableLayoutPanel1.Controls.Add(this.btnStartStop, 2, 0);
             this.customTableLayoutPanel1.Controls.Add(this.lblCheckEveryXMin, 0, 0);
             this.customTableLayoutPanel1.Controls.Add(this.tbxMinutes, 1, 0);
@@ -133,11 +133,11 @@
             this.customTableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.customTableLayoutPanel1.DraggableForm = false;
             this.customTableLayoutPanel1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.customTableLayoutPanel1.Location = new System.Drawing.Point(71, 214);
+            this.customTableLayoutPanel1.Location = new System.Drawing.Point(71, 232);
             this.customTableLayoutPanel1.Name = "customTableLayoutPanel1";
             this.customTableLayoutPanel1.RowCount = 1;
             this.customTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.customTableLayoutPanel1.Size = new System.Drawing.Size(685, 52);
+            this.customTableLayoutPanel1.Size = new System.Drawing.Size(859, 58);
             this.customTableLayoutPanel1.TabIndex = 4;
             // 
             // btnStartStop
@@ -149,7 +149,7 @@
             this.btnStartStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartStop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnStartStop.Location = new System.Drawing.Point(573, 3);
+            this.btnStartStop.Location = new System.Drawing.Point(747, 9);
             this.btnStartStop.Name = "btnStartStop";
             this.btnStartStop.Size = new System.Drawing.Size(109, 46);
             this.btnStartStop.TabIndex = 1;
@@ -163,7 +163,7 @@
             this.lblCheckEveryXMin.AutoSize = true;
             this.lblCheckEveryXMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCheckEveryXMin.ForeColor = System.Drawing.Color.FloralWhite;
-            this.lblCheckEveryXMin.Location = new System.Drawing.Point(321, 16);
+            this.lblCheckEveryXMin.Location = new System.Drawing.Point(475, 19);
             this.lblCheckEveryXMin.Name = "lblCheckEveryXMin";
             this.lblCheckEveryXMin.Size = new System.Drawing.Size(176, 20);
             this.lblCheckEveryXMin.TabIndex = 2;
@@ -172,7 +172,7 @@
             // tbxMinutes
             // 
             this.tbxMinutes.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.tbxMinutes.Location = new System.Drawing.Point(503, 16);
+            this.tbxMinutes.Location = new System.Drawing.Point(657, 19);
             this.tbxMinutes.Name = "tbxMinutes";
             this.tbxMinutes.Size = new System.Drawing.Size(45, 20);
             this.tbxMinutes.TabIndex = 3;
@@ -185,7 +185,7 @@
             this.dashboard.Location = new System.Drawing.Point(71, 3);
             this.dashboard.MinimumSize = new System.Drawing.Size(625, 200);
             this.dashboard.Name = "dashboard";
-            this.dashboard.Size = new System.Drawing.Size(685, 205);
+            this.dashboard.Size = new System.Drawing.Size(859, 223);
             this.dashboard.TabIndex = 5;
             // 
             // pbxIHK
@@ -193,7 +193,7 @@
             this.pbxIHK.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pbxIHK.BackColor = System.Drawing.Color.Transparent;
             this.pbxIHK.Image = global::IHK.ResultsNotifier.Properties.Resources.LogoIHK;
-            this.pbxIHK.Location = new System.Drawing.Point(294, 3);
+            this.pbxIHK.Location = new System.Drawing.Point(383, 3);
             this.pbxIHK.Name = "pbxIHK";
             this.pbxIHK.Size = new System.Drawing.Size(215, 56);
             this.pbxIHK.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -212,7 +212,7 @@
             this.controlBox.ColorMouseHoverMaximize = System.Drawing.Color.Empty;
             this.controlBox.ColorMouseHoverMinimize = System.Drawing.Color.Empty;
             this.controlBox.ForeColorBtns = System.Drawing.Color.FloralWhite;
-            this.controlBox.Location = new System.Drawing.Point(739, 8);
+            this.controlBox.Location = new System.Drawing.Point(916, 8);
             this.controlBox.Margin = new System.Windows.Forms.Padding(0);
             this.controlBox.MinimumSize = new System.Drawing.Size(60, 25);
             this.controlBox.Name = "controlBox";
@@ -221,7 +221,6 @@
             // 
             // MainWindow
             // 
-            this.AllowResize = false;
             this.AppTitle.Icon = null;
             this.AppTitle.IconLocation = new System.Drawing.Point(0, 0);
             this.AppTitle.IconSize = new System.Drawing.Size(0, 0);
@@ -232,7 +231,7 @@
             this.AppTitle.TextLocation = new System.Drawing.Point(0, 0);
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(815, 539);
+            this.ClientSize = new System.Drawing.Size(992, 581);
             this.Controls.Add(this.controlBox);
             this.Controls.Add(this.panelMain);
             this.FormBackColor.GradientColor1 = System.Drawing.Color.SlateBlue;
@@ -242,9 +241,9 @@
             this.FormBorders.DrawBorders = true;
             this.FormBorders.Width = 5;
             this.Icon = global::IHK.ResultsNotifier.Properties.Resources.AppIcon;
+            this.MinimumSize = new System.Drawing.Size(720, 525);
             this.Name = "MainWindow";
             this.Padding = new System.Windows.Forms.Padding(6, 35, 5, 6);
-            this.ResizeGrip = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);

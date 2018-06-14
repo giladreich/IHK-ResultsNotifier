@@ -65,6 +65,7 @@
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\TableData.cs" />
+    <Compile Include="HttpClientIHK.cs" />
     <Compile Include="Windows\LoginWindow.cs">
       <SubType>Form</SubType>
     </Compile>
