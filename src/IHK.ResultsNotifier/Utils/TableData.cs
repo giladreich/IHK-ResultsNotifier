@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IHK.ResultsNotifier.Controls
+namespace IHK.ResultsNotifier.Utils
 {
     public class TableData<T>
     {
