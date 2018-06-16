@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace IHK.ResultsNotifier
 {
-    public class HttpClientIHK
+    public class HttpClientIHK : IDisposable
     {
         private const string MOZILLA              = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)";
         private const string APPLE                = "AppleWebKit/537.36 (KHTML, like Gecko)";
@@ -59,7 +62,7 @@ namespace IHK.ResultsNotifier
 
             // NOTE: If the server accepted our login credintials, it will replace us a new cookie 
             // with the first cookie from the cookie jar and much tastier! nom nom...
-            HttpResponseMessage loginResp = client.PostAsync(LOGIN_PAGE, postData).Result;
+            HttpResponseMessage loginResp = SendRequest(() => client.PostAsync(LOGIN_PAGE, postData).Result);
             List<Cookie> cookies          = GetCookies(COOKIE_PATH);
             bool isNewCookieReceived      = !cookies.SequenceEqual(collectedCookies);
             if (isNewCookieReceived)
@@ -72,8 +75,8 @@ namespace IHK.ResultsNotifier
         {
             // Simulate a website visit before user authentication to collect some sessions keys
             // NOTE: The order is important, otherwise the server will send us the same session key.
-            HttpResponseMessage jspResp = client.GetAsync(COOKIE_URL1).Result;
-            HttpResponseMessage icoResp = client.GetAsync(COOKIE_URL2).Result;
+            HttpResponseMessage jspResp = SendRequest(() => client.GetAsync(COOKIE_URL1).Result);
+            HttpResponseMessage icoResp = SendRequest(() => client.GetAsync(COOKIE_URL2).Result);
 
             return GetCookies(COOKIE_PATH);
         }
@@ -96,10 +99,60 @@ namespace IHK.ResultsNotifier
             // NOTE: We must call them in this order.
             // The server is pretty smart and will check if we jump to the EXAMS_RESULTS_PAGE link from the EXAMS_PAGE.
             // If we jump to the EXAMS_RESULTS_PAGE first, it will destroy our session and will ask us to login again.
-            HttpResponseMessage examsResp   = client.GetAsync(EXAMS_PAGE).Result;
-            HttpResponseMessage resultsResp = client.GetAsync(EXAMS_RESULTS_PAGE).Result;
+            HttpResponseMessage examsResp   = SendRequest(() => client.GetAsync(EXAMS_PAGE).Result);
+            HttpResponseMessage resultsResp = SendRequest(() => client.GetAsync(EXAMS_RESULTS_PAGE).Result);
 
             return resultsResp.Content.ReadAsStringAsync().Result;
         }
+
+        public HttpResponseMessage SendRequest(Func<HttpResponseMessage> requestAction)
+        {
+            try
+            {
+                return requestAction.Invoke();
+            }
+            catch (WebException e)
+            {
+                MessageBox.Show("Lost connection or bad gateway -> " + e.Message, 
+                                "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception e)
+            {
+                // TODO: Probably a fallback method would be a good idea to validate connection.
+                MessageBox.Show("Unknown exception while sending GET request -> " + e.Message +
+                                "\nCheck your internet connection..." + e.Message,
+                                "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return null;
+        }
+
+        public Task<HttpResponseMessage> SendRequestAsync(Func<Task<HttpResponseMessage>> requestAction)
+        {
+            try
+            {
+                return requestAction.Invoke();
+            }
+            catch (WebException e)
+            {
+                MessageBox.Show("Lost connection or bad gateway -> " + e.Message,
+                                "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unknown exception while sending GET request -> " + e.Message +
+                                "\nCheck your internet connection..." + e.Message,
+                                "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return null;
+        }
+
+        public void Dispose()
+        {
+            clientHandler?.Dispose();
+            client?.Dispose();
+        }
+
     }
 }
