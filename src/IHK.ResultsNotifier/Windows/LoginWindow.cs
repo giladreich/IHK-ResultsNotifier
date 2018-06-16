@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
+using IHK.ResultsNotifier.Utils;
 
 namespace IHK.ResultsNotifier.Windows
 {

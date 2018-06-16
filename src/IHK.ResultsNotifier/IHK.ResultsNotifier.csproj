@@ -58,6 +58,9 @@
     <Compile Include="Controls\CustomLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\CustomToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\Dashboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -66,7 +69,7 @@
     </Compile>
     <Compile Include="Utils\DataChangedEventArgs.cs" />
     <Compile Include="Utils\TableData.cs" />
-    <Compile Include="HttpClientIHK.cs" />
+    <Compile Include="Utils\HttpClientIHK.cs" />
     <Compile Include="Utils\Utility.cs" />
     <Compile Include="Utils\Worker.cs" />
     <Compile Include="Windows\LoginWindow.cs">
