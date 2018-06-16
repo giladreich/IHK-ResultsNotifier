@@ -10,12 +10,23 @@ namespace IHK.ResultsNotifier.Utils
 {
     public enum State { Fresh, Done, Busy, Sleeping }
 
-
     public class Worker : IDisposable
     {
         private Thread worker;
+        private AutoResetEvent token;
+
 
         public State State { get; set; } = State.Fresh;
+        public AutoResetEvent ThreadToken => token;
+        public bool IsWorking { get; set; }
+        public bool IsBackground
+        {
+            get => worker.IsBackground;
+            set => worker.IsBackground = value;
+        }
+
+        public int ThreadId => worker.ManagedThreadId;
+
 
         public Worker(MethodInvoker callback)
         {
@@ -24,9 +35,12 @@ namespace IHK.ResultsNotifier.Utils
 
 
 
+
         public Worker Start()
         {
             State = State.Busy;
+            IsWorking = true;
+            token = new AutoResetEvent(false);
 
             worker.Start();
 
@@ -35,13 +49,23 @@ namespace IHK.ResultsNotifier.Utils
 
         public void Stop()
         {
-
+            token.Set();
+            IsWorking = false;
+            State = State.Done;
+            Join();
         }
 
+
+        public void Join()
+        {
+            worker.Join();
+        }
 
         public void Dispose()
         {
+            token?.Dispose();
             worker = null;
         }
+
     }
 }
