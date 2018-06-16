@@ -64,9 +64,11 @@
     <Compile Include="Controls\Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\DataChangedEventArgs.cs" />
     <Compile Include="Utils\TableData.cs" />
     <Compile Include="HttpClientIHK.cs" />
     <Compile Include="Utils\Utility.cs" />
+    <Compile Include="Utils\Worker.cs" />
     <Compile Include="Windows\LoginWindow.cs">
       <SubType>Form</SubType>
     </Compile>
