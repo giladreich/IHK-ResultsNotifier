@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IHK.ResultsNotifier", "src\IHK.ResultsNotifier\IHK.ResultsNotifier.csproj", "{B717B701-620D-4714-8E9B-8963BF433CDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IHK.ResultsNotifier", "IHK.ResultsNotifier\IHK.ResultsNotifier.csproj", "{B717B701-620D-4714-8E9B-8963BF433CDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
