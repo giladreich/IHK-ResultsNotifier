@@ -35,8 +35,8 @@
             this.panelFooter = new System.Windows.Forms.Custom.CustomTableLayoutPanel();
             this.tbxMinutes = new System.Windows.Forms.TextBox();
             this.pbxIHK = new System.Windows.Forms.PictureBox();
-            this.controlBox = new System.Windows.Forms.Custom.CustomControlBox();
             this.tbxLogs = new System.Windows.Forms.RichTextBox();
+            this.controlBox = new System.Windows.Forms.Custom.CustomControlBox();
             this.btnStartStop = new IHK.ResultsNotifier.Controls.CustomToggleButton();
             this.lblCheckEveryXMin = new IHK.ResultsNotifier.Controls.CustomLabel();
             this.dashboard = new IHK.ResultsNotifier.Controls.Dashboard();
@@ -85,7 +85,7 @@
             this.btnClearLog.Margin = new System.Windows.Forms.Padding(3, 0, 3, 9);
             this.btnClearLog.Name = "btnClearLog";
             this.btnClearLog.Size = new System.Drawing.Size(71, 26);
-            this.btnClearLog.TabIndex = 5;
+            this.btnClearLog.TabIndex = 0;
             this.btnClearLog.Text = "Clear Log";
             this.btnClearLog.UseVisualStyleBackColor = false;
             this.btnClearLog.Click += new System.EventHandler(this.btnClearLog_Click);
@@ -136,7 +136,7 @@
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.16519F));
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.83481F));
-            this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 159F));
+            this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 164F));
             this.panelFooter.Controls.Add(this.btnStartStop, 3, 0);
             this.panelFooter.Controls.Add(this.lblCheckEveryXMin, 1, 0);
             this.panelFooter.Controls.Add(this.tbxMinutes, 2, 0);
@@ -149,16 +149,16 @@
             this.panelFooter.RowCount = 1;
             this.panelFooter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.panelFooter.Size = new System.Drawing.Size(859, 55);
-            this.panelFooter.TabIndex = 4;
+            this.panelFooter.TabIndex = 0;
             // 
             // tbxMinutes
             // 
             this.tbxMinutes.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.tbxMinutes.Location = new System.Drawing.Point(639, 18);
+            this.tbxMinutes.Location = new System.Drawing.Point(634, 18);
             this.tbxMinutes.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.tbxMinutes.Name = "tbxMinutes";
             this.tbxMinutes.Size = new System.Drawing.Size(45, 20);
-            this.tbxMinutes.TabIndex = 3;
+            this.tbxMinutes.TabIndex = 0;
             this.tbxMinutes.Text = "30";
             // 
             // pbxIHK
@@ -172,6 +172,18 @@
             this.pbxIHK.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxIHK.TabIndex = 1;
             this.pbxIHK.TabStop = false;
+            // 
+            // tbxLogs
+            // 
+            this.tbxLogs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxLogs.Location = new System.Drawing.Point(15, 355);
+            this.tbxLogs.Name = "tbxLogs";
+            this.tbxLogs.ReadOnly = true;
+            this.tbxLogs.Size = new System.Drawing.Size(951, 147);
+            this.tbxLogs.TabIndex = 6;
+            this.tbxLogs.TabStop = false;
+            this.tbxLogs.Text = "";
             // 
             // controlBox
             // 
@@ -191,17 +203,7 @@
             this.controlBox.Name = "controlBox";
             this.controlBox.Size = new System.Drawing.Size(71, 25);
             this.controlBox.TabIndex = 3;
-            // 
-            // tbxLogs
-            // 
-            this.tbxLogs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxLogs.Location = new System.Drawing.Point(15, 355);
-            this.tbxLogs.Name = "tbxLogs";
-            this.tbxLogs.ReadOnly = true;
-            this.tbxLogs.Size = new System.Drawing.Size(951, 147);
-            this.tbxLogs.TabIndex = 6;
-            this.tbxLogs.Text = "";
+            this.controlBox.TabStop = false;
             // 
             // btnStartStop
             // 
@@ -221,13 +223,13 @@
             this.btnStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartStop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnStartStop.IsActivated = false;
-            this.btnStartStop.Location = new System.Drawing.Point(717, 14);
+            this.btnStartStop.Location = new System.Drawing.Point(714, 14);
             this.btnStartStop.Margin = new System.Windows.Forms.Padding(5);
             this.btnStartStop.Name = "btnStartStop";
             this.btnStartStop.Size = new System.Drawing.Size(124, 27);
             this.btnStartStop.StartText = "Start Listening";
             this.btnStartStop.StopText = "Stop Listening";
-            this.btnStartStop.TabIndex = 4;
+            this.btnStartStop.TabIndex = 1;
             this.btnStartStop.Tag = "start";
             this.btnStartStop.Text = "Start Listening";
             this.btnStartStop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -240,7 +242,7 @@
             this.lblCheckEveryXMin.AutoSize = true;
             this.lblCheckEveryXMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCheckEveryXMin.ForeColor = System.Drawing.Color.FloralWhite;
-            this.lblCheckEveryXMin.Location = new System.Drawing.Point(457, 17);
+            this.lblCheckEveryXMin.Location = new System.Drawing.Point(452, 17);
             this.lblCheckEveryXMin.Name = "lblCheckEveryXMin";
             this.lblCheckEveryXMin.Size = new System.Drawing.Size(176, 20);
             this.lblCheckEveryXMin.TabIndex = 2;
@@ -255,6 +257,7 @@
             this.dashboard.Name = "dashboard";
             this.dashboard.Size = new System.Drawing.Size(859, 214);
             this.dashboard.TabIndex = 5;
+            this.dashboard.TabStop = false;
             // 
             // MainWindow
             // 

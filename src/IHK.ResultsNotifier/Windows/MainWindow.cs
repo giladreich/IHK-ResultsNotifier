@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Media;
 using System.Windows.Forms;
@@ -75,12 +76,14 @@ namespace IHK.ResultsNotifier.Windows
         {
             if (btnStartStop.IsActivated)
             {
+                tbxMinutes.Enabled = false;
                 Log("Starting listening for new results...");
                 Log($"Request to update results will be sent to the server every {tbxMinutes.Text} minutes.");
                 worker = new Worker(StartListening).Start();
             }
             else
             {
+                tbxMinutes.Enabled = true;
                 Log("Stopping listening for results...");
                 worker.Stop();
             }
