@@ -39,7 +39,7 @@ namespace IHK.ResultsNotifier.Windows
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (!IsValidCredintials())
+            if (!IsValidCredentials())
                 return;
 
             webClient = new HttpClientIHK();
@@ -61,7 +61,7 @@ namespace IHK.ResultsNotifier.Windows
             Hide();
         }
 
-        private bool IsValidCredintials()
+        private bool IsValidCredentials()
         {
             bool isNotEmptyAndRulesMatch = tbxUser.TextSearch.Length >= MIN_USER_CHARS
                                         && !String.IsNullOrEmpty(tbxPassword.Text);

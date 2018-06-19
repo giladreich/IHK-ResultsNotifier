@@ -50,16 +50,16 @@ namespace IHK.ResultsNotifier.Utils
         {
             List<Cookie> collectedCookies = CollectSomeCookies();
 
-            List<KeyValuePair<string, string>> userCredintials = new List<KeyValuePair<string, string>>
+            List<KeyValuePair<string, string>> userCredentials = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>(PARM_USER, username),
                 new KeyValuePair<string, string>(PARM_PASS, password),
                 new KeyValuePair<string, string>(PARM_NOTUSED, "")
             };
 
-            HttpContent postData = new FormUrlEncodedContent(userCredintials);
+            HttpContent postData = new FormUrlEncodedContent(userCredentials);
 
-            // NOTE: If the server accepted our login credintials, it will replace us a new cookie 
+            // NOTE: If the server accepted our login credentials, it will replace us a new cookie 
             // with the first cookie from the cookie jar and much tastier! nom nom...
             HttpResponseMessage loginResp = SendRequest(() => client.PostAsync(LOGIN_PAGE, postData).Result);
             List<Cookie> cookies          = GetCookies(COOKIE_PATH);
