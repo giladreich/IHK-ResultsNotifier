@@ -74,6 +74,7 @@
     <Compile Include="Controls\Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ConfigData.cs" />
     <Compile Include="Utils\Configuration.cs" />
     <Compile Include="Utils\DataChangedEventArgs.cs" />
     <Compile Include="Utils\Encryption.cs" />
