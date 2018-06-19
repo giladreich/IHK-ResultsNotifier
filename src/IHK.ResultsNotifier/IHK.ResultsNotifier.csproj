@@ -75,6 +75,7 @@
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\DataChangedEventArgs.cs" />
+    <Compile Include="Utils\Encryption.cs" />
     <Compile Include="Utils\TableData.cs" />
     <Compile Include="Utils\HttpClientIHK.cs" />
     <Compile Include="Utils\Utility.cs" />
