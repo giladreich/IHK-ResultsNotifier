@@ -7,20 +7,20 @@ using System.Windows.Forms;
 using System.Windows.Forms.Custom;
 using HtmlAgilityPack;
 using IHK.ResultsNotifier.Utils;
+
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace IHK.ResultsNotifier.Windows
 {
     public partial class MainWindow : CustomForm
     {
+        public static readonly string FILE_PATH_TABLE = Path.Combine(Path.GetTempPath(), "IHK-Results.txt");
+
         private const int HTML_FIRST_RESULT_COLUMN_IDX  = 3;
         private const int HTML_MAX_TABLE_ROWS           = 8;
         private const int HTML_MAX_TABLE_COLUMNS        = 6;
 
         private const int MIN_MINUTES_RESULTS_CHECK     = 5;
-
-        private const string FILE_PATH_TABLE            = "CurrentTableData.txt";
-
 
         private readonly HttpClientIHK webClient;
         private Worker worker;
@@ -34,8 +34,7 @@ namespace IHK.ResultsNotifier.Windows
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            Log("Successfully logged in!");
-
+            Log("Successfully logged in!", Color.DarkGreen);
             UpdateExamsResults();
             TableData<string>.SerializeToFile(dashboard.TableData, FILE_PATH_TABLE);
         }
@@ -77,14 +76,14 @@ namespace IHK.ResultsNotifier.Windows
             if (btnStartStop.IsActivated)
             {
                 tbxMinutes.Enabled = false;
-                Log("Starting listening for new results...");
+                Log("Starting to listen for new results...");
                 Log($"Request to update results will be sent to the server every {tbxMinutes.Text} minutes.");
                 worker = new Worker(StartListening).Start();
             }
             else
             {
                 tbxMinutes.Enabled = true;
-                Log("Stopping listening for results...");
+                Log("Stopping to listen for results...");
                 worker.Stop();
             }
         }
@@ -103,15 +102,13 @@ namespace IHK.ResultsNotifier.Windows
 
                 if (!oldTable.SequenceEqual(dashboard.TableData))
                 {
-                    this.InvokeSafe(() => tbxLogs.ForeColor = Color.DarkGreen);
-                    this.InvokeSafe(() => Log("Wohooo....New results available!!!!!"));
+                    this.InvokeSafe(() => Log("Wohooo....New results are available!!!!!", Color.DarkGreen));
                     this.InvokeSafe(Activate);
                     SystemSounds.Beep.Play();
                 }
                 else
                 {
-                    this.InvokeSafe(() => tbxLogs.ForeColor = DefaultForeColor);
-                    this.InvokeSafe(() => Log("Boring...nothing new."));
+                    this.InvokeSafe(() => Log("Boring...nothing new.", Color.DarkRed));
                 }
 
 #if DEBUG
@@ -133,7 +130,8 @@ namespace IHK.ResultsNotifier.Windows
                     $"Wow...Seriously? less than {MIN_MINUTES_RESULTS_CHECK} minutes? " +
                     $"Minimum is set to {MIN_MINUTES_RESULTS_CHECK} mins, sorry...";
 
-                this.InvokeSafe(() => Log(msg));
+                this.InvokeSafe(() => Log(msg, Color.DarkOrange));
+                this.InvokeSafe(() => tbxMinutes.Text = MIN_MINUTES_RESULTS_CHECK.ToString());
                 minutes = MIN_MINUTES_RESULTS_CHECK;
 
                 return false;
@@ -144,10 +142,11 @@ namespace IHK.ResultsNotifier.Windows
 
         private void btnClearLog_Click(object sender, EventArgs e) => tbxLogs.Clear();
 
-        private void Log(string message)
+        private void Log(string message, Color? color = null)
         {
             tbxLogs.SelectionStart  = 0;
             tbxLogs.SelectionLength = 0;
+            tbxLogs.SelectionColor  = color ?? SystemColors.WindowText;
             tbxLogs.SelectedText    = $"[{Utility.TimeStamp}] - {message}\n";
         }
 
@@ -155,10 +154,13 @@ namespace IHK.ResultsNotifier.Windows
         {
             if (worker != null && worker.IsWorking)
             {
-                Log("Cleaning up worker threads before application closes.");
+                Log("Cleaning up worker thread before application closes.");
                 worker.Stop();
                 worker.Dispose();
             }
+
+            if (File.Exists(FILE_PATH_TABLE))
+                File.Delete(FILE_PATH_TABLE);
 
             webClient?.Dispose();
             Owner?.Show();

@@ -33,13 +33,13 @@
             this.panelBody = new System.Windows.Forms.Custom.CustomTableLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
             this.panelFooter = new System.Windows.Forms.Custom.CustomTableLayoutPanel();
+            this.btnStartStop = new IHK.ResultsNotifier.Controls.CustomToggleButton();
+            this.lblCheckEveryXMin = new IHK.ResultsNotifier.Controls.CustomLabel();
             this.tbxMinutes = new System.Windows.Forms.TextBox();
+            this.dashboard = new IHK.ResultsNotifier.Controls.Dashboard();
             this.pbxIHK = new System.Windows.Forms.PictureBox();
             this.tbxLogs = new System.Windows.Forms.RichTextBox();
             this.controlBox = new System.Windows.Forms.Custom.CustomControlBox();
-            this.btnStartStop = new IHK.ResultsNotifier.Controls.CustomToggleButton();
-            this.lblCheckEveryXMin = new IHK.ResultsNotifier.Controls.CustomLabel();
-            this.dashboard = new IHK.ResultsNotifier.Controls.Dashboard();
             this.panelMain.SuspendLayout();
             this.panelBody.SuspendLayout();
             this.panelFooter.SuspendLayout();
@@ -136,7 +136,7 @@
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.16519F));
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.83481F));
-            this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 164F));
+            this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 165F));
             this.panelFooter.Controls.Add(this.btnStartStop, 3, 0);
             this.panelFooter.Controls.Add(this.lblCheckEveryXMin, 1, 0);
             this.panelFooter.Controls.Add(this.tbxMinutes, 2, 0);
@@ -151,15 +151,69 @@
             this.panelFooter.Size = new System.Drawing.Size(859, 55);
             this.panelFooter.TabIndex = 0;
             // 
+            // btnStartStop
+            // 
+            this.btnStartStop.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnStartStop.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnStartStop.AutoSize = true;
+            this.btnStartStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnStartStop.ColorStartBackcolor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnStartStop.ColorStartForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnStartStop.ColorStartMouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(219)))), ((int)(((byte)(112)))));
+            this.btnStartStop.ColorStopBackcolor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(69)))), ((int)(((byte)(89)))));
+            this.btnStartStop.ColorStopForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
+            this.btnStartStop.ColorStopMouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(102)))), ((int)(((byte)(159)))));
+            this.btnStartStop.FlatAppearance.BorderSize = 0;
+            this.btnStartStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(219)))), ((int)(((byte)(112)))));
+            this.btnStartStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStartStop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnStartStop.IsActivated = false;
+            this.btnStartStop.Location = new System.Drawing.Point(714, 14);
+            this.btnStartStop.Margin = new System.Windows.Forms.Padding(5);
+            this.btnStartStop.Name = "btnStartStop";
+            this.btnStartStop.Size = new System.Drawing.Size(124, 27);
+            this.btnStartStop.StartText = "Start Listening";
+            this.btnStartStop.StopText = "Stop Listening";
+            this.btnStartStop.TabIndex = 1;
+            this.btnStartStop.Tag = "start";
+            this.btnStartStop.Text = "Start Listening";
+            this.btnStartStop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnStartStop.UseVisualStyleBackColor = false;
+            this.btnStartStop.CheckedChanged += new System.EventHandler(this.btnStartStop_Click);
+            // 
+            // lblCheckEveryXMin
+            // 
+            this.lblCheckEveryXMin.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblCheckEveryXMin.AutoSize = true;
+            this.lblCheckEveryXMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCheckEveryXMin.ForeColor = System.Drawing.Color.FloralWhite;
+            this.lblCheckEveryXMin.Location = new System.Drawing.Point(451, 17);
+            this.lblCheckEveryXMin.Name = "lblCheckEveryXMin";
+            this.lblCheckEveryXMin.Size = new System.Drawing.Size(176, 20);
+            this.lblCheckEveryXMin.TabIndex = 2;
+            this.lblCheckEveryXMin.Text = "Check Every X Minutes:";
+            // 
             // tbxMinutes
             // 
             this.tbxMinutes.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.tbxMinutes.Location = new System.Drawing.Point(634, 18);
+            this.tbxMinutes.Location = new System.Drawing.Point(633, 18);
             this.tbxMinutes.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.tbxMinutes.Name = "tbxMinutes";
             this.tbxMinutes.Size = new System.Drawing.Size(45, 20);
             this.tbxMinutes.TabIndex = 0;
             this.tbxMinutes.Text = "30";
+            // 
+            // dashboard
+            // 
+            this.dashboard.BackColor = System.Drawing.Color.Transparent;
+            this.dashboard.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dashboard.Location = new System.Drawing.Point(71, 3);
+            this.dashboard.MinimumSize = new System.Drawing.Size(625, 200);
+            this.dashboard.Name = "dashboard";
+            this.dashboard.Size = new System.Drawing.Size(859, 214);
+            this.dashboard.TabIndex = 5;
+            this.dashboard.TabStop = false;
             // 
             // pbxIHK
             // 
@@ -204,60 +258,6 @@
             this.controlBox.Size = new System.Drawing.Size(71, 25);
             this.controlBox.TabIndex = 3;
             this.controlBox.TabStop = false;
-            // 
-            // btnStartStop
-            // 
-            this.btnStartStop.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnStartStop.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnStartStop.AutoSize = true;
-            this.btnStartStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btnStartStop.ColorStartBackcolor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btnStartStop.ColorStartForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnStartStop.ColorStartMouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(219)))), ((int)(((byte)(112)))));
-            this.btnStartStop.ColorStopBackcolor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(69)))), ((int)(((byte)(89)))));
-            this.btnStartStop.ColorStopForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
-            this.btnStartStop.ColorStopMouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(102)))), ((int)(((byte)(159)))));
-            this.btnStartStop.FlatAppearance.BorderSize = 0;
-            this.btnStartStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(219)))), ((int)(((byte)(112)))));
-            this.btnStartStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartStop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnStartStop.IsActivated = false;
-            this.btnStartStop.Location = new System.Drawing.Point(714, 14);
-            this.btnStartStop.Margin = new System.Windows.Forms.Padding(5);
-            this.btnStartStop.Name = "btnStartStop";
-            this.btnStartStop.Size = new System.Drawing.Size(124, 27);
-            this.btnStartStop.StartText = "Start Listening";
-            this.btnStartStop.StopText = "Stop Listening";
-            this.btnStartStop.TabIndex = 1;
-            this.btnStartStop.Tag = "start";
-            this.btnStartStop.Text = "Start Listening";
-            this.btnStartStop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnStartStop.UseVisualStyleBackColor = false;
-            this.btnStartStop.CheckedChanged += new System.EventHandler(this.btnStartStop_Click);
-            // 
-            // lblCheckEveryXMin
-            // 
-            this.lblCheckEveryXMin.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lblCheckEveryXMin.AutoSize = true;
-            this.lblCheckEveryXMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCheckEveryXMin.ForeColor = System.Drawing.Color.FloralWhite;
-            this.lblCheckEveryXMin.Location = new System.Drawing.Point(452, 17);
-            this.lblCheckEveryXMin.Name = "lblCheckEveryXMin";
-            this.lblCheckEveryXMin.Size = new System.Drawing.Size(176, 20);
-            this.lblCheckEveryXMin.TabIndex = 2;
-            this.lblCheckEveryXMin.Text = "Check Every X Minutes:";
-            // 
-            // dashboard
-            // 
-            this.dashboard.BackColor = System.Drawing.Color.Transparent;
-            this.dashboard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dashboard.Location = new System.Drawing.Point(71, 3);
-            this.dashboard.MinimumSize = new System.Drawing.Size(625, 200);
-            this.dashboard.Name = "dashboard";
-            this.dashboard.Size = new System.Drawing.Size(859, 214);
-            this.dashboard.TabIndex = 5;
-            this.dashboard.TabStop = false;
             // 
             // MainWindow
             // 
