@@ -11,13 +11,30 @@ namespace IHK.ResultsNotifier.Windows
         private readonly string DEFAULT_USER;
         private readonly string DEFAULT_PASS;
 
+        private readonly Configuration config;
         private HttpClientIHK webClient;
-
+        
         public LoginWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
             DEFAULT_USER = tbxUser.TextSearch;
             DEFAULT_PASS = tbxPassword.TextSearch;
+
+            config = new Configuration();
+            LoadConfiguration();
+        }
+
+        private void LoadConfiguration()
+        {
+            if (!Configuration.KeyExist) return;
+
+            ConfigData data = config.GetConfigurations();
+            cbxRemember.Checked = data.IsChecked;
+            if (data.IsChecked)
+            {
+                tbxUser.Text     = data.Username;
+                tbxPassword.Text = data.Password;
+            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -29,6 +46,10 @@ namespace IHK.ResultsNotifier.Windows
 
             string username = tbxUser.Text;
             string password = tbxPassword.Text;
+
+            if (cbxRemember.Checked)
+                config.SetConfigurations(new ConfigData(cbxRemember.Checked, username, password));
+
             if (!webClient.AuthenticateUser(username, password))
             {
                 MessageBox.Show("Failed to login. " +
@@ -65,5 +86,9 @@ namespace IHK.ResultsNotifier.Windows
             }
         }
 
+        private void cbxRemember_CheckedChanged(object sender, EventArgs e)
+        {
+            config.RememberMe(cbxRemember.Checked);
+        }
     }
 }
