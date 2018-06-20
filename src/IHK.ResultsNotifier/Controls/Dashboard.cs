@@ -50,7 +50,7 @@ namespace IHK.ResultsNotifier.Controls
             TableData.DataChanged += TableDataChanged;
         }
 
-        private void TableDataChanged(DataChangedEventArgs e)
+        private void TableDataChanged(object sender, DataChangedEventArgs e)
         {
             Control lbl = panelMain.GetControlFromPosition(e.ColumnIndex + 2, e.RowIndex + 1);
             lbl.Text = TableData[e.RowIndex, e.ColumnIndex];

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace IHK.ResultsNotifier.Utils
 {
-    public class HttpClientIHK : IDisposable
+    public sealed class WebClientIHK : IDisposable
     {
         private const string MOZILLA              = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)";
         private const string APPLE                = "AppleWebKit/537.36 (KHTML, like Gecko)";
@@ -33,7 +33,7 @@ namespace IHK.ResultsNotifier.Utils
 
         public bool IsAuthenticated { get; set; }
 
-        public HttpClientIHK()
+        public WebClientIHK()
         {
             cookieJar = new CookieContainer();
             clientHandler = new HttpClientHandler

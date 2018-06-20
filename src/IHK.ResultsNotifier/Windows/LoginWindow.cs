@@ -12,7 +12,7 @@ namespace IHK.ResultsNotifier.Windows
         private readonly string DEFAULT_PASS;
 
         private readonly Configuration config;
-        private HttpClientIHK webClient;
+        private WebClientIHK webClient;
         
         public LoginWindow()
         {
@@ -42,7 +42,7 @@ namespace IHK.ResultsNotifier.Windows
             if (!IsValidCredentials())
                 return;
 
-            webClient = new HttpClientIHK();
+            webClient = new WebClientIHK();
 
             string username = tbxUser.Text;
             string password = tbxPassword.Text;

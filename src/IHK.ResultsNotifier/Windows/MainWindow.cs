@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
 using HtmlAgilityPack;
@@ -22,11 +23,11 @@ namespace IHK.ResultsNotifier.Windows
 
         private const int MIN_MINUTES_RESULTS_CHECK     = 5;
 
-        private readonly HttpClientIHK webClient;
+        private readonly WebClientIHK webClient;
         private Worker worker;
 
 
-        public MainWindow(HttpClientIHK webClient)
+        public MainWindow(WebClientIHK webClient)
         {
             InitializeComponent();
             this.webClient = webClient;
@@ -112,9 +113,9 @@ namespace IHK.ResultsNotifier.Windows
                 }
 
 #if DEBUG
-                worker.ThreadToken.WaitOne(TimeSpan.FromSeconds(checkEveryXTime));
+                worker.Sleep(TimeSpan.FromSeconds(checkEveryXTime));
 #else
-                worker.ThreadToken.WaitOne(TimeSpan.FromMinutes(checkEveryXTime));
+                worker.Sleep(TimeSpan.FromMinutes(checkEveryXTime));
 #endif
             } while (worker.IsWorking);
 
@@ -157,6 +158,10 @@ namespace IHK.ResultsNotifier.Windows
                 Log("Cleaning up worker thread before application closes.");
                 worker.Stop();
                 worker.Dispose();
+
+                // Little cheat ;) So the logs get the chance to appear before closing.
+                new Worker(() => Thread.Sleep(2000)).Start(true);
+                GC.Collect();
             }
 
             if (File.Exists(FILE_PATH_TABLE))

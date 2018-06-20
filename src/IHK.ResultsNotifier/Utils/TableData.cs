@@ -11,7 +11,7 @@ namespace IHK.ResultsNotifier.Utils
 
         private readonly T[,] _tableData;
 
-        public event Action<DataChangedEventArgs> DataChanged;
+        public event Action<object, DataChangedEventArgs> DataChanged;
 
         public TableData(int rows, int columns)
         {
@@ -83,7 +83,7 @@ namespace IHK.ResultsNotifier.Utils
 
         protected virtual void OnDataChanged(int row, int column)
         {
-            DataChanged?.Invoke(new DataChangedEventArgs(row, column));
+            DataChanged?.Invoke(this, new DataChangedEventArgs(row, column));
         }
 
 

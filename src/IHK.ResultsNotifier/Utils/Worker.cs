@@ -1,66 +1,137 @@
 ﻿using System;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace IHK.ResultsNotifier.Utils
 {
-    public enum State { Fresh, Done, Busy, Sleeping }
+    public enum State { Fresh, Done, Busy, Sleeping, Paused, Waiting }
 
     public class Worker : IDisposable
     {
-        private Thread worker;
-        private AutoResetEvent token;
-
-
-        public State State { get; set; } = State.Fresh;
-        public AutoResetEvent ThreadToken => token;
-        public bool IsWorking { get; set; }
+        public State State { get; protected set; } = State.Fresh;
+        public bool IsWorking { get; protected set; }
+        public int ThreadId => Thread.ManagedThreadId;
+        public string Name
+        {
+            get => Thread.Name;
+            set => Thread.Name = value;
+        }
         public bool IsBackground
         {
-            get => worker.IsBackground;
-            set => worker.IsBackground = value;
+            get => Thread.IsBackground;
+            set => Thread.IsBackground = value;
         }
 
-        public int ThreadId => worker.ManagedThreadId;
-
-
-        public Worker(MethodInvoker callback)
+        public ThreadPriority ThreadPriority
         {
-            worker = new Thread(new ThreadStart(callback));
+            get => Thread.Priority;
+            set => Thread.Priority = value;
+        }
+        public ApartmentState ApartmentState
+        {
+            get => Thread.GetApartmentState();
+            set => Thread.SetApartmentState(value);
         }
 
 
 
+        protected Thread Thread;
+        protected AutoResetEvent Token;
 
-        public Worker Start()
+
+
+        public Worker(Action callback)
+        {
+            Thread = new Thread(new ThreadStart(callback));
+        }
+
+
+        public virtual Worker Start()
         {
             State = State.Busy;
             IsWorking = true;
-            token = new AutoResetEvent(false);
+            Token = new AutoResetEvent(false);
 
-            worker.Start();
+            Thread.Start();
 
             return this;
         }
 
-        public void Stop()
+        public virtual Worker Start(bool isJoinedThread)
         {
-            token.Set();
+            Start();
+
+            if (isJoinedThread)
+                Join();
+
+            return this;
+        }
+
+        public virtual void Stop()
+        {
+            if (Token == null || !IsWorking)
+                throw new InvalidOperationException("Thread didn't start, no reason to call stop.");
+
+            Token.Set();
+            Token.Close();
             IsWorking = false;
-            State = State.Done;
             Join();
+
+            State = State.Done;
         }
 
-
-        public void Join()
+        public virtual void Continue()
         {
-            worker.Join();
+            if (Token == null || State != State.Paused)
+                throw new InvalidOperationException("Thread didn't pause, no reason to call continue.");
+
+            IsWorking = true;
+            State = State.Busy;
+            Token.Set();
         }
 
-        public void Dispose()
+        public virtual void Pause()
         {
-            token?.Dispose();
-            worker = null;
+            if (State == State.Paused) return;
+
+            IsWorking = false;
+            State = State.Paused;
+            Sleep();
+        }
+
+        public virtual void Join()
+        {
+            State = State.Waiting;
+            Thread.Join();
+        }
+
+        public bool Sleep() => 
+            SleepDelegate(() => Token.WaitOne());
+
+        public bool Sleep(TimeSpan timeout) => 
+            SleepDelegate(() => Token.WaitOne(timeout));
+
+        public bool Sleep(TimeSpan timeout, bool exitContext) => 
+            SleepDelegate(() => Token.WaitOne(timeout, exitContext));
+
+        public bool Sleep(int millisecondsTimeout) => 
+            SleepDelegate(() => Token.WaitOne(millisecondsTimeout));
+
+        public bool Sleep(int millisecondsTimeout, bool exitContext) => 
+            SleepDelegate(() => Token.WaitOne(millisecondsTimeout, exitContext));
+
+        private bool SleepDelegate(Func<bool> callback)
+        {
+            State = State.Sleeping;
+            bool result = callback.Invoke();
+            State = State.Busy;
+
+            return result;
+        }
+
+        public virtual void Dispose()
+        {
+            Token?.Dispose();
+            Thread = null;
         }
 
     }
