@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 
+
 namespace IHK.ResultsNotifier.Utils
 {
     public enum State { Fresh, Done, Busy, Sleeping, Paused, Waiting }
@@ -72,7 +73,6 @@ namespace IHK.ResultsNotifier.Utils
                 throw new InvalidOperationException("Thread didn't start, no reason to call stop.");
 
             Token.Set();
-            Token.Close();
             IsWorking = false;
             Join();
 

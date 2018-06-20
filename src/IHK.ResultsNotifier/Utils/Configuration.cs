@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using Microsoft.Win32;
+
 
 namespace IHK.ResultsNotifier.Utils
 {

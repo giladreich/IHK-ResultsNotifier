@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
+
 namespace IHK.ResultsNotifier.Utils
 {
     public static class Encryption

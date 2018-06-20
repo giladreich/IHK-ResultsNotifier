@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
+
 namespace IHK.ResultsNotifier.Utils
 {
     public static class Utility

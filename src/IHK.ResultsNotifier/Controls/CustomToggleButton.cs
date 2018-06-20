@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.Windows.Forms;
 using System.Drawing;
 
+
 namespace IHK.ResultsNotifier.Controls
 {
     public sealed class CustomToggleButton : CheckBox

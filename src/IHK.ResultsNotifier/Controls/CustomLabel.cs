@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+
 namespace IHK.ResultsNotifier.Controls
 {
     public sealed class CustomLabel : Label

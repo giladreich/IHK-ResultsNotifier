@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using IHK.ResultsNotifier.Windows;
 
+
 namespace IHK.ResultsNotifier
 {
     static class Program

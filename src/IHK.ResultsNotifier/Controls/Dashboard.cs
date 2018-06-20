@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using IHK.ResultsNotifier.Utils;
 
+
 namespace IHK.ResultsNotifier.Controls
 {
 

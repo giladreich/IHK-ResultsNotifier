@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Media;
 using System.Threading;
 using System.Windows.Forms;
@@ -9,7 +8,6 @@ using System.Windows.Forms.Custom;
 using HtmlAgilityPack;
 using IHK.ResultsNotifier.Utils;
 
-using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace IHK.ResultsNotifier.Windows
 {
@@ -17,13 +15,11 @@ namespace IHK.ResultsNotifier.Windows
     {
         public static readonly string FILE_PATH_TABLE = Path.Combine(Path.GetTempPath(), "IHK-Results.txt");
 
-        private const int HTML_FIRST_RESULT_COLUMN_IDX  = 3;
-        private const int HTML_MAX_TABLE_ROWS           = 8;
-        private const int HTML_MAX_TABLE_COLUMNS        = 6;
-
-        private const int MIN_MINUTES_RESULTS_CHECK     = 5;
+        private const int MIN_MINUTES_RESULTS_CHECK    = 5;
+        private const int ALERT_COUNT_WHEN_NEW_RESULTS = 10;
 
         private readonly WebClientIHK webClient;
+        private readonly HtmlParser parser; 
         private Worker worker;
 
 
@@ -31,45 +27,26 @@ namespace IHK.ResultsNotifier.Windows
         {
             InitializeComponent();
             this.webClient = webClient;
+            parser = new HtmlParser();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
             Log("Successfully logged in!", Color.DarkGreen);
-            UpdateExamsResults();
-            TableData<string>.SerializeToFile(dashboard.TableData, FILE_PATH_TABLE);
+
+            TableData<string> resultsTable = GetExamResults();
+            dashboard.TableData.Swap(resultsTable);
         }
 
-        private void UpdateExamsResults()
+        private TableData<string> GetExamResults()
         {
-            HtmlDocument doc = new HtmlDocument();
             //string content = File.ReadAllText(@"C:\1\test\ihk.html");
             string content = webClient.GetExamResultsDocument();
-            doc.LoadHtml(content);
+            string xpath = "//*[@id=\"outer\"]/div[2]/div[4]/div[4]";
 
-            HtmlNode tableNode = doc.DocumentNode
-                .SelectNodes("//*[@id=\"outer\"]/div[2]/div[4]/div[4]")
-                .First();
+            HtmlNode tableNode = parser.GetHtmlNode(content, xpath);
 
-            ParseHTMLTableData(tableNode);
-        }
-
-        private void ParseHTMLTableData(HtmlNode tableNode)
-        {
-            for (int i = 1; i < HTML_MAX_TABLE_ROWS; i++)
-            {
-                HtmlNode rowNode = tableNode.ChildNodes[i];
-                bool hasData = rowNode.ChildNodes.Count > HTML_FIRST_RESULT_COLUMN_IDX;
-                if (!hasData) continue;
-
-                for (int j = HTML_FIRST_RESULT_COLUMN_IDX - 1; j < HTML_MAX_TABLE_COLUMNS; j++)
-                {
-                    string rowValue = rowNode.ChildNodes[j].InnerHtml;
-                    if (String.IsNullOrEmpty(rowValue)) continue;
-
-                    dashboard.TableData[i - 1, j - 2] = rowValue;
-                }
-            }
+            return parser.ParseHtmlTableData(tableNode);
         }
 
         private void btnStartStop_Click(object sender, EventArgs e)
@@ -91,7 +68,7 @@ namespace IHK.ResultsNotifier.Windows
 
         private void StartListening()
         {
-            TableData<string> oldTable = TableData<string>.DeserializeFromFile(FILE_PATH_TABLE);
+            TableData<string>.SerializeToFile(dashboard.TableData, FILE_PATH_TABLE);
 
             int.TryParse(tbxMinutes.Text, out int checkEveryXTime);
             ValidateLoopTime(ref checkEveryXTime);
@@ -99,13 +76,21 @@ namespace IHK.ResultsNotifier.Windows
             do
             {
                 this.InvokeSafe(() => Log("Updating exams results."));
-                this.InvokeSafe(UpdateExamsResults);
+                TableData<string> newData = GetExamResults();
 
-                if (!oldTable.SequenceEqual(dashboard.TableData))
+                if (!dashboard.TableData.SequenceEqual(newData))
                 {
+                    this.InvokeSafe(() => dashboard.TableData.Swap(newData));
                     this.InvokeSafe(() => Log("Wohooo....New results are available!!!!!", Color.DarkGreen));
-                    this.InvokeSafe(Activate);
-                    SystemSounds.Beep.Play();
+
+                    for (int i = 0; i < ALERT_COUNT_WHEN_NEW_RESULTS && worker.IsWorking; i++)
+                    {
+                        this.InvokeSafe(Activate);
+                        SystemSounds.Beep.Play();
+                        worker.Sleep(TimeSpan.FromSeconds(3));
+                    }
+
+                    TableData<string>.SerializeToFile(newData, FILE_PATH_TABLE);
                 }
                 else
                 {
@@ -119,8 +104,6 @@ namespace IHK.ResultsNotifier.Windows
 #endif
             } while (worker.IsWorking);
 
-
-            TableData<string>.SerializeToFile(dashboard.TableData, FILE_PATH_TABLE);
         }
 
         private bool ValidateLoopTime(ref int minutes)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+
 namespace IHK.ResultsNotifier.Utils
 {
     public class TableData<T> : IEquatable<TableData<T>>, IComparable<TableData<T>>
@@ -107,6 +108,13 @@ namespace IHK.ResultsNotifier.Utils
             for (int i = 0; i < GetLength(0); i++)
                 for (int j = 0; j < GetLength(1); j++)
                     this[i, j] = other[i, j];
+        }
+
+        public void InitAllWith(T value)
+        {
+            for (int i = 0; i < GetLength(0); i++)
+                for (int j = 0; j < GetLength(1); j++)
+                    this[i, j] = value;
         }
 
         public bool SequenceEqual(TableData<T> other)

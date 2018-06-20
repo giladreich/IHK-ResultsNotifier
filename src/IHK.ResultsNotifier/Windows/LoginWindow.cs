@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.Custom;
 using IHK.ResultsNotifier.Utils;
 
+
 namespace IHK.ResultsNotifier.Windows
 {
     public partial class LoginWindow : CustomForm
@@ -50,6 +51,7 @@ namespace IHK.ResultsNotifier.Windows
             if (cbxRemember.Checked)
                 config.SetConfigurations(new ConfigData(cbxRemember.Checked, username, password));
 
+            
             if (!webClient.AuthenticateUser(username, password))
             {
                 MessageBox.Show("Failed to login. " +

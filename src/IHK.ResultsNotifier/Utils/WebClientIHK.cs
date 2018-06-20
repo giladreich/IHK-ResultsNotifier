@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace IHK.ResultsNotifier.Utils
 {
     public sealed class WebClientIHK : IDisposable

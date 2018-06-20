@@ -78,6 +78,7 @@
     <Compile Include="Utils\Configuration.cs" />
     <Compile Include="Utils\DataChangedEventArgs.cs" />
     <Compile Include="Utils\Encryption.cs" />
+    <Compile Include="Utils\HtmlParser.cs" />
     <Compile Include="Utils\TableData.cs" />
     <Compile Include="Utils\WebClientIHK.cs" />
     <Compile Include="Utils\Utility.cs" />
