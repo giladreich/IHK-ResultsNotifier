@@ -47,9 +47,9 @@ namespace IHK.ResultsNotifier.Utils
             client = new HttpClient(clientHandler);
         }
 
-        public bool AuthenticateUser(string username, string password)
+        public async Task<bool> AuthenticateUser(string username, string password)
         {
-            List<Cookie> collectedCookies = CollectSomeCookies();
+            List<Cookie> collectedCookies = await CollectSomeCookies();
 
             List<KeyValuePair<string, string>> userCredentials = new List<KeyValuePair<string, string>>
             {
@@ -62,7 +62,7 @@ namespace IHK.ResultsNotifier.Utils
 
             // NOTE: If the server accepted our login credentials, it will replace us a new cookie 
             // with the first cookie from the cookie jar and much tastier! nom nom...
-            HttpResponseMessage loginResp = SendRequest(() => client.PostAsync(LOGIN_PAGE, postData).Result);
+            HttpResponseMessage loginResp = await SendRequestAsync(() => client.PostAsync(LOGIN_PAGE, postData));
             List<Cookie> cookies          = GetCookies(COOKIE_PATH);
             bool isNewCookieReceived      = !cookies.SequenceEqual(collectedCookies);
             if (isNewCookieReceived)
@@ -71,12 +71,12 @@ namespace IHK.ResultsNotifier.Utils
             return false;
         }
 
-        private List<Cookie> CollectSomeCookies()
+        private async Task<List<Cookie>> CollectSomeCookies()
         {
             // Simulate a website visit before user authentication to collect some sessions keys
             // NOTE: The order is important, otherwise the server will send us the same session key.
-            HttpResponseMessage jspResp = SendRequest(() => client.GetAsync(COOKIE_URL1).Result);
-            HttpResponseMessage icoResp = SendRequest(() => client.GetAsync(COOKIE_URL2).Result);
+            HttpResponseMessage jspResp = await SendRequestAsync(() => client.GetAsync(COOKIE_URL1));
+            HttpResponseMessage icoResp = await SendRequestAsync(() => client.GetAsync(COOKIE_URL2));
 
             return GetCookies(COOKIE_PATH);
         }
@@ -91,7 +91,7 @@ namespace IHK.ResultsNotifier.Utils
             return cookiesList;
         }
 
-        public string GetExamResultsDocument()
+        public async Task<string> GetExamResultsDocument()
         {
             if (!IsAuthenticated)
                 throw new InvalidOperationException("Cannot get exam results before the user is authenticated.");
@@ -99,10 +99,10 @@ namespace IHK.ResultsNotifier.Utils
             // NOTE: We must call them in this order.
             // The server is pretty smart and will check if we jump to the EXAMS_RESULTS_PAGE link from the EXAMS_PAGE.
             // If we jump to the EXAMS_RESULTS_PAGE first, it will destroy our session and will ask us to login again.
-            HttpResponseMessage examsResp   = SendRequest(() => client.GetAsync(EXAMS_PAGE).Result);
-            HttpResponseMessage resultsResp = SendRequest(() => client.GetAsync(EXAMS_RESULTS_PAGE).Result);
+            HttpResponseMessage examsResp   = await SendRequestAsync(() => client.GetAsync(EXAMS_PAGE));
+            HttpResponseMessage resultsResp = await SendRequestAsync(() => client.GetAsync(EXAMS_RESULTS_PAGE));
 
-            return resultsResp.Content.ReadAsStringAsync().Result;
+            return await resultsResp.Content.ReadAsStringAsync();
         }
 
         public HttpResponseMessage SendRequest(Func<HttpResponseMessage> requestAction)

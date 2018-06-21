@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -26,5 +27,11 @@ namespace IHK.ResultsNotifier.Utils
             else
                 action.Invoke();
         }
+
+        public static Task<T> StartTask<T>(Func<T> function)
+        {
+            return Task.Factory.StartNew(function);
+        }
+
     }
 }

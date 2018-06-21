@@ -34,26 +34,27 @@ namespace IHK.ResultsNotifier.Windows
             audio = new Audio(FILE_SOUND_PATH, true);
         }
 
-        private void MainWindow_Load(object sender, EventArgs e)
+        private async void MainWindow_Load(object sender, EventArgs e)
         {
             Log("Successfully logged in!", Color.DarkGreen);
             Log("Loading exams results...");
 
-            TableData<string> resultsTable = GetExamResults();
-            dashboard.TableData.Swap(resultsTable);
+            TableData<string> resultsTable = await GetExamResults();
+            this.InvokeSafe(() => dashboard.TableData.Swap(resultsTable));
+
             File.WriteAllBytes(FILE_SOUND_PATH, Properties.Resources.new_results_DE);
             audio.Init();
         }
 
-        private TableData<string> GetExamResults()
+        private async Task<TableData<string>> GetExamResults()
         {
             //string content = File.ReadAllText(@"C:\1\test\ihk.html");
 
-            string content = webClient.GetExamResultsDocument();
+            string content = await webClient.GetExamResultsDocument();
             string xpath   = "//*[@id=\"outer\"]/div[2]/div[4]/div[4]";
 
-            HtmlNode tableNode        = parser.GetHtmlNode(content, xpath);
-            TableData<string> results = parser.ParseHtmlTableData(tableNode);
+            HtmlNode tableNode        = await Utility.StartTask(() => parser.GetHtmlNode(content, xpath));
+            TableData<string> results = await Utility.StartTask(() => parser.ParseHtmlTableData(tableNode));
 
             return results;
         }
@@ -75,7 +76,7 @@ namespace IHK.ResultsNotifier.Windows
             }
         }
 
-        private void StartListening()
+        private async void StartListening()
         {            
             TableData<string>.SerializeToFile(dashboard.TableData, FILE_TABLE_PATH);
 
@@ -85,7 +86,7 @@ namespace IHK.ResultsNotifier.Windows
             do
             {
                 this.InvokeSafe(() => Log("Updating exams results."));
-                TableData<string> newData = GetExamResults();
+                TableData<string> newData = await GetExamResults();
 
                 if (!dashboard.TableData.SequenceEqual(newData))
                 {

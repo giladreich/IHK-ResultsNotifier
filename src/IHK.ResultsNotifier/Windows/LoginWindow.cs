@@ -38,7 +38,7 @@ namespace IHK.ResultsNotifier.Windows
             }
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
             if (!IsValidCredentials())
                 return;
@@ -51,15 +51,15 @@ namespace IHK.ResultsNotifier.Windows
 
             webClient = new WebClientIHK();
 
-            if (!webClient.AuthenticateUser(username, password))
+            if (!await webClient.AuthenticateUser(username, password))
             {
                 MessageBox.Show("Failed to login. " +
                                 "Check your internet connection or username/password.");
                 return;
             }
 
-            new MainWindow(webClient).Show(this);
-            Hide();
+            this.InvokeSafe(() => new MainWindow(webClient).Show(this));
+            this.InvokeSafe(Hide);
         }
 
         private bool IsValidCredentials()
