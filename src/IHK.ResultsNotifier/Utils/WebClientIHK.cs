@@ -111,7 +111,7 @@ namespace IHK.ResultsNotifier.Utils
             {
                 return requestAction.Invoke();
             }
-            catch (WebException e)
+            catch (HttpRequestException e)
             {
                 MessageBox.Show("Lost connection or bad gateway -> " + e.Message, 
                                 "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -133,7 +133,7 @@ namespace IHK.ResultsNotifier.Utils
             {
                 return requestAction.Invoke();
             }
-            catch (WebException e)
+            catch (HttpRequestException e)
             {
                 MessageBox.Show("Lost connection or bad gateway -> " + e.Message,
                                 "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
