@@ -13,26 +13,27 @@ namespace IHK.ResultsNotifier.Windows
 {
     public partial class MainWindow : CustomForm
     {
-        public static readonly string FILE_PATH_TABLE = Path.Combine(Path.GetTempPath(), "IHK-Results.txt");
+        public static readonly string FILE_TABLE_PATH = Path.Combine(Path.GetTempPath(), "IHK-Results.txt");
 
         private const int MIN_MINUTES_RESULTS_CHECK    = 5;
-        private const int ALERT_COUNT_WHEN_NEW_RESULTS = 10;
+        private const int ALERT_COUNT_WHEN_NEW_RESULTS = 8;
 
-        private readonly WebClientIHK webClient;
-        private readonly HtmlParser parser; 
         private Worker worker;
+        private WebClientIHK webClient;
+        private HtmlParser parser;
 
 
-        public MainWindow(WebClientIHK webClient)
+        public MainWindow(WebClientIHK client)
         {
             InitializeComponent();
-            this.webClient = webClient;
+            webClient = client;
             parser = new HtmlParser();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
             Log("Successfully logged in!", Color.DarkGreen);
+            Log("Loading exams results...");
 
             TableData<string> resultsTable = GetExamResults();
             dashboard.TableData.Swap(resultsTable);
@@ -41,12 +42,14 @@ namespace IHK.ResultsNotifier.Windows
         private TableData<string> GetExamResults()
         {
             //string content = File.ReadAllText(@"C:\1\test\ihk.html");
+
             string content = webClient.GetExamResultsDocument();
-            string xpath = "//*[@id=\"outer\"]/div[2]/div[4]/div[4]";
+            string xpath   = "//*[@id=\"outer\"]/div[2]/div[4]/div[4]";
 
-            HtmlNode tableNode = parser.GetHtmlNode(content, xpath);
+            HtmlNode tableNode        = parser.GetHtmlNode(content, xpath);
+            TableData<string> results = parser.ParseHtmlTableData(tableNode);
 
-            return parser.ParseHtmlTableData(tableNode);
+            return results;
         }
 
         private void btnStartStop_Click(object sender, EventArgs e)
@@ -67,8 +70,8 @@ namespace IHK.ResultsNotifier.Windows
         }
 
         private void StartListening()
-        {
-            TableData<string>.SerializeToFile(dashboard.TableData, FILE_PATH_TABLE);
+        {            
+            TableData<string>.SerializeToFile(dashboard.TableData, FILE_TABLE_PATH);
 
             int.TryParse(tbxMinutes.Text, out int checkEveryXTime);
             ValidateLoopTime(ref checkEveryXTime);
@@ -90,7 +93,7 @@ namespace IHK.ResultsNotifier.Windows
                         worker.Sleep(TimeSpan.FromSeconds(3));
                     }
 
-                    TableData<string>.SerializeToFile(newData, FILE_PATH_TABLE);
+                    TableData<string>.SerializeToFile(newData, FILE_TABLE_PATH);
                 }
                 else
                 {
@@ -104,27 +107,24 @@ namespace IHK.ResultsNotifier.Windows
 #endif
             } while (worker.IsWorking);
 
+            worker.Dispose();
         }
 
         private bool ValidateLoopTime(ref int minutes)
         {
-            if (minutes < MIN_MINUTES_RESULTS_CHECK)
-            {
-                string msg =
-                    $"Wow...Seriously? less than {MIN_MINUTES_RESULTS_CHECK} minutes? " +
-                    $"Minimum is set to {MIN_MINUTES_RESULTS_CHECK} mins, sorry...";
+            if (minutes >= MIN_MINUTES_RESULTS_CHECK)
+                return true;
 
-                this.InvokeSafe(() => Log(msg, Color.DarkOrange));
-                this.InvokeSafe(() => tbxMinutes.Text = MIN_MINUTES_RESULTS_CHECK.ToString());
-                minutes = MIN_MINUTES_RESULTS_CHECK;
+            string msg =
+                $"Wow...Seriously? less than {MIN_MINUTES_RESULTS_CHECK} minutes? " +
+                $"Minimum is set to {MIN_MINUTES_RESULTS_CHECK} mins, sorry...";
 
-                return false;
-            }
+            this.InvokeSafe(() => Log(msg, Color.DarkOrange));
+            this.InvokeSafe(() => tbxMinutes.Text = MIN_MINUTES_RESULTS_CHECK.ToString());
+            minutes = MIN_MINUTES_RESULTS_CHECK;
 
-            return true;
+            return false;
         }
-
-        private void btnClearLog_Click(object sender, EventArgs e) => tbxLogs.Clear();
 
         private void Log(string message, Color? color = null)
         {
@@ -133,25 +133,44 @@ namespace IHK.ResultsNotifier.Windows
             tbxLogs.ScrollToCaret();
         }
 
+        private void btnClearLog_Click(object sender, EventArgs e) => tbxLogs.Clear();
+
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (worker != null && worker.IsWorking)
+            if (btnStartStop.IsActivated)
             {
-                Log("Cleaning up worker thread before application closes.");
-                worker.Stop();
-                worker.Dispose();
+                btnStartStop.PerformClick();
+                Log("Cleaning up background threads before application closes.");
 
-                // Little cheat ;) So the logs get the chance to appear before closing.
-                new Worker(() => Thread.Sleep(2000)).Start(true);
-                GC.Collect();
+                Thread.Sleep(3000);
             }
 
-            if (File.Exists(FILE_PATH_TABLE))
-                File.Delete(FILE_PATH_TABLE);
+            Dispose();
+            DeleteTempFiles();
 
-            webClient?.Dispose();
             Owner?.Show();
-        } 
+        }
+
+        public new void Dispose()
+        {
+            worker?.Dispose();
+            webClient?.Dispose();
+            parser?.Dispose();
+        }
+
+        private static void DeleteTempFiles()
+        {
+            try
+            {
+                if (File.Exists(FILE_TABLE_PATH))
+                    File.Delete(FILE_TABLE_PATH);
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show("Failed to delete temporary file -> " + e.Message, 
+                                "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
     }
 }
