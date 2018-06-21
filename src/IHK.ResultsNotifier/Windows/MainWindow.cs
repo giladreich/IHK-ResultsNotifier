@@ -128,10 +128,9 @@ namespace IHK.ResultsNotifier.Windows
 
         private void Log(string message, Color? color = null)
         {
-            tbxLogs.SelectionStart  = 0;
-            tbxLogs.SelectionLength = 0;
-            tbxLogs.SelectionColor  = color ?? SystemColors.WindowText;
-            tbxLogs.SelectedText    = $"[{Utility.TimeStamp}] - {message}\n";
+            tbxLogs.SelectionColor = color ?? SystemColors.WindowText;
+            tbxLogs.SelectedText   = $"[{Utility.TimeStamp}] - {message}\n";
+            tbxLogs.ScrollToCaret();
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
