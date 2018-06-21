@@ -77,12 +77,20 @@
     <Compile Include="Controls\Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Misc\Loader.cs" />
+    <Compile Include="Misc\LoaderWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Misc\LoaderWindow.Designer.cs">
+      <DependentUpon>LoaderWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Audio.cs" />
     <Compile Include="Utils\ConfigData.cs" />
     <Compile Include="Utils\Configuration.cs" />
     <Compile Include="Utils\DataChangedEventArgs.cs" />
     <Compile Include="Utils\Encryption.cs" />
     <Compile Include="Utils\HtmlParser.cs" />
+    <Compile Include="Utils\NativeMethods.cs" />
     <Compile Include="Utils\TableData.cs" />
     <Compile Include="Utils\WebClientIHK.cs" />
     <Compile Include="Utils\Utility.cs" />
@@ -103,6 +111,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Misc\LoaderWindow.resx">
+      <DependentUpon>LoaderWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -140,6 +151,7 @@
   <ItemGroup>
     <Content Include="AppIcon.ico" />
     <Content Include="FodyWeavers.xml" />
+    <Content Include="Resources\loader.gif" />
     <None Include="Resources\new_results_DE.mp3" />
   </ItemGroup>
   <ItemGroup />

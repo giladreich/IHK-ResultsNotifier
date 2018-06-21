@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
 using HtmlAgilityPack;
+using IHK.ResultsNotifier.Misc;
 using IHK.ResultsNotifier.Utils;
 
 
@@ -36,6 +37,8 @@ namespace IHK.ResultsNotifier.Windows
 
         private async void MainWindow_Load(object sender, EventArgs e)
         {
+            Loader.ParentWindow = this;
+
             Log("Successfully logged in!", Color.DarkGreen);
             Log("Loading exams results...");
 
@@ -48,6 +51,8 @@ namespace IHK.ResultsNotifier.Windows
 
         private async Task<TableData<string>> GetExamResults()
         {
+            this.InvokeSafe(() => Loader.StartLoader());
+
             //string content = File.ReadAllText(@"C:\1\test\ihk.html");
 
             string content = await webClient.GetExamResultsDocument();
@@ -55,6 +60,8 @@ namespace IHK.ResultsNotifier.Windows
 
             HtmlNode tableNode        = await Utility.StartTask(() => parser.GetHtmlNode(content, xpath));
             TableData<string> results = await Utility.StartTask(() => parser.ParseHtmlTableData(tableNode));
+
+            this.InvokeSafe(() => Loader.StopLoader(Handle));
 
             return results;
         }
