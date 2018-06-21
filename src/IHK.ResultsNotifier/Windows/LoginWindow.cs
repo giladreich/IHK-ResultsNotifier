@@ -43,15 +43,14 @@ namespace IHK.ResultsNotifier.Windows
             if (!IsValidCredentials())
                 return;
 
-            webClient = new WebClientIHK();
-
             string username = tbxUser.Text;
             string password = tbxPassword.Text;
 
             if (cbxRemember.Checked)
                 config.SetConfigurations(new ConfigData(cbxRemember.Checked, username, password));
 
-            
+            webClient = new WebClientIHK();
+
             if (!webClient.AuthenticateUser(username, password))
             {
                 MessageBox.Show("Failed to login. " +
@@ -75,6 +74,11 @@ namespace IHK.ResultsNotifier.Windows
             return isNotEmptyAndRulesMatch && isNotDefault;
         }
 
+        private void cbxRemember_CheckedChanged(object sender, EventArgs e)
+        {
+            config.RememberMe(cbxRemember.Checked);
+        }
+
         private void LoginWindow_KeyPress(object sender, KeyPressEventArgs e)
         {
             switch (e.KeyChar)
@@ -88,9 +92,5 @@ namespace IHK.ResultsNotifier.Windows
             }
         }
 
-        private void cbxRemember_CheckedChanged(object sender, EventArgs e)
-        {
-            config.RememberMe(cbxRemember.Checked);
-        }
     }
 }

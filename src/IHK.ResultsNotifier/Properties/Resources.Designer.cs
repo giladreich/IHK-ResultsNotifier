@@ -79,5 +79,15 @@ namespace IHK.ResultsNotifier.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] new_results_DE {
+            get {
+                object obj = ResourceManager.GetObject("new_results_DE", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
