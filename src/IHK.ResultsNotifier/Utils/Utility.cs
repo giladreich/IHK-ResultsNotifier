@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,50 +13,86 @@ namespace IHK.ResultsNotifier.Utils
     {
         public static string TimeStamp => DateTime.Now.ToString("T");
 
-        public static void InvokeSafe<T>(this T control, Action action)
-            where T : Control, ISynchronizeInvoke
+
+        #region --- Safe Invoke ---
+
+        public static void InvokeSafe(this ISynchronizeInvoke caller, Action method)
         {
-            if (control.InvokeRequired)
-                control.Invoke(action);
+            if (caller.InvokeRequired)
+                caller.Invoke(method, null);
             else
-                action.Invoke();
+                method.Invoke();
         }
 
-        public static void BeginInvokeSafe<T>(this T control, Action action)
-            where T : Control, ISynchronizeInvoke
+        public static T InvokeSafe<T>(this ISynchronizeInvoke caller, Func<T> method)
         {
-            if (control.InvokeRequired)
-                control.BeginInvoke(action);
-            else
-                action.Invoke();
+            if (caller.InvokeRequired)
+                return (T) caller.Invoke(method, null);
+            
+            return method.Invoke();
         }
+
+        public static void BeginInvokeSafe(this ISynchronizeInvoke caller, Action method)
+        {
+            if (caller.InvokeRequired)
+                caller.BeginInvoke(method, null);
+            else
+                method.Invoke();
+        }
+
+        #endregion --- Safe Invoke ---
+
+
+        #region --- Controls Properties/Methods ---
 
         public static void Text(this Control control, string text)
         {
-            if (control.InvokeRequired)
-                control.InvokeSafe(() => control.Text = text);
-            else
-                control.Text = text;
+            control.InvokeSafe(() => control.Text = text);
         }
 
         public static void Visible(this Control control, bool visible)
         {
-            Action action = () =>
-            {
-                if (visible) control.Show();
-                else control.Hide();
-            };
-
-
-            if (control.InvokeRequired)
-                control.InvokeSafe(action);
-            else
-                action.Invoke();
+            control.InvokeSafe(() => control.Visible = visible);
         }
 
-        public static Task<T> StartTask<T>(Func<T> function)
+        public static void Enabled(this Control control, bool enabled)
         {
-            return Task.Factory.StartNew(function);
+            control.InvokeSafe(() => control.Enabled = enabled);
+        }
+
+        public static void Size(this Control control, Size size)
+        {
+            control.InvokeSafe(() => control.Size = size);
+        }
+
+        public static void Left(this Control control, int position)
+        {
+            control.InvokeSafe(() => control.Left = position);
+        }
+
+        public static void Top(this Control control, int position)
+        {
+            control.InvokeSafe(() => control.Top = position);
+        }
+
+        public static void SendToBack(this Control control, bool safe)
+        {
+            control.InvokeSafe(control.SendToBack);
+        }
+
+        public static void BringToFront(this Control control, bool safe)
+        {
+            control.InvokeSafe(control.BringToFront);
+        }
+
+        #endregion  --- Controls Properties/Methods ---
+
+
+        #region --- Tasks ---
+
+        public static async Task<T> StartTask<T>(Func<T> method)
+        {
+            return await Task.Factory.StartNew(method);
         }
 
         public static async Task SimulateWork(int miliseconds)
@@ -62,5 +100,11 @@ namespace IHK.ResultsNotifier.Utils
             await Task.Factory.StartNew(() => Thread.Sleep(miliseconds));
         }
 
+        public static async Task SimulateWork(TimeSpan timeSpan)
+        {
+            await Task.Factory.StartNew(() => Thread.Sleep(timeSpan));
+        }
+
+        #endregion --- Tasks ---
     }
 }

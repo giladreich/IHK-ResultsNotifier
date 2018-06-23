@@ -98,15 +98,16 @@ namespace IHK.ResultsNotifier.Controls
         {
             if (IsParentNull()) return;
 
-            this.InvokeSafe(() => Left = (ParentForm.ClientSize.Width  - Width)  / 2);
-            this.InvokeSafe(() => Top  = (ParentForm.ClientSize.Height - Height) / 2);
+            
+            this.Left( (ParentForm.ClientSize.Width  - Width)  / 2);
+            this.Top(  (ParentForm.ClientSize.Height - Height) / 2);
         }
 
         public new void Show()
         {
             if (IsParentNull()) return;
 
-            this.InvokeSafe(() => Size = SizeLoading);
+            this.Size(SizeLoading);
 
             if (DisableControlsOnWork)
                 EnableParentControls(false);
@@ -114,7 +115,7 @@ namespace IHK.ResultsNotifier.Controls
             PositionToParent();
 
             this.InvokeSafe(() => base.Show());
-            this.InvokeSafe(() => BringToFront());
+            this.BringToFront(true);
         }
 
         public new void Hide()
@@ -125,7 +126,7 @@ namespace IHK.ResultsNotifier.Controls
                 EnableParentControls(true);
 
             this.InvokeSafe(() => base.Hide());
-            this.InvokeSafe(() => SendToBack());
+            this.SendToBack(true);
         }
 
 
@@ -148,7 +149,7 @@ namespace IHK.ResultsNotifier.Controls
                     control.GetType() == typeof(CustomControlBox) ||
                     control.GetType() == typeof(CustomControlBoxDialog)) continue;
 
-                this.InvokeSafe(() => control.Enabled = enabled);
+                control.Enabled(enabled);
             }
         }
 
