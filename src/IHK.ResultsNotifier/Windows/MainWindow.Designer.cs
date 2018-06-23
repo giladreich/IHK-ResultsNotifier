@@ -40,6 +40,7 @@
             this.pbxIHK = new System.Windows.Forms.PictureBox();
             this.tbxLogs = new System.Windows.Forms.RichTextBox();
             this.controlBox = new System.Windows.Forms.Custom.CustomControlBox();
+            this.loader = new IHK.ResultsNotifier.Controls.Loader();
             this.panelMain.SuspendLayout();
             this.panelBody.SuspendLayout();
             this.panelFooter.SuspendLayout();
@@ -136,7 +137,7 @@
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.16519F));
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.83481F));
-            this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 165F));
+            this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 174F));
             this.panelFooter.Controls.Add(this.btnStartStop, 3, 0);
             this.panelFooter.Controls.Add(this.lblCheckEveryXMin, 1, 0);
             this.panelFooter.Controls.Add(this.tbxMinutes, 2, 0);
@@ -169,7 +170,7 @@
             this.btnStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartStop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnStartStop.IsActivated = false;
-            this.btnStartStop.Location = new System.Drawing.Point(714, 14);
+            this.btnStartStop.Location = new System.Drawing.Point(709, 14);
             this.btnStartStop.Margin = new System.Windows.Forms.Padding(5);
             this.btnStartStop.Name = "btnStartStop";
             this.btnStartStop.Size = new System.Drawing.Size(124, 27);
@@ -188,7 +189,7 @@
             this.lblCheckEveryXMin.AutoSize = true;
             this.lblCheckEveryXMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCheckEveryXMin.ForeColor = System.Drawing.Color.FloralWhite;
-            this.lblCheckEveryXMin.Location = new System.Drawing.Point(451, 17);
+            this.lblCheckEveryXMin.Location = new System.Drawing.Point(443, 17);
             this.lblCheckEveryXMin.Name = "lblCheckEveryXMin";
             this.lblCheckEveryXMin.Size = new System.Drawing.Size(176, 20);
             this.lblCheckEveryXMin.TabIndex = 2;
@@ -197,7 +198,7 @@
             // tbxMinutes
             // 
             this.tbxMinutes.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.tbxMinutes.Location = new System.Drawing.Point(633, 18);
+            this.tbxMinutes.Location = new System.Drawing.Point(625, 18);
             this.tbxMinutes.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.tbxMinutes.Name = "tbxMinutes";
             this.tbxMinutes.Size = new System.Drawing.Size(45, 20);
@@ -259,6 +260,18 @@
             this.controlBox.TabIndex = 3;
             this.controlBox.TabStop = false;
             // 
+            // loader
+            // 
+            this.loader.BackColor = System.Drawing.Color.Transparent;
+            this.loader.DisableControlsOnWork = true;
+            this.loader.LoaderKind = IHK.ResultsNotifier.Controls.LoaderKind.CircleBall;
+            this.loader.Location = new System.Drawing.Point(10, 8);
+            this.loader.Name = "loader";
+            this.loader.Size = new System.Drawing.Size(21, 21);
+            this.loader.SizeLoading = new System.Drawing.Size(85, 85);
+            this.loader.TabIndex = 4;
+            this.loader.Visible = false;
+            // 
             // MainWindow
             // 
             this.AppTitle.Icon = null;
@@ -272,6 +285,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(992, 581);
+            this.Controls.Add(this.loader);
             this.Controls.Add(this.controlBox);
             this.Controls.Add(this.panelMain);
             this.FormBackColor.GradientColor1 = System.Drawing.Color.SlateBlue;
@@ -310,6 +324,7 @@
         private Controls.CustomToggleButton btnStartStop;
         private System.Windows.Forms.Button btnClearLog;
         private System.Windows.Forms.RichTextBox tbxLogs;
+        private Controls.Loader loader;
     }
 }
 

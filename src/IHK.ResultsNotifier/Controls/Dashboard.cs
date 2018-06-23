@@ -8,7 +8,7 @@ namespace IHK.ResultsNotifier.Controls
 
     public partial class Dashboard : UserControl
     {
-        private const int ROWS = 6;
+        private const int ROWS    = 6;
         private const int COLUMNS = 4;
 
         public TableData<string> TableData { get; }
@@ -18,6 +18,10 @@ namespace IHK.ResultsNotifier.Controls
             InitializeComponent();
 
             TableData = new TableData<string>(ROWS, COLUMNS);
+        }
+
+        private void Dashboard_Load(object sender, EventArgs e)
+        {
             InitDashboard();
             RegisterHandlers();
         }
@@ -54,7 +58,8 @@ namespace IHK.ResultsNotifier.Controls
         private void TableDataChanged(object sender, DataChangedEventArgs e)
         {
             Control lbl = panelMain.GetControlFromPosition(e.ColumnIndex + 2, e.RowIndex + 1);
-            lbl.Text = TableData[e.RowIndex, e.ColumnIndex];
+            lbl.Text(TableData[e.RowIndex, e.ColumnIndex]);
         }
+
     }
 }

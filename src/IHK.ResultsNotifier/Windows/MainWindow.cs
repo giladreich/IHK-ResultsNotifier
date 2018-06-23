@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
 using HtmlAgilityPack;
-using IHK.ResultsNotifier.Misc;
 using IHK.ResultsNotifier.Utils;
+using Nito.AsyncEx;
 
 
 namespace IHK.ResultsNotifier.Windows
@@ -20,6 +20,8 @@ namespace IHK.ResultsNotifier.Windows
 
         private const int MIN_MINUTES_RESULTS_CHECK    = 5;
         private const int ALERT_COUNT_WHEN_NEW_RESULTS = 8;
+
+        private readonly AsyncLock mutex = new AsyncLock();
 
         private Worker worker;
         private WebClientIHK webClient;
@@ -37,14 +39,11 @@ namespace IHK.ResultsNotifier.Windows
 
         private async void MainWindow_Load(object sender, EventArgs e)
         {
-            Loader.Stop();
-            Loader.Owner = this;
-
             Log("Successfully logged in!", Color.DarkGreen);
             Log("Loading exams results...");
 
             TableData<string> resultsTable = await GetExamResults();
-            this.InvokeSafe(() => dashboard.TableData.Swap(resultsTable));
+            dashboard.TableData.Swap(resultsTable);
 
             File.WriteAllBytes(FILE_SOUND_PATH, Properties.Resources.new_results_DE);
             audio.Init();
@@ -52,17 +51,17 @@ namespace IHK.ResultsNotifier.Windows
 
         private async Task<TableData<string>> GetExamResults()
         {
-            this.InvokeSafe(() => Loader.Start());
+            loader.Show();
+            await Utility.SimulateWork(1000);
 
             //string content = File.ReadAllText(@"C:\1\test\ihk.html");
-
             string content = await webClient.GetExamResultsDocument();
             string xpath   = "//*[@id=\"outer\"]/div[2]/div[4]/div[4]";
 
             HtmlNode tableNode        = await Utility.StartTask(() => parser.GetHtmlNode(content, xpath));
             TableData<string> results = await Utility.StartTask(() => parser.ParseHtmlTableData(tableNode));
 
-            this.InvokeSafe(() => Loader.Stop());
+            loader.Hide();
 
             return results;
         }
@@ -88,43 +87,45 @@ namespace IHK.ResultsNotifier.Windows
         {            
             TableData<string>.SerializeToFile(dashboard.TableData, FILE_TABLE_PATH);
 
-            int.TryParse(tbxMinutes.Text, out int checkEveryXTime);
-            ValidateLoopTime(ref checkEveryXTime);
-
-            do
+            using (await mutex.LockAsync())
             {
-                this.InvokeSafe(() => Log("Updating exams results."));
-                TableData<string> newData = await GetExamResults();
+                int.TryParse(tbxMinutes.Text, out int checkEveryXTime);
+                ValidateLoopTime(ref checkEveryXTime);
 
-                if (!dashboard.TableData.SequenceEqual(newData))
+                do
                 {
-                    this.InvokeSafe(() => dashboard.TableData.Swap(newData));
-                    this.InvokeSafe(() => Log("Wohooo....New results are available!!!!!", Color.DarkGreen));
-                    audio.Play();
+                    Log("Updating exams results.");
+                    TableData<string> newData = await GetExamResults();
 
-                    for (int i = 0; i < ALERT_COUNT_WHEN_NEW_RESULTS && worker.IsWorking; i++)
+                    if (!dashboard.TableData.SequenceEqual(newData))
                     {
-                        this.InvokeSafe(Activate);
-                        SystemSounds.Beep.Play();
-                        worker.Sleep(TimeSpan.FromSeconds(3));
+                        dashboard.TableData.Swap(newData);
+                        Log("Wohooo....New results are available!!!!!", Color.DarkGreen);
+                        audio.Play();
+
+                        for (int i = 0; i < ALERT_COUNT_WHEN_NEW_RESULTS && worker.IsWorking; i++)
+                        {
+                            this.InvokeSafe(Activate);
+                            SystemSounds.Beep.Play();
+                            worker.Sleep(TimeSpan.FromSeconds(3));
+                        }
+
+                        audio.Stop();
+                        TableData<string>.SerializeToFile(newData, FILE_TABLE_PATH);
+                    }
+                    else
+                    {
+                        Log("Boring...nothing new.", Color.DarkRed);
                     }
 
-                    audio.Stop();
-                    TableData<string>.SerializeToFile(newData, FILE_TABLE_PATH);
-                }
-                else
-                {
-                    this.InvokeSafe(() => Log("Boring...nothing new.", Color.DarkRed));
-                }
-
 #if DEBUG
-                worker.Sleep(TimeSpan.FromSeconds(checkEveryXTime));
+                    worker.Sleep(TimeSpan.FromSeconds(checkEveryXTime));
 #else
-                worker.Sleep(TimeSpan.FromMinutes(checkEveryXTime));
+                    worker.Sleep(TimeSpan.FromMinutes(checkEveryXTime));
 #endif
-            } while (worker.IsWorking);
 
-            worker.Dispose();
+                } while (worker.IsWorking);
+            } // unlocks mutex end scope
         }
 
         private bool ValidateLoopTime(ref int minutes)
@@ -136,8 +137,8 @@ namespace IHK.ResultsNotifier.Windows
                 $"Wow...Seriously? less than {MIN_MINUTES_RESULTS_CHECK} minutes? " +
                 $"Minimum is set to {MIN_MINUTES_RESULTS_CHECK} mins, sorry...";
 
-            this.InvokeSafe(() => Log(msg, Color.DarkOrange));
-            this.InvokeSafe(() => tbxMinutes.Text = MIN_MINUTES_RESULTS_CHECK.ToString());
+            Log(msg, Color.DarkOrange);
+            tbxMinutes.Text(MIN_MINUTES_RESULTS_CHECK.ToString());
             minutes = MIN_MINUTES_RESULTS_CHECK;
 
             return false;
@@ -145,27 +146,34 @@ namespace IHK.ResultsNotifier.Windows
 
         private void Log(string message, Color? color = null)
         {
-            tbxLogs.SelectionColor = color ?? SystemColors.WindowText;
-            tbxLogs.SelectedText   = $"[{Utility.TimeStamp}] - {message}\n";
-            tbxLogs.ScrollToCaret();
+            this.InvokeSafe(() =>
+            {
+                tbxLogs.SelectionColor = color ?? SystemColors.WindowText;
+                tbxLogs.SelectedText   = $"[{Utility.TimeStamp}] - {message}\n";
+                tbxLogs.ScrollToCaret();
+            });
         }
 
         private void btnClearLog_Click(object sender, EventArgs e) => tbxLogs.Clear();
 
-        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        private async void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (btnStartStop.IsActivated)
             {
-                btnStartStop.PerformClick();
-                Log("Cleaning up background threads before application closes.");
+                // If any threads are working, delay the closing event after cleanup.
+                e.Cancel = true;
 
-                Thread.Sleep(3000);
+                Log("Cleaning up background threads before application closes.");
+                this.InvokeSafe(() => btnStartStop.PerformClick());
+
+                await Utility.SimulateWork(4000);
+                this.InvokeSafe(Close);
             }
 
             Dispose();
             DeleteTempFiles();
 
-            Owner?.Show();
+            Owner?.Visible(true);
         }
 
         public new void Dispose()
