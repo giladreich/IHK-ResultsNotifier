@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
 using IHK.ResultsNotifier.Misc;
@@ -44,8 +46,8 @@ namespace IHK.ResultsNotifier.Windows
             if (!IsValidCredentials())
                 return;
 
-            Loader.Owner = this;
-            this.InvokeSafe(() => Loader.Start(1000));
+            this.InvokeSafe(() => loader.Show());
+            await Utility.SimulateWork(3000);
 
             string username = tbxUser.Text;
             string password = tbxPassword.Text;
@@ -65,6 +67,7 @@ namespace IHK.ResultsNotifier.Windows
             }
 
             this.InvokeSafe(() => new MainWindow(webClient).Show(this));
+            this.InvokeSafe(() => loader.Hide());
             this.InvokeSafe(Hide);
         }
 

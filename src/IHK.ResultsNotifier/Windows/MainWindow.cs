@@ -37,9 +37,6 @@ namespace IHK.ResultsNotifier.Windows
 
         private async void MainWindow_Load(object sender, EventArgs e)
         {
-            Loader.Stop();
-            Loader.Owner = this;
-
             Log("Successfully logged in!", Color.DarkGreen);
             Log("Loading exams results...");
 
@@ -52,7 +49,9 @@ namespace IHK.ResultsNotifier.Windows
 
         private async Task<TableData<string>> GetExamResults()
         {
-            this.InvokeSafe(() => Loader.Start());
+            this.InvokeSafe(() => loader.Show());
+            await Utility.SimulateWork(1000);
+
 
             //string content = File.ReadAllText(@"C:\1\test\ihk.html");
 
@@ -62,7 +61,7 @@ namespace IHK.ResultsNotifier.Windows
             HtmlNode tableNode        = await Utility.StartTask(() => parser.GetHtmlNode(content, xpath));
             TableData<string> results = await Utility.StartTask(() => parser.ParseHtmlTableData(tableNode));
 
-            this.InvokeSafe(() => Loader.Stop());
+            this.InvokeSafe(() => loader.Hide());
 
             return results;
         }

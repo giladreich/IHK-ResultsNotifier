@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -31,6 +32,12 @@ namespace IHK.ResultsNotifier.Utils
         public static Task<T> StartTask<T>(Func<T> function)
         {
             return Task.Factory.StartNew(function);
+        }
+
+        public static async Task<int> SimulateWork(int miliseconds)
+        {
+            await Task.Factory.StartNew(() => Thread.Sleep(miliseconds));
+            return 1;
         }
 
     }

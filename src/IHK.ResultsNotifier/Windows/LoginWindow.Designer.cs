@@ -37,6 +37,7 @@
             this.panelMain = new System.Windows.Forms.Custom.CustomTableLayoutPanel();
             this.panelBtns = new System.Windows.Forms.Custom.CustomPanel();
             this.controlBox = new System.Windows.Forms.Custom.CustomControlBoxDialog();
+            this.loader = new IHK.ResultsNotifier.Controls.Loader();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIHK)).BeginInit();
             this.panelTbxs.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -48,7 +49,7 @@
             this.pbxIHK.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pbxIHK.BackColor = System.Drawing.Color.Transparent;
             this.pbxIHK.Image = global::IHK.ResultsNotifier.Properties.Resources.LogoIHK;
-            this.pbxIHK.Location = new System.Drawing.Point(27, 0);
+            this.pbxIHK.Location = new System.Drawing.Point(26, 0);
             this.pbxIHK.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.pbxIHK.Name = "pbxIHK";
             this.pbxIHK.Size = new System.Drawing.Size(139, 61);
@@ -65,7 +66,7 @@
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnLogin.Location = new System.Drawing.Point(48, 16);
+            this.btnLogin.Location = new System.Drawing.Point(45, 16);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(74, 32);
             this.btnLogin.TabIndex = 0;
@@ -82,7 +83,7 @@
             this.tbxUser.BackgroundColor = System.Drawing.Color.White;
             this.tbxUser.Font = new System.Drawing.Font("Comic Sans MS", 9F);
             this.tbxUser.ForeColor = System.Drawing.Color.DimGray;
-            this.tbxUser.Location = new System.Drawing.Point(30, 3);
+            this.tbxUser.Location = new System.Drawing.Point(28, 3);
             this.tbxUser.MinimumSize = new System.Drawing.Size(83, 27);
             this.tbxUser.Name = "tbxUser";
             this.tbxUser.PasswordChar = '\0';
@@ -114,7 +115,7 @@
             this.panelTbxs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.panelTbxs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.panelTbxs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.panelTbxs.Size = new System.Drawing.Size(174, 108);
+            this.panelTbxs.Size = new System.Drawing.Size(171, 108);
             this.panelTbxs.TabIndex = 1;
             // 
             // tbxPassword
@@ -126,7 +127,7 @@
             this.tbxPassword.BackgroundColor = System.Drawing.Color.White;
             this.tbxPassword.Font = new System.Drawing.Font("Comic Sans MS", 9F);
             this.tbxPassword.ForeColor = System.Drawing.Color.DimGray;
-            this.tbxPassword.Location = new System.Drawing.Point(31, 45);
+            this.tbxPassword.Location = new System.Drawing.Point(30, 45);
             this.tbxPassword.MinimumSize = new System.Drawing.Size(83, 27);
             this.tbxPassword.Name = "tbxPassword";
             this.tbxPassword.PasswordChar = '*';
@@ -159,7 +160,7 @@
             this.panelMain.ColumnCount = 3;
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.166667F));
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 95.83334F));
-            this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 13F));
+            this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 16F));
             this.panelMain.Controls.Add(this.panelTbxs, 1, 1);
             this.panelMain.Controls.Add(this.panelBtns, 1, 2);
             this.panelMain.Controls.Add(this.pbxIHK, 1, 0);
@@ -190,7 +191,7 @@
             this.panelBtns.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             this.panelBtns.Location = new System.Drawing.Point(10, 184);
             this.panelBtns.Name = "panelBtns";
-            this.panelBtns.Size = new System.Drawing.Size(174, 51);
+            this.panelBtns.Size = new System.Drawing.Size(171, 51);
             this.panelBtns.TabIndex = 0;
             // 
             // controlBox
@@ -211,6 +212,18 @@
             this.controlBox.TabIndex = 6;
             this.controlBox.TabStop = false;
             // 
+            // loader
+            // 
+            this.loader.BackColor = System.Drawing.Color.Transparent;
+            this.loader.DisableControlsOnWork = true;
+            this.loader.LoaderKind = IHK.ResultsNotifier.Controls.LoaderKind.Clock;
+            this.loader.Location = new System.Drawing.Point(9, 7);
+            this.loader.Name = "loader";
+            this.loader.Size = new System.Drawing.Size(20, 20);
+            this.loader.SizeLoading = new System.Drawing.Size(85, 85);
+            this.loader.TabIndex = 7;
+            this.loader.Visible = false;
+            // 
             // LoginWindow
             // 
             this.AllowResize = false;
@@ -225,6 +238,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(213, 288);
+            this.Controls.Add(this.loader);
             this.Controls.Add(this.controlBox);
             this.Controls.Add(this.panelMain);
             this.FormBackColor.GradientColor1 = System.Drawing.Color.SlateBlue;
@@ -259,5 +273,6 @@
         private System.Windows.Forms.Custom.CustomControlBoxDialog controlBox;
         private System.Windows.Forms.CheckBox cbxRemember;
         private System.Windows.Forms.Custom.CustomPanel panelBtns;
+        private Controls.Loader loader;
     }
 }
