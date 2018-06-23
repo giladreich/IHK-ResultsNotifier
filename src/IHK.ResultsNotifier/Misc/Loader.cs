@@ -8,28 +8,45 @@ namespace IHK.ResultsNotifier.Misc
 {
     public class Loader
     {
-        public static Form ParentWindow { get; set; }
+        public static Form Owner { get; set; }
 
-        private static LoaderWindow loaderWindow;
+        private static Form loaderWindow;
+
+        private static readonly Mutex mutex = new Mutex(true, "LoaderMutex");
+        private static readonly object locker = new object();
 
 
-        public static void StartLoader(int sleepMiliseconds = 500)
+        /// <param name="sleepMiliseconds">The time to sleep the main UI thread.</param>
+        public static void Start(int sleepMiliseconds = 500)
         {
-            if (ParentWindow == null)
+            if (Owner == null)
                 throw new InvalidOperationException(
-                    "You must first set the ParentWindow property before invoking a loader.");
+                    "You must first set the Owner property before invoking a loader.");
 
-            InvokeLoader(loaderWindow ?? (loaderWindow = new LoaderWindow()));
+            mutex.WaitOne();
 
-            Thread.Sleep(sleepMiliseconds);
+            lock (locker)
+            {
+                InvokeLoader(loaderWindow ?? (loaderWindow = new LoaderWindow()));
+
+                Owner.LocationChanged -= null;
+                Owner.LocationChanged += (sender, args) => loaderWindow.InvokeSafe(() => CenterWindowToOwner(loaderWindow));
+
+                Thread.Sleep(sleepMiliseconds);
+            }
         }
 
-        public static void StopLoader(IntPtr windowHandle)
+        /// <param name="hActivate">Pass a window handle if you want to bring the window to front. </param>
+        public static void Stop(IntPtr hActivate = default(IntPtr))
         {
             if (loaderWindow == null) return;
 
             loaderWindow.InvokeSafe(() => loaderWindow.Close());
-            ActivateWindow(windowHandle);
+
+            if (hActivate != default(IntPtr))
+                ActivateWindow(hActivate);
+
+            mutex.ReleaseMutex();
         }
 
 
@@ -40,9 +57,11 @@ namespace IHK.ResultsNotifier.Misc
             if (window.Visible) return;
 
             ForceFocusHandling(window);
-            CenterWindowToParent(window);
+            CenterWindowToOwner(window);
 
-            new Worker(() => window.ShowDialog()).Start();
+            Worker worker = new Worker(() => window.ShowDialog());
+            Console.WriteLine("Invoking Loader on ThreadId -> " + worker.ThreadId);
+            worker.Start();
         }
 
         private static void ForceFocusHandling(Form window)
@@ -51,13 +70,13 @@ namespace IHK.ResultsNotifier.Misc
             window.LostFocus += (sender, e) => window.Focus();
         }
 
-        private static void CenterWindowToParent(Form window)
+        private static void CenterWindowToOwner(Form window)
         {
             window.StartPosition = FormStartPosition.Manual;
 
-            int posX = ParentWindow.Location.X + ParentWindow.Width  / 2 - window.Width  / 2;
-            int posY = ParentWindow.Location.Y + ParentWindow.Height / 2 - window.Height / 2;
-            window.Location = new Point(posX - 20, posY);
+            int posX = Owner.Location.X + Owner.Width  / 2 - window.Width  / 2;
+            int posY = Owner.Location.Y + Owner.Height / 2 - window.Height / 2;
+            window.Location = new Point(posX - 10, posY);
         }
 
         private static void ActivateWindow(IntPtr handle)

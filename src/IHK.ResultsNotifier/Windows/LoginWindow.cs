@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
+using IHK.ResultsNotifier.Misc;
 using IHK.ResultsNotifier.Utils;
 
 
@@ -43,6 +44,9 @@ namespace IHK.ResultsNotifier.Windows
             if (!IsValidCredentials())
                 return;
 
+            Loader.Owner = this;
+            this.InvokeSafe(() => Loader.Start(1000));
+
             string username = tbxUser.Text;
             string password = tbxPassword.Text;
 
@@ -53,8 +57,10 @@ namespace IHK.ResultsNotifier.Windows
 
             if (!await webClient.AuthenticateUser(username, password))
             {
+                this.InvokeSafe(() => Loader.Stop());
                 MessageBox.Show("Failed to login. " +
                                 "Check your internet connection or username/password.");
+
                 return;
             }
 

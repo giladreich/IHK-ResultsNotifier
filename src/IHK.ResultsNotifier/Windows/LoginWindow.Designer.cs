@@ -48,7 +48,7 @@
             this.pbxIHK.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pbxIHK.BackColor = System.Drawing.Color.Transparent;
             this.pbxIHK.Image = global::IHK.ResultsNotifier.Properties.Resources.LogoIHK;
-            this.pbxIHK.Location = new System.Drawing.Point(28, 0);
+            this.pbxIHK.Location = new System.Drawing.Point(27, 0);
             this.pbxIHK.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.pbxIHK.Name = "pbxIHK";
             this.pbxIHK.Size = new System.Drawing.Size(139, 61);
@@ -65,7 +65,7 @@
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnLogin.Location = new System.Drawing.Point(49, 16);
+            this.btnLogin.Location = new System.Drawing.Point(48, 16);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(74, 32);
             this.btnLogin.TabIndex = 0;
@@ -114,7 +114,7 @@
             this.panelTbxs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.panelTbxs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.panelTbxs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.panelTbxs.Size = new System.Drawing.Size(175, 108);
+            this.panelTbxs.Size = new System.Drawing.Size(174, 108);
             this.panelTbxs.TabIndex = 1;
             // 
             // tbxPassword
@@ -126,7 +126,7 @@
             this.tbxPassword.BackgroundColor = System.Drawing.Color.White;
             this.tbxPassword.Font = new System.Drawing.Font("Comic Sans MS", 9F);
             this.tbxPassword.ForeColor = System.Drawing.Color.DimGray;
-            this.tbxPassword.Location = new System.Drawing.Point(32, 45);
+            this.tbxPassword.Location = new System.Drawing.Point(31, 45);
             this.tbxPassword.MinimumSize = new System.Drawing.Size(83, 27);
             this.tbxPassword.Name = "tbxPassword";
             this.tbxPassword.PasswordChar = '*';
@@ -159,7 +159,7 @@
             this.panelMain.ColumnCount = 3;
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.166667F));
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 95.83334F));
-            this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 12F));
+            this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 13F));
             this.panelMain.Controls.Add(this.panelTbxs, 1, 1);
             this.panelMain.Controls.Add(this.panelBtns, 1, 2);
             this.panelMain.Controls.Add(this.pbxIHK, 1, 0);
@@ -190,7 +190,7 @@
             this.panelBtns.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             this.panelBtns.Location = new System.Drawing.Point(10, 184);
             this.panelBtns.Name = "panelBtns";
-            this.panelBtns.Size = new System.Drawing.Size(175, 51);
+            this.panelBtns.Size = new System.Drawing.Size(174, 51);
             this.panelBtns.TabIndex = 0;
             // 
             // controlBox
@@ -235,7 +235,7 @@
             this.FormBorders.Width = 5;
             this.Icon = global::IHK.ResultsNotifier.Properties.Resources.AppIcon;
             this.KeyPreview = true;
-            this.Text = "LoginWindow";
+            this.Name = "LoginWindow";
             this.Padding = new System.Windows.Forms.Padding(6, 35, 6, 6);
             this.ResizeGrip = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
