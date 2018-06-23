@@ -25,6 +25,10 @@ namespace IHK.ResultsNotifier.Windows
             DEFAULT_PASS = tbxPassword.TextSearch;
 
             config = new Configuration();
+        }
+
+        private void LoginWindow_Load(object sender, EventArgs e)
+        {
             LoadConfiguration();
         }
 
@@ -46,7 +50,7 @@ namespace IHK.ResultsNotifier.Windows
             if (!IsValidCredentials())
                 return;
 
-            this.InvokeSafe(() => loader.Show());
+            loader.Show();
             await Utility.SimulateWork(3000);
 
             string username = tbxUser.Text;
@@ -56,10 +60,10 @@ namespace IHK.ResultsNotifier.Windows
                 config.SetConfigurations(new ConfigData(cbxRemember.Checked, username, password));
 
             webClient = new WebClientIHK();
-
-            if (!await webClient.AuthenticateUser(username, password))
+            await webClient.AuthenticateUser(username, password);
+            if (!webClient.IsAuthenticated)
             {
-                this.InvokeSafe(() => Loader.Stop());
+                loader.Hide();
                 MessageBox.Show("Failed to login. " +
                                 "Check your internet connection or username/password.");
 
@@ -67,8 +71,8 @@ namespace IHK.ResultsNotifier.Windows
             }
 
             this.InvokeSafe(() => new MainWindow(webClient).Show(this));
-            this.InvokeSafe(() => loader.Hide());
-            this.InvokeSafe(Hide);
+            loader.Hide();
+            this.Visible(false);
         }
 
         private bool IsValidCredentials()
@@ -100,6 +104,5 @@ namespace IHK.ResultsNotifier.Windows
                     break;
             }
         }
-
     }
 }

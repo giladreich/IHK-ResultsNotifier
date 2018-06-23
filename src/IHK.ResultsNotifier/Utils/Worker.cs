@@ -21,7 +21,6 @@ namespace IHK.ResultsNotifier.Utils
             get => Thread.IsBackground;
             set => Thread.IsBackground = value;
         }
-
         public ThreadPriority ThreadPriority
         {
             get => Thread.Priority;
@@ -48,11 +47,11 @@ namespace IHK.ResultsNotifier.Utils
 
         public virtual Worker Start()
         {
+            Token = new AutoResetEvent(false);
+            Thread.Start();
+
             State = State.Busy;
             IsWorking = true;
-            Token = new AutoResetEvent(false);
-
-            Thread.Start();
 
             return this;
         }
@@ -72,11 +71,11 @@ namespace IHK.ResultsNotifier.Utils
             if (Token == null || !IsWorking)
                 throw new InvalidOperationException("Thread didn't start, no reason to call stop.");
 
-            Token.Set();
             IsWorking = false;
-            Join();
-
             State = State.Done;
+
+            Token.Set();
+            Join();
         }
 
         public virtual void Continue()
@@ -84,18 +83,18 @@ namespace IHK.ResultsNotifier.Utils
             if (Token == null || State != State.Paused)
                 throw new InvalidOperationException("Thread didn't pause, no reason to call continue.");
 
+            Token.Set();
             IsWorking = true;
             State = State.Busy;
-            Token.Set();
         }
 
         public virtual void Pause()
         {
             if (State == State.Paused) return;
 
+            Sleep();
             IsWorking = false;
             State = State.Paused;
-            Sleep();
         }
 
         public virtual void Join()

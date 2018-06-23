@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
 using IHK.ResultsNotifier.Properties;
+using IHK.ResultsNotifier.Utils;
 
 namespace IHK.ResultsNotifier.Controls
 {
@@ -97,23 +98,23 @@ namespace IHK.ResultsNotifier.Controls
         {
             if (IsParentNull()) return;
 
-            Left = (ParentForm.ClientSize.Width - Width) / 2;
-            Top = (ParentForm.ClientSize.Height - Height) / 2;
+            this.InvokeSafe(() => Left = (ParentForm.ClientSize.Width  - Width)  / 2);
+            this.InvokeSafe(() => Top  = (ParentForm.ClientSize.Height - Height) / 2);
         }
 
         public new void Show()
         {
             if (IsParentNull()) return;
 
-            Size = SizeLoading;
+            this.InvokeSafe(() => Size = SizeLoading);
 
             if (DisableControlsOnWork)
                 EnableParentControls(false);
 
             PositionToParent();
 
-            base.Show();
-            BringToFront();
+            this.InvokeSafe(() => base.Show());
+            this.InvokeSafe(() => BringToFront());
         }
 
         public new void Hide()
@@ -123,8 +124,8 @@ namespace IHK.ResultsNotifier.Controls
             if (DisableControlsOnWork)
                 EnableParentControls(true);
 
-            base.Hide();
-            SendToBack();
+            this.InvokeSafe(() => base.Hide());
+            this.InvokeSafe(() => SendToBack());
         }
 
 
@@ -147,7 +148,7 @@ namespace IHK.ResultsNotifier.Controls
                     control.GetType() == typeof(CustomControlBox) ||
                     control.GetType() == typeof(CustomControlBoxDialog)) continue;
 
-                control.Enabled = enabled;
+                this.InvokeSafe(() => control.Enabled = enabled);
             }
         }
 

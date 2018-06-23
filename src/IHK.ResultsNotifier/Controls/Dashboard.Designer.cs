@@ -253,6 +253,7 @@
             this.MinimumSize = new System.Drawing.Size(625, 206);
             this.Name = "Dashboard";
             this.Size = new System.Drawing.Size(625, 206);
+            this.Load += new System.EventHandler(this.Dashboard_Load);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             this.ResumeLayout(false);

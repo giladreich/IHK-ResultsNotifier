@@ -137,7 +137,7 @@
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.16519F));
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.83481F));
-            this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 169F));
+            this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 174F));
             this.panelFooter.Controls.Add(this.btnStartStop, 3, 0);
             this.panelFooter.Controls.Add(this.lblCheckEveryXMin, 1, 0);
             this.panelFooter.Controls.Add(this.tbxMinutes, 2, 0);
@@ -170,7 +170,7 @@
             this.btnStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartStop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnStartStop.IsActivated = false;
-            this.btnStartStop.Location = new System.Drawing.Point(712, 14);
+            this.btnStartStop.Location = new System.Drawing.Point(709, 14);
             this.btnStartStop.Margin = new System.Windows.Forms.Padding(5);
             this.btnStartStop.Name = "btnStartStop";
             this.btnStartStop.Size = new System.Drawing.Size(124, 27);
@@ -189,7 +189,7 @@
             this.lblCheckEveryXMin.AutoSize = true;
             this.lblCheckEveryXMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCheckEveryXMin.ForeColor = System.Drawing.Color.FloralWhite;
-            this.lblCheckEveryXMin.Location = new System.Drawing.Point(448, 17);
+            this.lblCheckEveryXMin.Location = new System.Drawing.Point(443, 17);
             this.lblCheckEveryXMin.Name = "lblCheckEveryXMin";
             this.lblCheckEveryXMin.Size = new System.Drawing.Size(176, 20);
             this.lblCheckEveryXMin.TabIndex = 2;
@@ -198,7 +198,7 @@
             // tbxMinutes
             // 
             this.tbxMinutes.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.tbxMinutes.Location = new System.Drawing.Point(630, 18);
+            this.tbxMinutes.Location = new System.Drawing.Point(625, 18);
             this.tbxMinutes.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.tbxMinutes.Name = "tbxMinutes";
             this.tbxMinutes.Size = new System.Drawing.Size(45, 20);
@@ -263,13 +263,13 @@
             // loader
             // 
             this.loader.BackColor = System.Drawing.Color.Transparent;
-            this.loader.DisableControlsOnWork = false;
-            this.loader.LoaderKind = IHK.ResultsNotifier.Controls.LoaderKind.Clock;
-            this.loader.Location = new System.Drawing.Point(9, 9);
+            this.loader.DisableControlsOnWork = true;
+            this.loader.LoaderKind = IHK.ResultsNotifier.Controls.LoaderKind.CircleBall;
+            this.loader.Location = new System.Drawing.Point(10, 8);
             this.loader.Name = "loader";
-            this.loader.Size = new System.Drawing.Size(20, 20);
-            this.loader.SizeLoading = new System.Drawing.Size(50, 50);
-            this.loader.TabIndex = 8;
+            this.loader.Size = new System.Drawing.Size(21, 21);
+            this.loader.SizeLoading = new System.Drawing.Size(85, 85);
+            this.loader.TabIndex = 4;
             this.loader.Visible = false;
             // 
             // MainWindow
