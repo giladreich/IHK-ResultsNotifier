@@ -2,12 +2,14 @@
 using System.Drawing;
 using System.IO;
 using System.Media;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
-using HtmlAgilityPack;
+
+using IHK.ResultsNotifier.Properties;
 using IHK.ResultsNotifier.Utils;
+
+using HtmlAgilityPack;
 using Nito.AsyncEx;
 
 
@@ -45,7 +47,7 @@ namespace IHK.ResultsNotifier.Windows
             TableData<string> resultsTable = await GetExamResults();
             dashboard.TableData.Swap(resultsTable);
 
-            File.WriteAllBytes(FILE_SOUND_PATH, Properties.Resources.new_results_DE);
+            File.WriteAllBytes(FILE_SOUND_PATH, Resources.new_results_DE);
             await Task.Factory.StartNew(() => audio.Init());
         }
 

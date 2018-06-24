@@ -2,7 +2,9 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+
 using IHK.ResultsNotifier.Utils;
+
 
 namespace IHK.ResultsNotifier.Misc
 {

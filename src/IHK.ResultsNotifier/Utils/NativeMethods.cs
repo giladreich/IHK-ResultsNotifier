@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security;
 
+
 namespace IHK.ResultsNotifier.Utils
 {
     [ComVisible(false), SuppressUnmanagedCodeSecurity]

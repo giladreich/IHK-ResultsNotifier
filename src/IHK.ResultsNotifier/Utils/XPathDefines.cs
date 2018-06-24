@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 
 namespace IHK.ResultsNotifier.Utils
 {

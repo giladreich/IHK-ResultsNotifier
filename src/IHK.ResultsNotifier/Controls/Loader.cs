@@ -2,12 +2,13 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Diagnostics;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
+
 using IHK.ResultsNotifier.Properties;
 using IHK.ResultsNotifier.Utils;
+
 
 namespace IHK.ResultsNotifier.Controls
 {
@@ -105,7 +106,7 @@ namespace IHK.ResultsNotifier.Controls
 
         public new void Show()
         {
-            if (IsParentNull()) return;
+            if (IsParentNull() || Visible) return;
 
             this.Size(SizeLoading);
 
@@ -120,7 +121,7 @@ namespace IHK.ResultsNotifier.Controls
 
         public new void Hide()
         {
-            if (IsParentNull()) return;
+            if (IsParentNull() || !Visible) return;
 
             if (DisableControlsOnWork)
                 EnableParentControls(true);
