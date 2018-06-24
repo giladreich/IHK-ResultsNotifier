@@ -46,7 +46,7 @@ namespace IHK.ResultsNotifier.Windows
             dashboard.TableData.Swap(resultsTable);
 
             File.WriteAllBytes(FILE_SOUND_PATH, Properties.Resources.new_results_DE);
-            audio.Init();
+            await Task.Factory.StartNew(() => audio.Init());
         }
 
         private async Task<TableData<string>> GetExamResults()
