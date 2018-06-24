@@ -16,7 +16,7 @@ namespace IHK.ResultsNotifier.Windows
         private readonly string DEFAULT_PASS;
 
         private readonly Configuration config;
-        private WebClientIHK webClient;
+        private NetworkClient networkClient;
         private User currentUser;
 
         public LoginWindow()
@@ -57,13 +57,13 @@ namespace IHK.ResultsNotifier.Windows
             User user = new User(tbxUser.Text, tbxPassword.Text);
 
             if (currentUser?.GetHashCode() != user.GetHashCode())
-                ResetWebClient();
+                ResetNetworkClient();
 
-            await ValidateWebClient(user);
+            await ValidateNetworkClient(user);
 
-            if (!webClient.IsAuthenticated)
+            if (!networkClient.IsAuthenticated)
             {
-                ResetWebClient();
+                ResetNetworkClient();
                 loader.Hide();
 
                 this.InvokeSafe(() => 
@@ -77,7 +77,7 @@ namespace IHK.ResultsNotifier.Windows
                 config.SetConfigurations(new ConfigData(cbxRemember.Checked, user));
 
             currentUser = new User(user);
-            this.InvokeSafe(() => new MainWindow(webClient).Show(this));
+            this.InvokeSafe(() => new MainWindow(networkClient).Show(this));
             loader.Hide();
             this.Visible(false);
         }
@@ -94,34 +94,34 @@ namespace IHK.ResultsNotifier.Windows
             return isNotEmptyAndRulesMatch && isNotDefault;
         }
 
-        private async Task ValidateWebClient(User user)
+        private async Task ValidateNetworkClient(User user)
         {
             try
             {
-                if (webClient == null)
+                if (networkClient == null)
                 {
-                    webClient = new WebClientIHK();
-                    await webClient.AuthenticateUser(user);
+                    networkClient = new NetworkClient();
+                    await networkClient.AuthenticateUser(user);
                 }
                 else
                 {
-                    await webClient.ValidateAuthentication();
+                    await networkClient.ValidateAuthentication();
                 }
             }
             catch (Exception ex)
             {
                 loader.Hide();
-                ResetWebClient();
+                ResetNetworkClient();
                 this.InvokeSafe(() => 
-                    MessageBox.Show("Exception thrown while validating web client -> " + ex.Message,
+                    MessageBox.Show("Exception thrown while validating network client -> " + ex.Message,
                         "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
         }
 
-        private void ResetWebClient()
+        private void ResetNetworkClient()
         {
-            webClient?.Dispose();
-            webClient = null;
+            networkClient?.Dispose();
+            networkClient = null;
         }
 
         private void cbxRemember_CheckedChanged(object sender, EventArgs e)
@@ -144,7 +144,7 @@ namespace IHK.ResultsNotifier.Windows
 
         private void LoginWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ResetWebClient();
+            ResetNetworkClient();
         }
     }
 }

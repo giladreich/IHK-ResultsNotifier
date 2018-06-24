@@ -24,15 +24,15 @@ namespace IHK.ResultsNotifier.Windows
         private readonly AsyncLock mutex = new AsyncLock();
 
         private Worker worker;
-        private WebClientIHK webClient;
+        private NetworkClient networkClient;
         private HtmlParser parser;
         private Audio audio;
 
 
-        public MainWindow(WebClientIHK client)
+        public MainWindow(NetworkClient client)
         {
             InitializeComponent();
-            webClient = client;
+            networkClient = client;
             parser = new HtmlParser();
             audio = new Audio(FILE_SOUND_PATH, true);
         }
@@ -70,7 +70,7 @@ namespace IHK.ResultsNotifier.Windows
             //string content = File.ReadAllText(@"C:\1\test\ihk.html");
             try
             {
-                content = await webClient.GetExamResultsDocument();
+                content = await networkClient.GetExamResultsDocument();
             }
             catch (Exception ex)
             {

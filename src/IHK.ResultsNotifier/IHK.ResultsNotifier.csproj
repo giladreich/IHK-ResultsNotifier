@@ -111,7 +111,7 @@
     <Compile Include="Utils\NativeMethods.cs" />
     <Compile Include="Utils\TableData.cs" />
     <Compile Include="Utils\User.cs" />
-    <Compile Include="Utils\WebClientIHK.cs" />
+    <Compile Include="Utils\NetworkClient.cs" />
     <Compile Include="Utils\Utility.cs" />
     <Compile Include="Utils\Worker.cs" />
     <Compile Include="Windows\LoginWindow.cs">

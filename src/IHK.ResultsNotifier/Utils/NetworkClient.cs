@@ -13,7 +13,7 @@ namespace IHK.ResultsNotifier.Utils
     /// <summary>
     /// Project specific object.
     /// </summary>
-    public sealed class WebClientIHK : IDisposable
+    public sealed class NetworkClient : IDisposable
     {
         private const string MOZILLA              = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)";
         private const string APPLE                = "AppleWebKit/537.36 (KHTML, like Gecko)";
@@ -39,7 +39,7 @@ namespace IHK.ResultsNotifier.Utils
         public bool IsAuthenticated { get; private set; }
 
 
-        public WebClientIHK()
+        public NetworkClient()
         {
             cookieJar = new CookieContainer();
             clientHandler = new HttpClientHandler
