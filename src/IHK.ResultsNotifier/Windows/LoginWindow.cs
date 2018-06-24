@@ -37,7 +37,7 @@ namespace IHK.ResultsNotifier.Windows
         {
             if (!Configuration.KeyExist) return;
 
-            ConfigData data = config.GetConfigurations();
+            ConfigurationData data = config.GetConfigurations();
             cbxRemember.Checked = data.IsChecked;
             if (data.IsChecked)
             {
@@ -74,7 +74,7 @@ namespace IHK.ResultsNotifier.Windows
             }
 
             if (cbxRemember.Checked)
-                config.SetConfigurations(new ConfigData(cbxRemember.Checked, user));
+                config.SetConfigurations(new ConfigurationData(cbxRemember.Checked, user));
 
             currentUser = new User(user);
             this.InvokeSafe(() => new MainWindow(networkClient).Show(this));

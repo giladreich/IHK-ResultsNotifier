@@ -1,11 +1,11 @@
 ﻿namespace IHK.ResultsNotifier.Utils
 {
-    public struct ConfigData
+    public struct ConfigurationData
     {
         public bool IsChecked { get; }
         public User User { get; }
 
-        public ConfigData(bool isChecked, User user)
+        public ConfigurationData(bool isChecked, User user)
         {
             IsChecked = isChecked;
             User = user;

@@ -55,8 +55,7 @@ namespace IHK.ResultsNotifier.Windows
             await Utility.SimulateWork(TimeSpan.FromSeconds(1));
 
             string content = await RetrieveHtmlContent();
-            string xpath = "//*[@id=\"outer\"]/div[2]/div[4]/div[4]";
-
+            string xpath = XPathDefines.IHK_RESULTS_TABLE;
             TableData<string> results = await ParseHtmlContent(content, xpath);
 
             loader.Hide();
