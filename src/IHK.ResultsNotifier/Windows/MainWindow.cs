@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
+using System.Net.Http;
+using System.Security.Authentication;
 
 using IHK.ResultsNotifier.Properties;
 using IHK.ResultsNotifier.Utils;
@@ -73,15 +76,32 @@ namespace IHK.ResultsNotifier.Windows
             {
                 content = await networkClient.GetExamResultsDocument();
             }
+
+            catch (HttpRequestException ex)
+            {
+                RequestDataFallback("Lost connection or could not reach the server. Please check your connection.", 
+                    ex, "INFO", MessageBoxIcon.Exclamation);
+            }
+            catch (AuthenticationException ex)
+            {
+                RequestDataFallback("User authentication lost. Please try to relog." , ex, "INFO",
+                    MessageBoxIcon.Exclamation);
+            }
             catch (Exception ex)
             {
-                this.InvokeSafe(() =>
-                    MessageBox.Show("User Authentication or Connection lost. Please try to relog. "
-                                    + ex.Message, "INFO", MessageBoxButtons.OK, MessageBoxIcon.Exclamation));
-                this.Close(true);
+                RequestDataFallback("Unknown error has occurred (4).", ex, "ERROR", MessageBoxIcon.Error);
             }
 
             return content;
+        }
+
+        private void RequestDataFallback(string message, Exception ex, string caption, MessageBoxIcon icon)
+        {
+            loader.Hide();
+            this.InvokeSafe(() =>
+                MessageBox.Show($"{message}\n"
+                                + ex.Message, caption, MessageBoxButtons.OK, icon));
+            this.Close(true);
         }
 
         private async Task<TableData<string>> ParseHtmlContent(string content, string xpath)
@@ -201,29 +221,42 @@ namespace IHK.ResultsNotifier.Windows
             Owner?.Visible(true);
         }
 
+        private static void DeleteTempFiles()
+        {
+            List<string> filesToDelete = new List<string>
+            {
+                FILE_TABLE_PATH, FILE_SOUND_PATH
+            };
+
+            try
+            {
+                foreach (string file in filesToDelete)
+                {
+                    if (File.Exists(file))
+                        File.Delete(file);
+                }
+            }
+            catch (IOException ex)
+            {
+                DeleteFilesFallback(ex);
+            }
+            catch (Exception ex)
+            {
+                DeleteFilesFallback(ex);
+            }
+        }
+
+        private static void DeleteFilesFallback(Exception ex)
+        {
+            MessageBox.Show("Failed to delete temporary files -> " + ex.Message,
+                            "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         public new void Dispose()
         {
             worker?.Dispose();
             parser?.Dispose();
             audio?.Dispose();
         }
-
-        private static void DeleteTempFiles()
-        {
-            try
-            {
-                if (File.Exists(FILE_SOUND_PATH))
-                    File.Delete(FILE_SOUND_PATH);
-
-                if (File.Exists(FILE_TABLE_PATH))
-                    File.Delete(FILE_TABLE_PATH);
-            }
-            catch (IOException e)
-            {
-                MessageBox.Show("Failed to delete temporary files -> " + e.Message, 
-                                "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
     }
 }

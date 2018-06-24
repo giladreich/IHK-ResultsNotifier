@@ -23,7 +23,7 @@ namespace IHK.ResultsNotifier.Utils
         private const string COOKIE_URL1        = "https://apps.ihk-berlin.de/tibrosBB/BB_auszubildende.jsp";
         private const string COOKIE_URL2        = "https://apps.ihk-berlin.de/favicon.ico";
         private const string COOKIE_PATH        = "https://apps.ihk-berlin.de/tibrosBB";
-
+                                                            
         private const string EXAMS_PAGE         = "https://apps.ihk-berlin.de/tibrosBB/azubiPruef.jsp";
         private const string EXAMS_RESULTS_PAGE = "https://apps.ihk-berlin.de/tibrosBB/azubiErgebnisse.jsp?id=1";
         private const string LOGIN_PAGE         = "https://apps.ihk-berlin.de/tibrosBB/azubiHome.jsp";
@@ -37,6 +37,8 @@ namespace IHK.ResultsNotifier.Utils
         private HttpClient client;
 
         public bool IsAuthenticated { get; private set; }
+
+        public bool IsDisposed { get; private set; }
 
 
         public NetworkClient()
@@ -153,13 +155,13 @@ namespace IHK.ResultsNotifier.Utils
             {
                 throw new HttpRequestException(
                     $"[{callerMethod}] - HttpRequestException thrown while sending a request -> "
-                    + ex.Message);
+                    + ex.Message, ex);
             }
             catch (Exception ex)
             {
                 throw new Exception(
                     $"[{callerMethod}] - Exception thrown while sending a request -> "
-                    + ex.Message);
+                    + ex.Message, ex);
             }
 
             return response;
@@ -182,13 +184,13 @@ namespace IHK.ResultsNotifier.Utils
             {
                 throw new HttpRequestException(
                     $"[{callerMethod}] - HttpRequestException thrown while sending a async-request -> " 
-                    + ex.Message);
+                    + ex.Message, ex);
             }
             catch (Exception ex)
             {
                 throw new Exception(
                     $"[{callerMethod}] - Exception thrown while sending a async-request -> "
-                    + ex.Message);
+                    + ex.Message, ex);
             }
 
             return response;
@@ -198,10 +200,12 @@ namespace IHK.ResultsNotifier.Utils
         {
             clientHandler?.Dispose();
             client?.Dispose();
-
+            
             clientHandler = null;
             client = null;
             cookieJar = null;
+
+            IsDisposed = true;
         }
 
     }

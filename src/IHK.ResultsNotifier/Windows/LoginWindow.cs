@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
+using System.Net.Http;
 
 using IHK.ResultsNotifier.Utils;
 
@@ -56,14 +57,14 @@ namespace IHK.ResultsNotifier.Windows
             User user = new User(tbxUser.Text, tbxPassword.Text);
 
             if (currentUser?.GetHashCode() != user.GetHashCode())
-                ResetNetworkClient();
+                networkClient?.Dispose();
 
-            await ValidateNetworkClient(user);
+            await AuthenticateUserValidation(user);
 
             if (!networkClient.IsAuthenticated)
             {
-                ResetNetworkClient();
                 loader.Hide();
+                networkClient.Dispose();
 
                 this.InvokeSafe(() => 
                     MessageBox.Show("Failed to login. Please try again.", 
@@ -93,11 +94,11 @@ namespace IHK.ResultsNotifier.Windows
             return isNotEmptyAndRulesMatch && isNotDefault;
         }
 
-        private async Task ValidateNetworkClient(User user)
+        private async Task AuthenticateUserValidation(User user)
         {
             try
             {
-                if (networkClient == null)
+                if (networkClient == null || networkClient.IsDisposed)
                 {
                     networkClient = new NetworkClient();
                     await networkClient.AuthenticateUser(user);
@@ -107,20 +108,24 @@ namespace IHK.ResultsNotifier.Windows
                     await networkClient.ValidateAuthentication();
                 }
             }
+            catch (HttpRequestException ex)
+            {
+                AuthenticationFallback(ex);
+            }
             catch (Exception ex)
             {
-                loader.Hide();
-                ResetNetworkClient();
-                this.InvokeSafe(() => 
-                    MessageBox.Show("Exception thrown while validating network client -> " + ex.Message,
-                        "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error));
+                AuthenticationFallback(ex);
             }
         }
 
-        private void ResetNetworkClient()
+        private void AuthenticationFallback(Exception ex)
         {
-            networkClient?.Dispose();
-            networkClient = null;
+            loader.Hide();
+            networkClient.Dispose();
+
+            this.InvokeSafe(() =>
+                MessageBox.Show("Exception thrown while validating network client -> " + ex.Message,
+                    "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error));
         }
 
         private void cbxRemember_CheckedChanged(object sender, EventArgs e)
@@ -143,7 +148,8 @@ namespace IHK.ResultsNotifier.Windows
 
         private void LoginWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ResetNetworkClient();
+            networkClient?.Dispose();
         }
+
     }
 }
