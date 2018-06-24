@@ -94,19 +94,14 @@ namespace IHK.ResultsNotifier.Utils
 
         #region --- Tasks ---
 
-        public static async Task<T> StartTask<T>(Func<T> method)
-        {
-            return await Task.Factory.StartNew(method);
-        }
-
         public static async Task SimulateWork(int miliseconds)
         {
-            await Task.Factory.StartNew(() => Thread.Sleep(miliseconds));
+            await Task.Run(() => Thread.Sleep(miliseconds));
         }
 
         public static async Task SimulateWork(TimeSpan timeSpan)
         {
-            await Task.Factory.StartNew(() => Thread.Sleep(timeSpan));
+            await Task.Run(() => Thread.Sleep(timeSpan));
         }
 
         #endregion --- Tasks ---

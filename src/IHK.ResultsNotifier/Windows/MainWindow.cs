@@ -48,7 +48,7 @@ namespace IHK.ResultsNotifier.Windows
             dashboard.TableData.Swap(resultsTable);
 
             File.WriteAllBytes(FILE_SOUND_PATH, Resources.new_results_DE);
-            await Task.Factory.StartNew(() => audio.Init());
+            await Task.Run(() => audio.Init());
         }
 
         private async Task<TableData<string>> GetExamResults()
@@ -59,7 +59,7 @@ namespace IHK.ResultsNotifier.Windows
             string content = await RetrieveHtmlContent();
             string xpath = XPathDefines.IHK_RESULTS_TABLE;
             TableData<string> results = await ParseHtmlContent(content, xpath);
-
+            
             loader.Hide();
 
             return results;
@@ -86,9 +86,9 @@ namespace IHK.ResultsNotifier.Windows
 
         private async Task<TableData<string>> ParseHtmlContent(string content, string xpath)
         {
-            HtmlNode tableNode = await Utility.StartTask(() => parser.GetHtmlNode(content, xpath));
+            HtmlNode tableNode = await Task.Run(() => parser.GetHtmlNode(content, xpath));
 
-            return await Utility.StartTask(() => parser.ParseHtmlTableData(tableNode));
+            return await Task.Run(() => parser.ParseHtmlTableData(tableNode));
         }
 
         private void btnStartStop_Click(object sender, EventArgs e)
