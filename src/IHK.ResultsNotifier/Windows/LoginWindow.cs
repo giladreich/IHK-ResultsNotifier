@@ -17,10 +17,11 @@ namespace IHK.ResultsNotifier.Windows
 
         private readonly Configuration config;
         private WebClientIHK webClient;
-        
+        private User currentUser;
+
         public LoginWindow()
         {
-            InitializeComponent();            
+            InitializeComponent();
             DEFAULT_USER = tbxUser.TextSearch;
             DEFAULT_PASS = tbxPassword.TextSearch;
 
@@ -40,8 +41,8 @@ namespace IHK.ResultsNotifier.Windows
             cbxRemember.Checked = data.IsChecked;
             if (data.IsChecked)
             {
-                tbxUser.Text     = data.Username;
-                tbxPassword.Text = data.Password;
+                tbxUser.Text     = data.User.Username;
+                tbxPassword.Text = data.User.Password;
             }
         }
 
@@ -51,25 +52,31 @@ namespace IHK.ResultsNotifier.Windows
                 return;
 
             loader.Show();
-            await Utility.SimulateWork(3000);
+            await Utility.SimulateWork(TimeSpan.FromSeconds(2));
 
-            string username = tbxUser.Text;
-            string password = tbxPassword.Text;
+            User user = new User(tbxUser.Text, tbxPassword.Text);
 
-            if (cbxRemember.Checked)
-                config.SetConfigurations(new ConfigData(cbxRemember.Checked, username, password));
+            if (currentUser?.GetHashCode() != user.GetHashCode())
+                ResetWebClient();
 
-            webClient = new WebClientIHK();
-            await webClient.AuthenticateUser(username, password);
+            await ValidateWebClient(user);
+
             if (!webClient.IsAuthenticated)
             {
+                ResetWebClient();
                 loader.Hide();
-                MessageBox.Show("Failed to login. " +
-                                "Check your internet connection or username/password.");
+
+                this.InvokeSafe(() => 
+                    MessageBox.Show("Failed to login. Please try again.", 
+                        "INFO", MessageBoxButtons.OK, MessageBoxIcon.Information));
 
                 return;
             }
 
+            if (cbxRemember.Checked)
+                config.SetConfigurations(new ConfigData(cbxRemember.Checked, user));
+
+            currentUser = new User(user);
             this.InvokeSafe(() => new MainWindow(webClient).Show(this));
             loader.Hide();
             this.Visible(false);
@@ -85,6 +92,36 @@ namespace IHK.ResultsNotifier.Windows
                              && !String.Equals(tbxPassword.Text, DEFAULT_PASS);
 
             return isNotEmptyAndRulesMatch && isNotDefault;
+        }
+
+        private async Task ValidateWebClient(User user)
+        {
+            try
+            {
+                if (webClient == null)
+                {
+                    webClient = new WebClientIHK();
+                    await webClient.AuthenticateUser(user);
+                }
+                else
+                {
+                    await webClient.ValidateAuthentication();
+                }
+            }
+            catch (Exception ex)
+            {
+                loader.Hide();
+                ResetWebClient();
+                this.InvokeSafe(() => 
+                    MessageBox.Show("Exception thrown while validating web client -> " + ex.Message,
+                        "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error));
+            }
+        }
+
+        private void ResetWebClient()
+        {
+            webClient?.Dispose();
+            webClient = null;
         }
 
         private void cbxRemember_CheckedChanged(object sender, EventArgs e)
@@ -107,7 +144,7 @@ namespace IHK.ResultsNotifier.Windows
 
         private void LoginWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            webClient?.Dispose();
+            ResetWebClient();
         }
     }
 }

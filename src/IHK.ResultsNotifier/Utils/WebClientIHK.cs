@@ -54,10 +54,10 @@ namespace IHK.ResultsNotifier.Utils
 
 
         /// <returns>Whether the user is successfully autenticated.</returns>
-        public async Task<bool> AuthenticateUser(string username, string password)
+        public async Task<bool> AuthenticateUser(User user)
         {
             List<Cookie> collectedCookies = await CollectSomeCookies();
-            HttpContent payload = BuildPayloadData(username, password);
+            HttpContent payload = BuildPayloadData(user);
 
             // NOTE: If the server accepted our login credentials, it will replace us a new cookie 
             // with the first cookie from the cookie jar and much tastier! nom nom...
@@ -72,12 +72,12 @@ namespace IHK.ResultsNotifier.Utils
         }
 
         /// <returns>The payload body to be sent in the post request header.</returns>
-        private HttpContent BuildPayloadData(string username, string password)
+        private HttpContent BuildPayloadData(User user)
         {
             List<KeyValuePair<string, string>> userCredentials = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>(PARM_USER, username),
-                new KeyValuePair<string, string>(PARM_PASS, password),
+                new KeyValuePair<string, string>(PARM_USER, user.Username),
+                new KeyValuePair<string, string>(PARM_PASS, user.Password),
                 new KeyValuePair<string, string>(PARM_NOTUSED, "")
             };
 

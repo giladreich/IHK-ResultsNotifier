@@ -3,14 +3,12 @@
     public struct ConfigData
     {
         public bool IsChecked { get; }
-        public string Username { get; }
-        public string Password { get; }
+        public User User { get; }
 
-        public ConfigData(bool isChecked, string username, string password)
+        public ConfigData(bool isChecked, User user)
         {
             IsChecked = isChecked;
-            Username = username;
-            Password = password;
+            User = user;
         }
     }
 }
