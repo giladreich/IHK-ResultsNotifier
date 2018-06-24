@@ -85,6 +85,11 @@ namespace IHK.ResultsNotifier.Utils
             control.InvokeSafe(control.BringToFront);
         }
 
+        public static void Close(this Form form, bool safe)
+        {
+            form.InvokeSafe(form.Close);
+        }
+
         #endregion  --- Controls Properties/Methods ---
 
 

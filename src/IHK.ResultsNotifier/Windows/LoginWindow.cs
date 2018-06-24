@@ -104,5 +104,10 @@ namespace IHK.ResultsNotifier.Windows
                     break;
             }
         }
+
+        private void LoginWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            webClient?.Dispose();
+        }
     }
 }

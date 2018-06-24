@@ -66,7 +66,7 @@
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnLogin.Location = new System.Drawing.Point(42, 16);
+            this.btnLogin.Location = new System.Drawing.Point(41, 16);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(74, 32);
             this.btnLogin.TabIndex = 0;
@@ -83,7 +83,7 @@
             this.tbxUser.BackgroundColor = System.Drawing.Color.White;
             this.tbxUser.Font = new System.Drawing.Font("Comic Sans MS", 9F);
             this.tbxUser.ForeColor = System.Drawing.Color.DimGray;
-            this.tbxUser.Location = new System.Drawing.Point(27, 3);
+            this.tbxUser.Location = new System.Drawing.Point(26, 3);
             this.tbxUser.MinimumSize = new System.Drawing.Size(83, 27);
             this.tbxUser.Name = "tbxUser";
             this.tbxUser.PasswordChar = '\0';
@@ -115,7 +115,7 @@
             this.panelTbxs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.panelTbxs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.panelTbxs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.panelTbxs.Size = new System.Drawing.Size(168, 108);
+            this.panelTbxs.Size = new System.Drawing.Size(167, 108);
             this.panelTbxs.TabIndex = 1;
             // 
             // tbxPassword
@@ -160,7 +160,7 @@
             this.panelMain.ColumnCount = 3;
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.166667F));
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 95.83334F));
-            this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panelMain.Controls.Add(this.panelTbxs, 1, 1);
             this.panelMain.Controls.Add(this.panelBtns, 1, 2);
             this.panelMain.Controls.Add(this.pbxIHK, 1, 0);
@@ -191,7 +191,7 @@
             this.panelBtns.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             this.panelBtns.Location = new System.Drawing.Point(10, 184);
             this.panelBtns.Name = "panelBtns";
-            this.panelBtns.Size = new System.Drawing.Size(168, 51);
+            this.panelBtns.Size = new System.Drawing.Size(167, 51);
             this.panelBtns.TabIndex = 0;
             // 
             // controlBox
@@ -253,6 +253,7 @@
             this.Padding = new System.Windows.Forms.Padding(6, 35, 6, 6);
             this.ResizeGrip = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginWindow_FormClosing);
             this.Load += new System.EventHandler(this.LoginWindow_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LoginWindow_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.pbxIHK)).EndInit();

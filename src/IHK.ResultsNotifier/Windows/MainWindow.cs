@@ -52,18 +52,42 @@ namespace IHK.ResultsNotifier.Windows
         private async Task<TableData<string>> GetExamResults()
         {
             loader.Show();
-            await Utility.SimulateWork(1000);
+            await Utility.SimulateWork(TimeSpan.FromSeconds(1));
 
-            //string content = File.ReadAllText(@"C:\1\test\ihk.html");
-            string content = await webClient.GetExamResultsDocument();
-            string xpath   = "//*[@id=\"outer\"]/div[2]/div[4]/div[4]";
+            string content = await RetrieveHtmlContent();
+            string xpath = "//*[@id=\"outer\"]/div[2]/div[4]/div[4]";
 
-            HtmlNode tableNode        = await Utility.StartTask(() => parser.GetHtmlNode(content, xpath));
-            TableData<string> results = await Utility.StartTask(() => parser.ParseHtmlTableData(tableNode));
+            TableData<string> results = await ParseHtmlContent(content, xpath);
 
             loader.Hide();
 
             return results;
+        }
+
+        private async Task<string> RetrieveHtmlContent()
+        {
+            string content = String.Empty;
+            //string content = File.ReadAllText(@"C:\1\test\ihk.html");
+            try
+            {
+                content = await webClient.GetExamResultsDocument();
+            }
+            catch (Exception ex)
+            {
+                this.InvokeSafe(() =>
+                    MessageBox.Show("User Authentication or Connection lost. Please try to relog. "
+                                    + ex.Message, "INFO", MessageBoxButtons.OK, MessageBoxIcon.Exclamation));
+                this.Close(true);
+            }
+
+            return content;
+        }
+
+        private async Task<TableData<string>> ParseHtmlContent(string content, string xpath)
+        {
+            HtmlNode tableNode = await Utility.StartTask(() => parser.GetHtmlNode(content, xpath));
+
+            return await Utility.StartTask(() => parser.ParseHtmlTableData(tableNode));
         }
 
         private void btnStartStop_Click(object sender, EventArgs e)
@@ -166,8 +190,8 @@ namespace IHK.ResultsNotifier.Windows
                 Log("Cleaning up background threads before application closes.");
                 this.InvokeSafe(() => btnStartStop.PerformClick());
 
-                await Utility.SimulateWork(4000);
-                this.InvokeSafe(Close);
+                await Utility.SimulateWork(TimeSpan.FromSeconds(4));
+                this.Close(true);
             }
 
             Dispose();
@@ -179,7 +203,6 @@ namespace IHK.ResultsNotifier.Windows
         public new void Dispose()
         {
             worker?.Dispose();
-            webClient?.Dispose();
             parser?.Dispose();
             audio?.Dispose();
         }
