@@ -48,7 +48,7 @@ namespace IHK.ResultsNotifier.Windows
             Log("Loading exams results...");
 
             TableData<string> resultsTable = await GetExamResults();
-            dashboard.TableData.Swap(resultsTable);
+            dashboard.TableData.Clone(resultsTable);
 
             File.WriteAllBytes(FILE_SOUND_PATH, Resources.new_results_DE);
             await Task.Run(() => audio.Init());
@@ -61,6 +61,10 @@ namespace IHK.ResultsNotifier.Windows
 
             string content = await RetrieveHtmlContent();
             string xpath = XPathDefines.IHK_RESULTS_TABLE;
+
+            if (String.IsNullOrEmpty(content))
+                return null;
+
             TableData<string> results = await ParseHtmlContent(content, xpath);
             
             loader.Hide();
@@ -71,12 +75,11 @@ namespace IHK.ResultsNotifier.Windows
         private async Task<string> RetrieveHtmlContent()
         {
             string content = String.Empty;
-            //string content = File.ReadAllText(@"C:\1\test\ihk.html");
+            //return File.ReadAllText(@"C:\1\test\ihk.html");
             try
             {
                 content = await networkClient.GetExamResultsDocument();
             }
-
             catch (HttpRequestException ex)
             {
                 RequestDataFallback("Lost connection or could not reach the server. Please check your connection.", 
@@ -141,10 +144,11 @@ namespace IHK.ResultsNotifier.Windows
                 {
                     Log("Updating exams results.");
                     TableData<string> newData = await GetExamResults();
+                    if (newData == null) continue;
 
                     if (!dashboard.TableData.SequenceEqual(newData))
                     {
-                        dashboard.TableData.Swap(newData);
+                        dashboard.TableData.Clone(newData);
                         Log("Wohooo....New results are available!!!!!", Color.DarkGreen);
                         audio.Play();
 
@@ -168,7 +172,6 @@ namespace IHK.ResultsNotifier.Windows
 #else
                     worker.Sleep(TimeSpan.FromMinutes(checkEveryXTime));
 #endif
-
                 } while (worker.IsWorking);
             } // unlocks mutex end scope
         }

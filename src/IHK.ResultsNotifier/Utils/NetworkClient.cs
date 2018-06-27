@@ -132,7 +132,18 @@ namespace IHK.ResultsNotifier.Utils
         /// <returns>True if the user is autenticated and has access.</returns>
         public async Task<bool> ValidateAuthentication()
         {
-            HttpResponseMessage response = await SendRequestAsync(() => client.GetAsync(EXAMS_PAGE));
+            HttpResponseMessage response;
+
+            try
+            {
+                response = await SendRequestAsync(() => client.GetAsync(EXAMS_PAGE));
+            }
+            catch (Exception)
+            {
+                IsAuthenticated = false;
+                throw;
+            }
+
             IsAuthenticated = response.StatusCode == HttpStatusCode.OK;
 
             return IsAuthenticated;
