@@ -49,9 +49,6 @@ namespace IHK.ResultsNotifier.Windows
 
             TableData<string> resultsTable = await GetExamResults();
             dashboard.TableData.Clone(resultsTable);
-
-            File.WriteAllBytes(FILE_SOUND_PATH, Resources.new_results_DE);
-            await Task.Run(() => audio.Init());
         }
 
         private async Task<TableData<string>> GetExamResults()
@@ -148,6 +145,10 @@ namespace IHK.ResultsNotifier.Windows
 
                     if (!dashboard.TableData.SequenceEqual(newData))
                     {
+
+                        File.WriteAllBytes(FILE_SOUND_PATH, Resources.new_results_DE);
+                        await Task.Run(() => audio.Init());
+
                         dashboard.TableData.Clone(newData);
                         Log("Wohooo....New results are available!!!!!", Color.DarkGreen);
                         audio.Play();
