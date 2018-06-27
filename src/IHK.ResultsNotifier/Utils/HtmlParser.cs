@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using HtmlAgilityPack;
 
 
 namespace IHK.ResultsNotifier.Utils
 {
-    public class HtmlParser
+    public class HtmlParser : IDisposable
     {
         private const int ROWS    = 6;
         private const int COLUMNS = 4;
@@ -47,6 +45,10 @@ namespace IHK.ResultsNotifier.Utils
             }
 
             return table;
+        }
+
+        public void Dispose()
+        {
         }
 
     }

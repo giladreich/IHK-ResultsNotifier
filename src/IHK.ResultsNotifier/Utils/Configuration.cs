@@ -15,10 +15,10 @@ namespace IHK.ResultsNotifier.Utils
 
         public static bool KeyExist => Registry.CurrentUser.OpenSubKey(REG_KEY) != null;
 
-        public ConfigData GetConfigurations()
+        public ConfigurationData GetConfigurations()
         {
             RegistryKey reg = Registry.CurrentUser.OpenSubKey(REG_KEY);
-            if (reg == null) return new ConfigData(false, null, null);
+            if (reg == null) return new ConfigurationData(false, null);
 
             bool isChecked = Convert.ToBoolean(reg.GetValue(REG_CHECKED));
             string key = reg.GetValue(REG_VALUE1).ToString();
@@ -26,17 +26,17 @@ namespace IHK.ResultsNotifier.Utils
             string pass = Encryption.Decrypt(reg.GetValue(REG_VALUE3).ToString(), key);
             reg.Dispose();
 
-            return new ConfigData(isChecked, user, pass);
+            return new ConfigurationData(isChecked, new User(user, pass));
         }
 
-        public void SetConfigurations(ConfigData data)
+        public void SetConfigurations(ConfigurationData data)
         {
             RegistryKey reg = Registry.CurrentUser.CreateSubKey(REG_KEY, true);
             if (reg == null) return;
 
             string key = Encryption.GenerateKey(10);
-            string encryptedUser = Encryption.Encrypt(data.Username, key);
-            string encryptedPass = Encryption.Encrypt(data.Password, key);
+            string encryptedUser = Encryption.Encrypt(data.User.Username, key);
+            string encryptedPass = Encryption.Encrypt(data.User.Password, key);
 
             reg.SetValue(REG_CHECKED, data.IsChecked, RegistryValueKind.DWord);
             reg.SetValue(REG_VALUE1, key);

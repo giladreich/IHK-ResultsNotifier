@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Custom;
+using System.Net.Http;
+
 using IHK.ResultsNotifier.Utils;
 
 
@@ -13,15 +16,20 @@ namespace IHK.ResultsNotifier.Windows
         private readonly string DEFAULT_PASS;
 
         private readonly Configuration config;
-        private WebClientIHK webClient;
-        
+        private NetworkClient networkClient;
+        private User currentUser;
+
         public LoginWindow()
         {
-            InitializeComponent();            
+            InitializeComponent();
             DEFAULT_USER = tbxUser.TextSearch;
             DEFAULT_PASS = tbxPassword.TextSearch;
 
             config = new Configuration();
+        }
+
+        private void LoginWindow_Load(object sender, EventArgs e)
+        {
             LoadConfiguration();
         }
 
@@ -29,38 +37,49 @@ namespace IHK.ResultsNotifier.Windows
         {
             if (!Configuration.KeyExist) return;
 
-            ConfigData data = config.GetConfigurations();
+            ConfigurationData data = config.GetConfigurations();
             cbxRemember.Checked = data.IsChecked;
             if (data.IsChecked)
             {
-                tbxUser.Text     = data.Username;
-                tbxPassword.Text = data.Password;
+                tbxUser.Text     = data.User.Username;
+                tbxPassword.Text = data.User.Password;
             }
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
             if (!IsValidCredentials())
                 return;
 
-            webClient = new WebClientIHK();
+            loader.Show();
+            await Utility.SimulateWork(TimeSpan.FromSeconds(2));
 
-            string username = tbxUser.Text;
-            string password = tbxPassword.Text;
+            User user = new User(tbxUser.Text, tbxPassword.Text);
 
-            if (cbxRemember.Checked)
-                config.SetConfigurations(new ConfigData(cbxRemember.Checked, username, password));
+            if (currentUser?.GetHashCode() != user.GetHashCode())
+                networkClient?.Dispose();
 
-            
-            if (!webClient.AuthenticateUser(username, password))
+            await AuthenticateUserValidation(user);
+
+            if (!networkClient.IsAuthenticated)
             {
-                MessageBox.Show("Failed to login. " +
-                                "Check your internet connection or username/password.");
+                loader.Hide();
+                networkClient.Dispose();
+
+                this.InvokeSafe(() => 
+                    MessageBox.Show("Failed to login. Please try again.", 
+                        "INFO", MessageBoxButtons.OK, MessageBoxIcon.Information));
+
                 return;
             }
 
-            new MainWindow(webClient).Show(this);
-            Hide();
+            if (cbxRemember.Checked)
+                config.SetConfigurations(new ConfigurationData(cbxRemember.Checked, user));
+
+            currentUser = new User(user);
+            this.InvokeSafe(() => new MainWindow(networkClient).Show(this));
+            loader.Hide();
+            this.Visible(false);
         }
 
         private bool IsValidCredentials()
@@ -73,6 +92,45 @@ namespace IHK.ResultsNotifier.Windows
                              && !String.Equals(tbxPassword.Text, DEFAULT_PASS);
 
             return isNotEmptyAndRulesMatch && isNotDefault;
+        }
+
+        private async Task AuthenticateUserValidation(User user)
+        {
+            try
+            {
+                if (networkClient == null || networkClient.IsDisposed)
+                {
+                    networkClient = new NetworkClient();
+                    await networkClient.AuthenticateUser(user);
+                }
+                else
+                {
+                    await networkClient.ValidateAuthentication();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                AuthenticationFallback(ex);
+            }
+            catch (Exception ex)
+            {
+                AuthenticationFallback(ex);
+            }
+        }
+
+        private void AuthenticationFallback(Exception ex)
+        {
+            loader.Hide();
+            networkClient.Dispose();
+
+            this.InvokeSafe(() =>
+                MessageBox.Show("Exception thrown while validating network client -> " + ex.Message,
+                    "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error));
+        }
+
+        private void cbxRemember_CheckedChanged(object sender, EventArgs e)
+        {
+            config.RememberMe(cbxRemember.Checked);
         }
 
         private void LoginWindow_KeyPress(object sender, KeyPressEventArgs e)
@@ -88,9 +146,10 @@ namespace IHK.ResultsNotifier.Windows
             }
         }
 
-        private void cbxRemember_CheckedChanged(object sender, EventArgs e)
+        private void LoginWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            config.RememberMe(cbxRemember.Checked);
+            networkClient?.Dispose();
         }
+
     }
 }

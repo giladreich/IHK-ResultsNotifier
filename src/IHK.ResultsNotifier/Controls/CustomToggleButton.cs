@@ -141,6 +141,8 @@ namespace IHK.ResultsNotifier.Controls
             TextAlign = ContentAlignment.MiddleCenter;
         }
 
+        public void PerformClick() => Checked = !Checked;
+
         protected override void OnCheckedChanged(EventArgs e)
         {
             if (Checked)

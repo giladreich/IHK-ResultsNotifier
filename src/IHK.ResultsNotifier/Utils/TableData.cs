@@ -103,11 +103,30 @@ namespace IHK.ResultsNotifier.Utils
             return newTable;
         }
 
-        public void Swap(TableData<T> other)
+        public void Clone(TableData<T> other)
         {
+            if (other == null)
+                return;
+            
             for (int i = 0; i < GetLength(0); i++)
                 for (int j = 0; j < GetLength(1); j++)
                     this[i, j] = other[i, j];
+        }
+
+        public void Swap(TableData<T> other)
+        {
+            if (other == null)
+                return;
+
+            for (int i = 0; i < GetLength(0); i++)
+            {
+                for (int j = 0; j < GetLength(1); j++)
+                {
+                    T tmp = this[i, j];
+                    this[i, j] = other[i, j];
+                    other[i, j] = tmp;
+                }
+            }
         }
 
         public void InitAllWith(T value)
