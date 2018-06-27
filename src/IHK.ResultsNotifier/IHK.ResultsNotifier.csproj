@@ -7,7 +7,7 @@
     <ProjectGuid>{B717B701-620D-4714-8E9B-8963BF433CDE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>IHK.ResultsNotifier</RootNamespace>
-    <AssemblyName>IHK-ResultsNotifier-v1.0.2</AssemblyName>
+    <AssemblyName>IHK-ResultsNotifier-v2.0.1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
