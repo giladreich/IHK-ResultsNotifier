@@ -4,29 +4,6 @@ A simple tool to notify you whenever the results on the official website of the 
 When the new results are available, the tool will make a sound and will bring it on top of all windows so you'll notice the new results.
 
 
-### Login Interface
-
-![Login Interface](/pictures/login_window.png)
-![Login Interface](/pictures/login_window_typing.png)
-
-### Main Window Interface
-
-#### No Results Example:
-
-![Main Window Interface1](/pictures/main_window1.png)
-
-#### Listening for Results Example:
-
-![Main Window Interface2](/pictures/main_window2.png)
-
-#### Found Results Example:
-
-![Main Window Interface3](/pictures/main_window3.png)
-
-
-
-
-
 # The Cookies Trick For Authenticating A User
 
 ## Steps To Reproduce 
@@ -60,3 +37,25 @@ curl "https://apps.ihk-berlin.de/tibrosBB/azubiErgebnisse.jsp?id=1" -H "Cookie: 
 
 Note that this can be easily done by creating a cookie jar: `curl --cookie-jar` or `curl -c`, but to have a better understanding I show the requests commands the manual way.
 
+
+
+# Some Pictures
+
+### Login Interface
+
+![Login Interface](/pictures/login_window.png)
+![Login Interface](/pictures/login_window_typing.png)
+
+### Main Window Interface
+
+#### No Results Example:
+
+![Main Window Interface1](/pictures/main_window1.png)
+
+#### Listening for Results Example:
+
+![Main Window Interface2](/pictures/main_window2.png)
+
+#### Found Results Example:
+
+![Main Window Interface3](/pictures/main_window3.png)
