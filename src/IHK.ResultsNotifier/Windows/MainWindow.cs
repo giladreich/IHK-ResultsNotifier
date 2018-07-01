@@ -12,7 +12,6 @@ using System.Security.Authentication;
 using IHK.ResultsNotifier.Properties;
 using IHK.ResultsNotifier.Utils;
 
-using HtmlAgilityPack;
 using Nito.AsyncEx;
 
 
@@ -47,23 +46,29 @@ namespace IHK.ResultsNotifier.Windows
             Log("Successfully logged in!", Color.DarkGreen);
             Log("Loading exams results...");
 
-            TableData<string> resultsTable = await GetExamResults();
+            string content = await RetrieveHtmlContent();
+            string xpath = XPathDefines.IHK_CANDIDATE_DATA;
+
+            string username = await Task.Run(() => parser.GetUsername(content, xpath));
+            lblLoggedInAs.Text($"You are logged in as {username}");
+
+            TableData<string> resultsTable = await GetExamResults(content);
             dashboard.TableData.Clone(resultsTable);
         }
 
-        private async Task<TableData<string>> GetExamResults()
+        private async Task<TableData<string>> GetExamResults(string htmlContent = null)
         {
             loader.Show();
             await Utility.SimulateWork(TimeSpan.FromSeconds(1));
 
-            string content = await RetrieveHtmlContent();
+            string content = htmlContent ?? await RetrieveHtmlContent();
             string xpath = XPathDefines.IHK_RESULTS_TABLE;
 
             if (String.IsNullOrEmpty(content))
                 return null;
 
-            TableData<string> results = await ParseHtmlContent(content, xpath);
-            
+            TableData<string> results = await Task.Run(() => parser.GetExamResultsTable(content, xpath));
+
             loader.Hide();
 
             return results;
@@ -72,7 +77,9 @@ namespace IHK.ResultsNotifier.Windows
         private async Task<string> RetrieveHtmlContent()
         {
             string content = String.Empty;
-            //return File.ReadAllText(@"C:\1\test\ihk.html");
+#if LOCAL_TEST
+            return File.ReadAllText(@"..\..\..\IHK.ResultsNotifier.Tests\html_content_sample\IHK_Results_Page.html");
+#endif
             try
             {
                 content = await networkClient.GetExamResultsDocument();
@@ -102,13 +109,6 @@ namespace IHK.ResultsNotifier.Windows
                 MessageBox.Show($"{message}\n"
                                 + ex.Message, caption, MessageBoxButtons.OK, icon));
             this.Close(true);
-        }
-
-        private async Task<TableData<string>> ParseHtmlContent(string content, string xpath)
-        {
-            HtmlNode tableNode = await Task.Run(() => parser.GetHtmlNode(content, xpath));
-
-            return await Task.Run(() => parser.ParseHtmlTableData(tableNode));
         }
 
         private void btnStartStop_Click(object sender, EventArgs e)
@@ -212,8 +212,8 @@ namespace IHK.ResultsNotifier.Windows
                 // If any threads are working, delay the closing event after cleanup.
                 e.Cancel = true;
 
-                Log("Cleaning up background threads before application closes.");
                 this.InvokeSafe(() => btnStartStop.PerformClick());
+                Log("Cleaning up background threads before application closes.");
 
                 await Utility.SimulateWork(TimeSpan.FromSeconds(4));
                 this.Close(true);
