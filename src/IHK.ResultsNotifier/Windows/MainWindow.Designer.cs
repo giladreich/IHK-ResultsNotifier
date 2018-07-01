@@ -33,17 +33,20 @@
             this.panelBody = new System.Windows.Forms.Custom.CustomTableLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
             this.panelFooter = new System.Windows.Forms.Custom.CustomTableLayoutPanel();
-            this.btnStartStop = new IHK.ResultsNotifier.Controls.CustomToggleButton();
-            this.lblCheckEveryXMin = new IHK.ResultsNotifier.Controls.CustomLabel();
             this.tbxMinutes = new System.Windows.Forms.TextBox();
-            this.dashboard = new IHK.ResultsNotifier.Controls.Dashboard();
-            this.pbxIHK = new System.Windows.Forms.PictureBox();
             this.tbxLogs = new System.Windows.Forms.RichTextBox();
+            this.customTableLayoutPanel1 = new System.Windows.Forms.Custom.CustomTableLayoutPanel();
+            this.pbxIHK = new System.Windows.Forms.PictureBox();
             this.controlBox = new System.Windows.Forms.Custom.CustomControlBox();
             this.loader = new IHK.ResultsNotifier.Controls.Loader();
+            this.btnStartStop = new IHK.ResultsNotifier.Controls.CustomToggleButton();
+            this.lblCheckEveryXMin = new IHK.ResultsNotifier.Controls.CustomLabel();
+            this.dashboard = new IHK.ResultsNotifier.Controls.Dashboard();
+            this.lblLoggedInAs = new System.Windows.Forms.Label();
             this.panelMain.SuspendLayout();
             this.panelBody.SuspendLayout();
             this.panelFooter.SuspendLayout();
+            this.customTableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIHK)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,8 +61,8 @@
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 12F));
             this.panelMain.Controls.Add(this.btnClearLog, 1, 3);
             this.panelMain.Controls.Add(this.panelBody, 1, 1);
-            this.panelMain.Controls.Add(this.pbxIHK, 1, 0);
             this.panelMain.Controls.Add(this.tbxLogs, 1, 2);
+            this.panelMain.Controls.Add(this.customTableLayoutPanel1, 1, 0);
             this.panelMain.CustomCursor = false;
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.DraggableForm = false;
@@ -137,7 +140,7 @@
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.16519F));
             this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.83481F));
-            this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 174F));
+            this.panelFooter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 189F));
             this.panelFooter.Controls.Add(this.btnStartStop, 3, 0);
             this.panelFooter.Controls.Add(this.lblCheckEveryXMin, 1, 0);
             this.panelFooter.Controls.Add(this.tbxMinutes, 2, 0);
@@ -152,81 +155,15 @@
             this.panelFooter.Size = new System.Drawing.Size(859, 55);
             this.panelFooter.TabIndex = 0;
             // 
-            // btnStartStop
-            // 
-            this.btnStartStop.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnStartStop.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnStartStop.AutoSize = true;
-            this.btnStartStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btnStartStop.ColorStartBackcolor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btnStartStop.ColorStartForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnStartStop.ColorStartMouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(219)))), ((int)(((byte)(112)))));
-            this.btnStartStop.ColorStopBackcolor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(69)))), ((int)(((byte)(89)))));
-            this.btnStartStop.ColorStopForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
-            this.btnStartStop.ColorStopMouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(102)))), ((int)(((byte)(159)))));
-            this.btnStartStop.FlatAppearance.BorderSize = 0;
-            this.btnStartStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(219)))), ((int)(((byte)(112)))));
-            this.btnStartStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartStop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnStartStop.IsActivated = false;
-            this.btnStartStop.Location = new System.Drawing.Point(709, 14);
-            this.btnStartStop.Margin = new System.Windows.Forms.Padding(5);
-            this.btnStartStop.Name = "btnStartStop";
-            this.btnStartStop.Size = new System.Drawing.Size(124, 27);
-            this.btnStartStop.StartText = "Start Listening";
-            this.btnStartStop.StopText = "Stop Listening";
-            this.btnStartStop.TabIndex = 1;
-            this.btnStartStop.Tag = "start";
-            this.btnStartStop.Text = "Start Listening";
-            this.btnStartStop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnStartStop.UseVisualStyleBackColor = false;
-            this.btnStartStop.CheckedChanged += new System.EventHandler(this.btnStartStop_Click);
-            // 
-            // lblCheckEveryXMin
-            // 
-            this.lblCheckEveryXMin.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lblCheckEveryXMin.AutoSize = true;
-            this.lblCheckEveryXMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCheckEveryXMin.ForeColor = System.Drawing.Color.FloralWhite;
-            this.lblCheckEveryXMin.Location = new System.Drawing.Point(443, 17);
-            this.lblCheckEveryXMin.Name = "lblCheckEveryXMin";
-            this.lblCheckEveryXMin.Size = new System.Drawing.Size(176, 20);
-            this.lblCheckEveryXMin.TabIndex = 2;
-            this.lblCheckEveryXMin.Text = "Check Every X Minutes:";
-            // 
             // tbxMinutes
             // 
             this.tbxMinutes.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.tbxMinutes.Location = new System.Drawing.Point(625, 18);
+            this.tbxMinutes.Location = new System.Drawing.Point(612, 18);
             this.tbxMinutes.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.tbxMinutes.Name = "tbxMinutes";
             this.tbxMinutes.Size = new System.Drawing.Size(45, 20);
             this.tbxMinutes.TabIndex = 0;
             this.tbxMinutes.Text = "30";
-            // 
-            // dashboard
-            // 
-            this.dashboard.BackColor = System.Drawing.Color.Transparent;
-            this.dashboard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dashboard.Location = new System.Drawing.Point(71, 3);
-            this.dashboard.MinimumSize = new System.Drawing.Size(625, 200);
-            this.dashboard.Name = "dashboard";
-            this.dashboard.Size = new System.Drawing.Size(859, 214);
-            this.dashboard.TabIndex = 5;
-            this.dashboard.TabStop = false;
-            // 
-            // pbxIHK
-            // 
-            this.pbxIHK.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbxIHK.BackColor = System.Drawing.Color.Transparent;
-            this.pbxIHK.Image = global::IHK.ResultsNotifier.Properties.Resources.LogoIHK;
-            this.pbxIHK.Location = new System.Drawing.Point(383, 3);
-            this.pbxIHK.Name = "pbxIHK";
-            this.pbxIHK.Size = new System.Drawing.Size(215, 56);
-            this.pbxIHK.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxIHK.TabIndex = 1;
-            this.pbxIHK.TabStop = false;
             // 
             // tbxLogs
             // 
@@ -239,6 +176,40 @@
             this.tbxLogs.TabIndex = 6;
             this.tbxLogs.TabStop = false;
             this.tbxLogs.Text = "";
+            // 
+            // customTableLayoutPanel1
+            // 
+            this.customTableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.customTableLayoutPanel1.Color1 = System.Drawing.Color.Transparent;
+            this.customTableLayoutPanel1.Color2 = System.Drawing.Color.Transparent;
+            this.customTableLayoutPanel1.ColumnCount = 3;
+            this.customTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.32756F));
+            this.customTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.customTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.67244F));
+            this.customTableLayoutPanel1.Controls.Add(this.lblLoggedInAs, 0, 0);
+            this.customTableLayoutPanel1.Controls.Add(this.pbxIHK, 1, 0);
+            this.customTableLayoutPanel1.CustomCursor = false;
+            this.customTableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customTableLayoutPanel1.DraggableForm = false;
+            this.customTableLayoutPanel1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            this.customTableLayoutPanel1.Location = new System.Drawing.Point(15, 3);
+            this.customTableLayoutPanel1.Name = "customTableLayoutPanel1";
+            this.customTableLayoutPanel1.RowCount = 1;
+            this.customTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.customTableLayoutPanel1.Size = new System.Drawing.Size(951, 59);
+            this.customTableLayoutPanel1.TabIndex = 7;
+            // 
+            // pbxIHK
+            // 
+            this.pbxIHK.BackColor = System.Drawing.Color.Transparent;
+            this.pbxIHK.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbxIHK.Image = global::IHK.ResultsNotifier.Properties.Resources.LogoIHK;
+            this.pbxIHK.Location = new System.Drawing.Point(410, 3);
+            this.pbxIHK.Name = "pbxIHK";
+            this.pbxIHK.Size = new System.Drawing.Size(194, 53);
+            this.pbxIHK.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxIHK.TabIndex = 1;
+            this.pbxIHK.TabStop = false;
             // 
             // controlBox
             // 
@@ -271,6 +242,72 @@
             this.loader.SizeLoading = new System.Drawing.Size(85, 85);
             this.loader.TabIndex = 4;
             this.loader.Visible = false;
+            // 
+            // btnStartStop
+            // 
+            this.btnStartStop.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnStartStop.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnStartStop.AutoSize = true;
+            this.btnStartStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnStartStop.ColorStartBackcolor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnStartStop.ColorStartForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnStartStop.ColorStartMouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(219)))), ((int)(((byte)(112)))));
+            this.btnStartStop.ColorStopBackcolor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(69)))), ((int)(((byte)(89)))));
+            this.btnStartStop.ColorStopForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
+            this.btnStartStop.ColorStopMouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(102)))), ((int)(((byte)(159)))));
+            this.btnStartStop.FlatAppearance.BorderSize = 0;
+            this.btnStartStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(219)))), ((int)(((byte)(112)))));
+            this.btnStartStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStartStop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnStartStop.IsActivated = false;
+            this.btnStartStop.Location = new System.Drawing.Point(702, 14);
+            this.btnStartStop.Margin = new System.Windows.Forms.Padding(5);
+            this.btnStartStop.Name = "btnStartStop";
+            this.btnStartStop.Size = new System.Drawing.Size(124, 27);
+            this.btnStartStop.StartText = "Start Listening";
+            this.btnStartStop.StopText = "Stop Listening";
+            this.btnStartStop.TabIndex = 1;
+            this.btnStartStop.Tag = "start";
+            this.btnStartStop.Text = "Start Listening";
+            this.btnStartStop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnStartStop.UseVisualStyleBackColor = false;
+            this.btnStartStop.CheckedChanged += new System.EventHandler(this.btnStartStop_Click);
+            // 
+            // lblCheckEveryXMin
+            // 
+            this.lblCheckEveryXMin.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblCheckEveryXMin.AutoSize = true;
+            this.lblCheckEveryXMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCheckEveryXMin.ForeColor = System.Drawing.Color.FloralWhite;
+            this.lblCheckEveryXMin.Location = new System.Drawing.Point(430, 17);
+            this.lblCheckEveryXMin.Name = "lblCheckEveryXMin";
+            this.lblCheckEveryXMin.Size = new System.Drawing.Size(176, 20);
+            this.lblCheckEveryXMin.TabIndex = 2;
+            this.lblCheckEveryXMin.Text = "Check Every X Minutes:";
+            // 
+            // dashboard
+            // 
+            this.dashboard.BackColor = System.Drawing.Color.Transparent;
+            this.dashboard.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dashboard.Location = new System.Drawing.Point(71, 3);
+            this.dashboard.MinimumSize = new System.Drawing.Size(625, 200);
+            this.dashboard.Name = "dashboard";
+            this.dashboard.Size = new System.Drawing.Size(859, 214);
+            this.dashboard.TabIndex = 5;
+            this.dashboard.TabStop = false;
+            // 
+            // lblLoggedInAs
+            // 
+            this.lblLoggedInAs.AutoSize = true;
+            this.lblLoggedInAs.BackColor = System.Drawing.Color.Transparent;
+            this.lblLoggedInAs.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoggedInAs.ForeColor = System.Drawing.Color.FloralWhite;
+            this.lblLoggedInAs.Location = new System.Drawing.Point(3, 0);
+            this.lblLoggedInAs.Name = "lblLoggedInAs";
+            this.lblLoggedInAs.Size = new System.Drawing.Size(154, 20);
+            this.lblLoggedInAs.TabIndex = 5;
+            this.lblLoggedInAs.Text = "You are logged in as";
             // 
             // MainWindow
             // 
@@ -306,6 +343,8 @@
             this.panelBody.PerformLayout();
             this.panelFooter.ResumeLayout(false);
             this.panelFooter.PerformLayout();
+            this.customTableLayoutPanel1.ResumeLayout(false);
+            this.customTableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIHK)).EndInit();
             this.ResumeLayout(false);
 
@@ -325,6 +364,8 @@
         private System.Windows.Forms.Button btnClearLog;
         private System.Windows.Forms.RichTextBox tbxLogs;
         private Controls.Loader loader;
+        private System.Windows.Forms.Label lblLoggedInAs;
+        private System.Windows.Forms.Custom.CustomTableLayoutPanel customTableLayoutPanel1;
     }
 }
 

@@ -56,6 +56,7 @@ namespace IHK.ResultsNotifier.Windows
 
             User user = new User(tbxUser.Text, tbxPassword.Text);
 
+#if !LOCAL_TEST
             if (currentUser?.GetHashCode() != user.GetHashCode())
                 networkClient?.Dispose();
 
@@ -75,7 +76,7 @@ namespace IHK.ResultsNotifier.Windows
 
             if (cbxRemember.Checked)
                 config.SetConfigurations(new ConfigurationData(cbxRemember.Checked, user));
-
+#endif
             currentUser = new User(user);
             this.InvokeSafe(() => new MainWindow(networkClient).Show(this));
             loader.Hide();
