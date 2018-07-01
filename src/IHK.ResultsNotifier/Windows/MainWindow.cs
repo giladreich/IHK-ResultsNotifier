@@ -38,7 +38,6 @@ namespace IHK.ResultsNotifier.Windows
             InitializeComponent();
             networkClient = client;
             parser = new HtmlParser();
-            audio = new Audio(FILE_SOUND_PATH, true);
         }
 
         private async void MainWindow_Load(object sender, EventArgs e)
@@ -139,35 +138,23 @@ namespace IHK.ResultsNotifier.Windows
 
                 do
                 {
-                    Log("Updating exams results.");
+                    Log("Retrieving exams results...");
                     TableData<string> newData = await GetExamResults();
                     if (newData == null) continue;
 
                     if (!dashboard.TableData.SequenceEqual(newData))
                     {
-
-                        File.WriteAllBytes(FILE_SOUND_PATH, Resources.new_results_DE);
-                        await Task.Run(() => audio.Init());
-
                         dashboard.TableData.Clone(newData);
-                        Log("Wohooo....New results are available!!!!!", Color.DarkGreen);
-                        audio.Play();
-
-                        for (int i = 0; i < ALERT_COUNT_WHEN_NEW_RESULTS && worker.IsWorking; i++)
-                        {
-                            this.InvokeSafe(Activate);
-                            SystemSounds.Beep.Play();
-                            worker.Sleep(TimeSpan.FromSeconds(3));
-                        }
-
-                        audio.Stop();
                         TableData<string>.SerializeToFile(newData, FILE_TABLE_PATH);
+                        InitializeAudio();
+                        NotifyNewResults();
                     }
                     else
                     {
                         Log("Boring...nothing new.", Color.DarkRed);
                     }
 
+                    if (!worker.IsWorking) break;
 #if DEBUG
                     worker.Sleep(TimeSpan.FromSeconds(checkEveryXTime));
 #else
@@ -175,6 +162,33 @@ namespace IHK.ResultsNotifier.Windows
 #endif
                 } while (worker.IsWorking);
             } // unlocks mutex end scope
+        }
+
+        private void InitializeAudio()
+        {
+            if (!File.Exists(FILE_SOUND_PATH))
+                File.WriteAllBytes(FILE_SOUND_PATH, Resources.new_results_DE);
+
+            audio = new Audio(FILE_SOUND_PATH, true);
+        }
+
+        private void NotifyNewResults()
+        {
+            Log("Wohooo....New results are available!!!!!", Color.DarkGreen);
+            audio.Play();
+            Color tmpColor = FormBorders.Color;
+            this.FormBordersColor(Color.PaleGreen);
+
+            for (int i = 0; i < ALERT_COUNT_WHEN_NEW_RESULTS && worker.IsWorking; i++)
+            {
+                this.InvokeSafe(Activate);
+                SystemSounds.Beep.Play();
+                worker.Sleep(TimeSpan.FromSeconds(3));
+            }
+
+            audio.Stop();
+            audio.Dispose();
+            this.FormBordersColor(tmpColor);
         }
 
         private bool ValidateLoopTime(ref int minutes)

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.Custom;
 
 
 namespace IHK.ResultsNotifier.Utils
@@ -87,6 +88,12 @@ namespace IHK.ResultsNotifier.Utils
         public static void Close(this Form form, bool safe)
         {
             form.InvokeSafe(form.Close);
+        }
+
+        public static void FormBordersColor(this CustomForm form, Color color)
+        {
+            form.InvokeSafe(() => form.FormBorders.Color = color);
+            form.InvokeSafe(form.Invalidate);
         }
 
         #endregion  --- Controls Properties/Methods ---

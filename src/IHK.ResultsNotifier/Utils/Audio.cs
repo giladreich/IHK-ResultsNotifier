@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 using NAudio.Wave;
 
@@ -20,10 +21,15 @@ namespace IHK.ResultsNotifier.Utils
         {
             this.filePath = filePath;
             EnableLooping = enableLooping;
+
+            Init();
         }
 
         public void Init()
         {
+            if (!File.Exists(filePath))
+                throw new FileNotFoundException("The specified audio file not found: \n" + filePath);
+
             mp3Reader = new Mp3FileReader(filePath);
             waveOut = new WaveOut();
             if (EnableLooping)
@@ -70,7 +76,7 @@ namespace IHK.ResultsNotifier.Utils
 
         public void Dispose()
         {
-            mp3Reader?.Close(); ;
+            mp3Reader?.Close();
             mp3Reader?.Dispose();
             loopStream?.Close();
             loopStream?.Dispose();
