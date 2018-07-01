@@ -1,0 +1,2159 @@
+@font-face {
+    font-family: 'korbregular';
+    src: url('../fonts/korb_regular_macroman/korb-webfont.eot');
+    src: url('../fonts/korb_regular_macroman/korb-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/korb_regular_macroman/korb-webfont.woff2') format('woff2'),
+        url('../fonts/korb_regular_macroman/korb-webfont.woff') format('woff'),
+        url('../fonts/korb_regular_macroman/korb-webfont.ttf') format('truetype'),
+        url('../fonts/korb_regular_macroman/korb-webfont.svg#korbregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: "source_sans_proregular";
+    /*src: url("../fonts/source-sans-pro/SourceSansPro-Regular-webfont.eot");*/
+    src: url("../fonts/source-sans-pro/SourceSansPro-Regular.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "source_sans_pro_semibold";
+    src: url("../fonts/source-sans-pro/SourceSansPro-Semibold.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: "agfarotis_sans_serif";
+    src: url("../fonts/agfarotis_sans_serif/AgfaRotisSansSerif.eot");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+html {
+    font-size: 10px;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
+    font-family:  "source_sans_proregular",  "Arial", "Helvetica", "sans-serif";
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+    margin: 0px;
+}
+
+IMG {
+    BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+
+
+#outer {
+    width: 100%; height: 100%; margin-bottom: 0px;    margin-left: auto; margin-right: auto;
+    transition: margin-left .5s;
+}
+
+#center-container{ position: relative; top: 0px; left: 0px;  width:1000px;  background-color: white; text-align: left;  margin-left: auto; margin-right: auto;
+
+}
+
+
+#profil-container{
+    POSITION: absolute; TOP: 250px; LEFT: 192px; WIDTH: 748px; margin-left: 10px; margin-top: 10px;  
+}
+
+td.loginfo {background-color:#FFFFFF; -moz-opacity: 1.0; background:  transparent #FFFFFF 0; color: #003366; height: 40px; text-align: left; border-style: none; font-size: 0.65em; padding-left: 3px }
+
+
+
+/*-------------------------------------------------------------------------------------Hier befinden sich die einstellungen f??r die headerbereiche*/
+
+.headerbereich{
+    background-image: url(../images/header-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*width:1723px;*/    
+    height:157px;
+    margin-top: 0px; 
+    margin-left: 0px; 
+}
+
+.headerbereich_small{
+    background-image: url(../images/header-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*width:1723px;*/    
+    height:36px;
+    margin-top: 0px; 
+    margin-left: 0px; 
+}
+
+
+.top_bar_hintergrund{
+    /*width:1723px;*/   
+    height:36px;
+    background: rgba(0, 51, 102, 0.5);
+    /*background-image:linear-gradient(to right, #6886A4, #325980);*/
+    box-sizing: border-box;
+    clear:both;
+    font-size: 13px;
+}
+
+.top_bar{
+    width: 1000px;
+    height: 36px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 0px;
+    display: block;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right:auto;
+    /*background-image: linear-gradient(to right, #325980, #18426E);*/  
+}
+
+.phone{
+    margin-top: 10px;
+    float: left;
+    height: 26px;
+    color: #D0DCE6;
+    position:relative;
+}
+
+.top_bar_menu{
+    float: right;
+    margin-top: 10px;
+    height: 26px;
+    /*width: 100px;*/  
+    color: #D0DCE6;
+    text-transform:uppercase;
+}
+
+.top_bar_menu:hover{
+    text-decoration: underline;
+    text-decoration-color: #D0DCE6;
+}
+
+.top_bar_menu a:visited{
+    text-decoration: underline;
+    color: #D0DCE6;
+}
+.top_bar_menu a{
+    text-decoration: underline;
+    color: #D0DCE6;
+}
+
+.header_content{
+    margin-top: 12px;
+    height:106px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+}
+
+.header_img{
+    float: left;
+    margin-top:30px;
+
+}
+
+.header_schriftzug{
+    float: left;
+    margin-top: 5px;
+    margin-left: 10px;
+    font-size: 26px;
+    font-family: "agfarotis_sans_serif", "Arial", "Helvetica", "sans-serif";
+    color: white;
+    width: 800px; 
+    text-align: left;
+}
+
+.header_schriftzug_small{
+    float: left;
+    margin-top: 5px;
+    margin-left: 10px;
+    font-size: 20px;
+    font-family: "agfarotis_sans_serif", "Arial", "Helvetica", "sans-serif";
+    color: white;
+    width: 700px; 
+    text-align: left;
+}
+
+
+.service{
+    float: right;
+    color: #D0DCE6;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.service_text{
+    padding-left:5px;
+    padding-right:0px;
+}
+
+.service_text_link{
+    text-decoration: none;
+    color: #D0DCE6;
+}
+
+.service_text:hover{
+    text-decoration: underline;
+    text-decoration-color: #D0DCE6;
+}
+
+.service_text:visited{
+    text-decoration: underline;
+    text-decoration-color: #D0DCE6;
+}
+
+.service_text_link:hover{
+    text-decoration: underline;
+    text-decoration-color: #D0DCE6;
+}
+
+.service_text_link:visited{
+    text-decoration: underline;
+    text-decoration-color: #D0DCE6;
+}
+
+.login_inline{
+    float: right; 
+    width: 400px; 
+    height: 30px; 
+    margin-right: 0px; 
+    text-align: right; 
+}
+/*-------------------------------------------------------------------------------------Hier befinden sich die einstellungen f??r den Content*/
+
+.content{
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+    padding-top: 280px;
+}
+
+.content a{
+    text-decoration: none;
+    color: none;
+}
+
+.content-container2{
+    padding-top:  0px;
+    padding-left: 20px;
+    float: left; 
+    font-size: 16px; 
+    font-weight: normal; 
+    width: 710px;
+    min-height: 500px;
+    color: #5F6266 ;
+    font-weight: normal; 
+}
+
+.content-container2 a{
+    text-decoration: none  ;
+    color: #2D76B2 
+}
+
+.content-container2 a:visited{
+    text-decoration:none  ;
+    color: #2D76B2 
+}
+.content-container2 a:hover{
+    text-decoration: none  ;
+    color: #2D76B2 
+}
+
+.helpdesk{
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #DFE4EA; 
+    border: 1px solid #5F6266;
+    color: #4C4C4C;
+    font-weight: normal;
+    box-shadow: 5px 5px 5px #888888;
+    border-radius: 5px;
+}
+.helpdesk a:hover{
+    text-decoration: none  ;
+    color: red; 
+}
+
+.info{
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ccffff; 
+    border: 1px solid #009999;
+    color: #009999;
+    font-weight: bold;
+    box-shadow: 5px 5px 5px #888888;
+    border-radius: 5px;
+
+}
+
+.success{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    background-color: #AFCCAC;
+    border: 1px solid #000000;
+    color: #000000;
+    font-weight: bold;
+    box-shadow: 5px 5px 5px #888888;
+    border-radius: 5px;
+}
+
+.warning{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    background-color: #ffffcc; 
+    border: 1px solid #999900;
+    color: #cccc00;
+    font-weight: bold;
+    box-shadow: 5px 5px 5px #888888;
+    border-radius: 5px;
+}
+
+.error{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    background-color: #ffcccc; 
+    border: 1px solid #990000;
+    color: #990000;
+    font-weight: bold;
+    box-shadow: 5px 5px 5px #888888;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+/*------------------------------------------------------------------------------------Hier befinden sich die einstellungen f??r die Loginmaske*/
+
+.anmeldung{
+    margin-left: -5px;
+}
+
+.head{
+    text-align: left;
+    COLOR: #4C4C4C;
+    font-weight: bold;
+    font-size: 14px;
+    padding-left: 20px;
+}
+/*
+.textfield{
+    color: #003366;
+    border: 1px solid #809AB3;
+    width: 200px;
+    margin-left: 20px;
+}
+
+.button{
+    border: 1px solid #DCDCDC;
+    background-image: linear-gradient(to bottom,#6483A2,#164473);
+    color: white;
+    padding: 2px;
+}
+
+.button:hover{
+    color: #808797;
+}
+*/
+
+/*-------------------------------------------------------------------------------------Hier befinden sich die einstellungen f??r das Hauptmen??*/
+
+.menu_oben{
+    /*float: left;*/
+    width:1000px;
+    padding-top: 0px;
+    padding-left: 0px; 
+    font-family:  "korbregular",  "Arial", "Helvetica", "sans-serif";
+
+}
+
+.hauptmenu_liste{
+    padding-left: 0px;
+}
+
+.hauptmenu_eintrag {
+    color: #2F3133;    
+    list-style-type:none;
+    float: left;
+    margin-right: 20px;
+    font-size: 20px;
+    padding-bottom: 0px;
+    border-bottom: 2px solid #D0DCE6;
+}
+
+.hauptmenu_aktuell{
+    color:#2D76B2;
+}
+
+.hauptmenu_eintrag:hover{
+    color:#2D76B2;
+    border-bottom-color: #2D76B2;
+}
+
+
+
+/*-------------------------------------------------------------------------------------Hier befinden sich die einstellungen f??r die Laufleiste*/
+
+.history{
+    padding-top: 20px;
+    padding-left: 0px;
+    height: 80px;
+    font-family:  "korbregular",  "Arial", "Helvetica", "sans-serif";
+    font-size: 16px;
+
+}
+
+.laufleiste_link{
+    width: 100px;
+    padding-right: 25px; 
+    background-image: url('../images/arrow1.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size:20px; 
+    text-decoration: none;
+
+}
+
+.laufleiste_aktuell{
+    background-size: 0px;
+    font-weight:normal;
+}
+
+.laufleiste_letzter{
+    background-size: 0px;
+
+}
+
+.history a{
+    color: #2F3133
+}
+
+.history a:visited {
+    color: #2F3133
+}
+
+.history a:hover {
+    color: #2F3133
+}
+
+/*-------------------------------------------------------------------------------------Hier befinden sich die einstellungen f??r das kleine Men?? an der Seite*/
+
+.sidemenu_leer{
+    float: left;
+    min-width: 240px;
+    min-height: 500px;
+}
+
+.sidemenu{
+    float: left;
+    border-right: 2px solid #D0DCE6;
+    border-bottom: 2px solid #D0DCE6;
+    width: 240px;
+    background-color: #FFFFFF;
+    font-family:  "korbregular",  "Arial", "Helvetica", "sans-serif";
+    font-size: 18px;
+    padding: 0px;
+    box-sizing: content-box;
+
+
+}
+
+.sidemenu_liste{
+    list-style-type: none; 
+    padding: 0px;
+    margin: 0px;
+    box-sizing: content-box;
+}
+
+
+
+.sidemenu_eintrag_text{
+    height:46px;
+    padding-left: 10px;
+    padding-top: 20px;
+    margin-right: 0px;
+    color: #5f6266;
+    box-sizing: content-box;
+}
+
+.sidemenu_eintrag_text a:link  {
+    color: #5f6266;
+}
+
+.sidemenu_eintrag_text a:visited  {
+    color: #5f6266;
+}
+
+.sidemenu_pfeil_untermenu{
+    background-image:url(../images/arrow2.png);
+    background-repeat: no-repeat;
+    background-position: 225px;
+    background-size: 10px;
+}
+
+.sidemenu_background a:visited {
+    color: #5f6266;
+
+}
+.sidemenu_long_label{
+    FONT-SIZE: 12px;
+}
+
+
+.sidemenu_kopf{
+    height:46px;
+    padding-left: 10px;
+    padding-top: 20px;
+    background-color: #666666;
+    color: white;
+    box-sizing: content-box;
+}
+
+.sidemenu_eintrag_text:hover{
+    background-color: #D0DCE6;
+}
+
+.sidemenu_eintrag_activ{
+    background-color: #D0DCE6;
+}
+
+.untermenu{
+    padding-top: 0px;
+    padding-bottom: 30px;
+    position: absolute;
+    margin-top: -60px;
+    border: 2px solid #D0DCE6;
+    background-color: white;
+    width: 300px;
+    visibility: hidden;
+}
+
+.untermenu ul{
+    list-style-type: none; 
+    padding: 0px;
+    margin: 0px;
+    box-sizing: content-box;
+}
+
+.untermenu li{
+    height:46px;
+    padding-left: 10px;
+    padding-top: 10px;
+    margin-right: 0px;
+    color: #5f6266;
+    box-sizing: content-box;
+}
+
+
+
+
+.sidemenu_eintrag_text:hover .untermenu{
+    visibility:visible;
+
+    margin-left: 230px;
+    -webkit-transition: 1000ms ease;
+    -moz-transition: 1000ms ease;
+    -o-transition: 1000ms ease;
+    transition: 1000ms ease;        
+
+
+}
+
+/*-------------------------------------------------------------------------------------Hier befinden sich die einstellungen f??r die Berichte auf der hauptseite*/
+
+.berichte{
+    //float: left;
+    //width: 100%;
+    text-align:left;
+    margin-bottom: 30px;
+}
+
+.berichte_caption:hover{
+    color:#33ccff;
+}
+
+.berichte_bild{
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 20px;
+}
+
+.berichte_bild img {
+    width: 250px;
+}
+
+.berichte_text{
+    color:#5F6266;
+    text-align: left;
+}
+
+.berichte_text_small{
+    color:#5F6266;
+}
+
+.berichte_block{
+    margin-bottom: 20px;    
+}
+
+.berichte_block_small{
+    margin-bottom: 20px;    
+}
+
+
+.berichte_caption{
+    color:#2D76B2;
+    margin-top: 8px;
+}
+
+.berichte_caption_small{
+    color:#2D76B2;
+    margin-top: 8px;
+}
+
+
+.copyright{
+    color: grey;
+    font-size: 10px;
+}
+
+.copyright_small{
+    color: grey;
+    font-size: 10px;
+}
+
+.berichte a{
+    text-decoration: none;
+    color: #2D76B2;
+}
+
+.berichte_a:hover{
+    text-decoration: underline;
+}
+
+.berichte_small{
+    margin-top: 10px;
+    height: 80px;
+    float: bottom;
+    width: 100%;
+    text-align:left;
+
+}
+
+.berichte_bild_small{
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    width: 120px;
+}
+
+
+.berichte_bild_small img {
+    width: 130px;
+    height:87px;
+    float: left;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+/*------------------------------------------------Hier befinden isch die Einstellungen f?r den Footer*/
+
+
+.footer{
+    width: 1000px;
+    border-top: 1px solid #D0DCE6;
+    /* border-bottom:1px solid #D0DCE6; */
+    padding-top: 70px;
+    /*padding-bottom: 50px;*/  
+    margin-bottom: 20px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+
+
+}
+
+.footer_content{
+    max-width: 960px;
+}
+
+
+/*F?r die erste spalten des Footers*/
+.liste1 {
+    list-style-type: none;
+    color: #2D76B2;
+    float: left;
+    margin:0px;
+    padding: 0px;
+    /*margin-right: 140px;*/
+    width: 320px;
+}
+
+.liste1 a{
+    font-family: 'korbregular';
+    font-size: 18px;
+    color: #2D76B2;
+    text-decoration: none;
+    line-height: 16px;
+}
+
+.liste1 a:hover{
+    text-decoration: underline;
+    text-decoration-color: #7076B2;
+}
+
+.liste1 li{
+    padding-bottom: 20px;
+}
+
+/*F?r die zweite Spalte des Footers*/
+
+.liste2 {
+    list-style-type: none;
+    color: #2D76B2;
+    float: left;
+    margin:0px;
+    padding: 0px;
+    /*margin-right: 100px;*/
+    width: 320px;
+}
+
+.liste2 a{
+    font-family: 'korbregular';
+    font-size: 18px;
+    color: #2D76B2;
+    text-decoration: none;
+    line-height: 16px;
+}
+
+.liste2 a:hover{
+    text-decoration: underline;
+    text-decoration-color: #7076B2;
+}
+
+.liste2 li{
+    padding-bottom: 20px;
+}
+
+/*F?r die letzte Spalte des Footers*/
+
+.liste3 {
+    list-style-type: none;
+    color: #2D76B2;
+    float: left;
+    margin:0px;
+    padding: 0px;
+    width: 297px;
+}
+
+.liste3 a{
+    font-family: 'korbregular';
+    font-size: 18px;
+    color: #2D76B2;
+    text-decoration: none;
+
+}
+
+.liste3 a:hover{
+    text-decoration: underline;
+    text-decoration-color: #7076B2;
+}
+
+.liste3 li{
+    padding-bottom: 20px;
+}
+
+.footer_haftung{
+    font-family: 'korbregular';
+    color:#5F6266; 
+    font-size: 16px;  
+    width: 1000px;
+    margin-left: auto; 
+    margin-right: auto; 
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+.footer_impressum{
+    width: 1000px;
+    margin-left: auto; 
+    margin-right: auto; 
+    text-align: right;
+    font-size: 16px;  
+    font-family: 'korbregular';
+    color: #5F6266; 
+    text-decoration: none;
+}
+.footer_impressum a {
+    text-decoration: underline;
+    color: #5F6266;   
+}
+
+.footer_impressum a :visited :active :hover {
+    text-decoration: underline;
+    color: #5F6266; 
+}
+
+.footer_thawte{
+    width: 1000px;
+    margin-left: auto; 
+    margin-right: auto; 
+    text-align: center;
+    font-size: 16px;  
+    font-family: 'korbregular';
+    color: #5F6266; 
+    text-decoration: none;
+}
+
+/*---------------------------------------------------------*/
+
+.rechtespalte{
+    /*margin-left: 40px;*/   
+}
+
+#footer_bubble{
+    width: 300px;
+}
+
+#footer_location {
+    float: left;
+    width: auto;
+}
+
+#footer_phone img{
+    width: 30px;
+    float: left;
+    margin-right: 20px;
+
+}
+
+#footer_bubble img{
+    width: 30px;
+    float: left;
+    margin-right: 20px;
+}
+
+#footer_location img{
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-right: 20px;
+}
+
+
+#impressum{
+    float: right;
+    color:#5F6266;
+    font-size: 16px;
+    text-decoration-color:#5F6266;
+    text-decoration: underline;
+    font-family: 'korbregular';
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    bottom:0px;
+}
+
+#bull{
+    float: right;
+    color:#5F6266;
+    font-size: 16px;
+    text-decoration-color:#5F6266;
+    text-decoration: none;
+    font-family: 'korbregular';
+    position: relative;
+    bottom:0px;
+    margin-left: 5px;
+    margin-right: 5px;    
+}
+
+#impressum:hover{
+    text-decoration: none;
+}
+
+#datenschutz{
+    float: right;
+    color:#5F6266;
+    font-size: 16px;
+    text-decoration-color:#5F6266;
+    text-decoration: underline;
+    font-family: 'korbregular';
+    position: relative;
+    bottom:0px;
+}
+
+#datenschutz:hover{
+    text-decoration: none;
+}
+
+
+
+/*########################################################*/
+
+
+.titel{
+    width: 100%;
+    min-height:60px;
+    padding-left: 0px;
+    padding-top: 0px;
+    color:#2F3133;
+    font-family:  "korbregular",  "Arial", "Helvetica", "sans-serif";
+    font-size: 50px;
+    font-weight: normal;
+}
+
+
+
+
+.titel2{
+    width: 100%;
+    min-height:50px;
+    padding-left: 0px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color:#2D76B2;
+    font-size: 24px;
+    font-weight: normal ;
+}
+
+.titel3{
+    width: 100%;
+    height:30px;
+    padding-left: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #5f6266;
+    font-size: 20px;
+    font-weight: normal ;
+    font-family: "source_sans_proregular" ;
+
+}
+
+.titel4{
+    width: 100%;
+    height:30px;
+    padding-left: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color:#2D76B2;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+
+.hinweis{
+    width: 100%;
+    min-height:30px;
+    padding-left: 0px;
+    padding-top: 10px;
+    color:#2D76B2;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.content-text{
+    width: 100%;
+    min-height:30px;
+    padding-left: 0px;
+    padding-top: 10px;
+    color: #4C4C4C; 
+    font-size: 14px;
+    font-weight: normal;
+    font-style: none;
+    text-align: left;
+}
+
+.hinweis2{
+    width: 100%;
+    padding-left: 0px;
+    padding-top: 20px;
+    color:#4C4C4C;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: italic;
+} 
+
+
+/*------------------------------------------------------------------------------Einstellungen f?r content-table */
+.tabele{
+    text-align: left; 
+    width: 800px; 
+    margin-left: 0px; 
+    margin-bottom: 20px; 
+
+    padding-left: 0px; 
+    padding-bottom: 10px; 
+    padding-right: 0px; 
+    padding-top: 0px;
+    background-color: #ffffff; 
+
+    /*border: 1px solid #2D76B2;*/
+    /*box-shadow: 5px 5px 5px #888888;*/
+    /*border-radius: 5px;*/
+
+}  
+
+
+.tabele div.table-titel{
+    width: 100%;
+    height:100px;
+    padding-left: 0px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    color:#2F3133;
+    font-size: 24px;
+    font-weight: normal ;
+}
+
+
+.tabele div.hinweis{
+    width: 100%;
+    min-height:30px;
+    padding-left: 0px;
+    padding-top: 0px;
+    color:#2D76B2;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: italic;
+}  
+
+table.content-table {
+    text-align: left; 
+    width:100%; 
+    background-color: #f6f7fb; 
+}
+
+table.content-table td{
+    text-align: left; 
+    COLOR: #4C4C4C; 
+    font-size: 12px; 
+    font-weight: normal; 
+    HEIGHT: 30px;   
+    background-color: #f6f7fb; 
+    padding-left: 5px;  
+    padding-right: 5px;       
+}
+
+table.content-table  A {
+    COLOR: #2D76B2; 
+    TEXT-DECORATION: none
+}
+
+table.content-table th{
+    COLOR: #4C4C4C; 
+    font-size:14px; 
+    font-weight: bold; 
+    text-align: left; 
+    padding-left: 5px;  
+    padding-right: 5px;   
+    BACKGROUND: #f6f7fb;  
+    vertical-align: top;
+    min-height: 20px; 
+}
+
+table.content-table th a{
+    COLOR: #2D76B2; 
+    TEXT-DECORATION: none;
+
+}
+table.content-table th a:hover{
+    COLOR: #33ccff;
+    TEXT-DECORATION: none
+}
+
+table.content-table td.label{
+    COLOR: #4C4C4C; 
+    font-size:12px; 
+    font-weight: bold; 
+    text-align: left; 
+    padding-left: 5px;  
+    padding-right: 5px;   
+    BACKGROUND: #f6f7fb;  
+
+}
+
+/*---------------------------------------------- Einstellungen f?r Formulare---------*/
+.formular{
+    text-align: left; 
+    width: 800px; 
+    margin-left: 0px; 
+    margin-bottom: 20px; 
+    padding-left: 0px; 
+    padding-bottom: 10px; 
+    padding-right: 0px; 
+    padding-top: 0px;
+    /*border: 1px solid #2D76B2;*/
+    background-color: #ffffff; 
+    /*box-shadow: 5px 5px 5px #888888;*/
+    /*border-radius: 5px;*/
+} 
+
+.formular div.form-titel{
+    width: 100%;
+    height:60px;
+    padding-left: 0px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color:#2F3133;
+    font-size: 24px;
+    font-weight: normal ;
+}
+
+
+div.button-leiste{
+    min-height:30px; 
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align:  right ;
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+div.legende{
+    width: 100%;
+    min-height:30px;
+    padding-left: 0px;
+    padding-top: 10px;
+    color:#666;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: bold;
+
+
+} 
+
+div.box-titel{
+    width: 100%;
+    min-height:50px;
+    padding-left: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color:#2F3133;
+    font-size: 24px;
+    font-weight: normal ;
+    font-family: "korbregular" ;
+
+}
+
+div.button-leiste-links{
+    min-height:30px; 
+    min-width: 180px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    margin-left: 0px;
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+div.button-leiste-links button{
+    float: left;
+    margin-left: 5px;
+}
+
+button.button2{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 242px;
+    height: 60px; 
+    /*padding: 5px;*/ 
+    background-color: #2d76b2;
+    color: #FFFFFF;
+    font-family:  "source_sans_pro_semibold",  "Arial", "Helvetica", "sans-serif";
+    font-size: 18px;
+    font-weight: bold;
+    border: 0px;
+    border-right: 1px #FFFFFF solid;
+    border-left: 1px #FFFFFF solid;
+    padding: 0px;
+}  
+
+button.button2.smallbutton{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 121px;
+    height: 30px; 
+    padding: 5px;
+    background-color: #2d76b2;
+    color: #FFFFFF;
+    font-family:  "source_sans_pro_semibold",  "Arial", "Helvetica", "sans-serif";
+    font-size: 14px;
+    font-weight: bold;
+    border-right: 1px #FFFFFF solid;
+    border-left: 1px #FFFFFF solid;
+}
+
+button.button2.smallbutton.long{
+    width: 200px;
+    height: 30px; 
+    padding: 5px;
+    background-color: #2d76b2;
+    color: #FFFFFF;
+    font-family:  "source_sans_pro_semibold",  "Arial", "Helvetica", "sans-serif";
+    font-size: 14px;
+    font-weight: bold;
+    border-right: 1px #FFFFFF solid;
+    border-left: 1px #FFFFFF solid; 
+}
+
+button.button2.inline{
+    min-width: 100px;
+    width: auto;
+    height: 39px; 
+    padding: 5px;
+    margin-top: 2px;
+    background-color: #2d76b2;
+    color: #FFFFFF;
+    font-family:  "source_sans_pro_semibold",  "Arial", "Helvetica", "sans-serif";
+    font-size: 14px;
+    font-weight: bold;
+    border-right: 1px #FFFFFF solid;
+    border-left: 1px #FFFFFF solid;
+}
+
+
+
+
+
+
+button.button2:hover{
+    background-color: #2F3133;
+
+}
+
+a.logContainerLink{
+    font-size: 14px;
+    color: #676767;
+    margin-left: 10px;
+    text-decoration: underline; 
+}
+
+a.logContainerLink:visited{
+    color: #676767;
+}
+
+a.logContainerLink:hover{
+    color: #2d76b2;
+}
+
+
+/* AB HIER: Neuer Code f?r dioe veranstaltungssuche*/
+
+.auswahl{
+    font-family:"source_sans_proregular";
+    color: #5F6266;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #DFE4EA;
+    border: 1px solid black;
+}
+
+.auswahl_kostenfrei{
+    float: left;
+    margin-right: 20px;
+}
+
+.zeitraum{
+    font-family:"source_sans_proregular";
+    color: #5F6266;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #DFE4EA;
+    /*border: 1px solid black;*/
+}
+
+.zeitraum_caption{
+    /*border: 1px solid black;*/
+    color: #2D76B2;
+    padding-bottom: 30px;
+}
+
+.vom{
+    color: #5F6266;
+    margin-left: 5px;
+    float: left;
+}
+
+.bis{
+    color: #5F6266;
+    margin-left: 160px;
+}
+
+.kalender{
+    margin-top: 10px;
+    width:145px;
+    height: 40px;
+    border-left: 2px solid #7D7D7D;
+    border-top: 2px solid #7D7D7D;
+    border-right: 2px solid #F6F6F6;
+    border-bottom: 2px solid #F6F6F6; 
+}
+
+.kategorie{
+    font-family:"source_sans_proregular";
+    color: #5F6266;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    width: 500px;
+}
+
+.kategorie_caption{
+    color: #2D76B2;
+    padding-bottom: 30px;
+}
+
+.liste_rahmen{
+    margin-left: 5px;
+    /*width: 610px;*/
+}
+
+.kat_liste{
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    height: 1160px;
+    overflow: hidden;
+    visibility: hidden;
+    height: 0px;
+}
+
+.kategorie_eintrag{
+    padding: 10px 0;
+    border-top: 1px solid #DFE4EA;
+}
+
+.unterpunkt{
+    margin:0 0 0 25px;
+    padding: 10px 0;
+    border-bottom: 1px solid #DFE4EA;
+}
+
+/*bezogen auf den letzten eintrag, damit dieser keine doppelte linie anzeigt*/
+.letzter{
+    border: none;
+    padding-bottom: 20px;
+}
+
+.letzter2{
+    border: none;
+}
+
+/*bezogen auf den ersten eintrag in der Liste*/
+.erster{
+    border:none;
+}
+
+.neuesuche{
+    width: 150px;
+    float: right;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: right;
+    color:#2d76b2;
+    font-family: 'source_sans_proregular';
+}
+
+.suche_rahmen{
+    background-color: #DFE4EA;
+    border-bottom: 1px solid white;
+    width: 613px;
+    height: 120px;
+}
+
+.suche_textfeld{
+    height: 60px;
+    width: 513px;
+    border: 0px; 
+}
+
+.textfeld_rahmen{
+    width: 513px; 
+    height: 60px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 35px;
+}
+
+.lupe{
+    margin-top: 35px;
+    width: 60px;
+    height: 60px;    
+    float: left;
+}
+
+.lupe_suche:hover{
+    background-image: url(../images/lupe_blue.png);
+    background-size: 60px;
+    border: 0px;
+}
+
+.lupe_suche{
+    height: 60px;
+    width: 60px;
+    background-image:url(../images/lupe_green.png); 
+    background-size: 60px;
+    border: 0px;
+}
+
+
+::-webkit-input-placeholder {
+    color: #A9ABAD;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: #A9ABAD;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    color: #A9ABAD;  
+}
+
+:-ms-input-placeholder {  
+    color: #A9ABAD;  
+}
+
+.button_suche{
+    background-color: #DFE4EA;
+    padding-left: 10px;
+    width: 613px;
+    height: 66px;
+}
+
+.btn_suche{
+    border: none;
+    height: 66px;
+    width: 120px;
+    background-color: #2d76b2;
+    color: white;
+    float: right;
+}
+
+.btn_suche:hover{
+    background-color: #2F3133;
+    color: white;
+}
+
+
+
+.verstecken{
+    height: 0px; 
+    transition: height 0.7s ease-in-out; 
+    overflow: hidden;
+}
+
+
+.ergebnisse_anzahl{
+    font-family: source_sans_proregular;
+    font-size: 18px;
+    color: #5f6266;
+    border-bottom: 2px solid #a4abb3;
+    width: 522px;
+    margin-bottom: 20px;
+}
+
+.rahmen_ergebnis{
+    width: 522px;
+    height: 120px;
+    padding: 10px 0px;
+    margin-top: 20px;
+}
+
+
+.rahmen_kalender{
+    float: left;
+    height: 62px;
+    width: 50px;
+    background-color: #EAEAEA;
+    border-top: 8px solid #a4abb3;
+    text-align: center;
+    font-family: korbregular;
+}
+
+.kalender_monat{
+    font-size: 20px;
+    color: #5F6266;
+}
+
+.kalender_tag{
+    font-size: 28px;
+    font-weight: bold;
+    color: #5F6266;
+    margin-top: -10px;
+}
+
+.ergebnis_caption{
+    float: left;
+    margin-left: 10px;
+    color: #2d76b2;
+    width: 430px;
+    font-family: source_sans_proregular;
+    font-weight: lighter;
+}
+
+.ergebnis_details{
+    float: left;
+    margin-left: 10px;
+    width: 400px;
+    height: 80px;
+    font-family: source_sans_proregular;
+    color: #5F6266;
+    line-height: 22px;
+}
+
+.ergebnis_preis{
+    float: left;
+    font-weight: bold;
+}
+
+.cb_kat{
+    float: left;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+/*---------------------------Hier beginnt der Teil f?r die Gr?ne Navigation innerhalb der Veranstaltungsbuchung*/
+
+
+#green_id{
+    float: left;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.first_active{
+    background-image:url("../images/first_active.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 163px;
+    height: 63px;
+    float: left;
+    margin-top: 5px; 
+}
+
+.first_inactive{
+    background-image:url("../images/first_inactive.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 163px;
+    height: 63px;
+    float: left;
+    margin-top: 5px; 
+
+}
+
+.middle_active{
+    background-image:url("../images/middle_active.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 163px;
+    height: 63px;
+    float: left;
+    margin-top: 5px; 
+}
+
+.middle_inactive{
+    background-image:url("../images/middle_inactive.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 163px;
+    height: 63px;
+    float: left; 
+    margin-top: 5px; 
+}
+
+.last_active{
+    background-image:url("../images/last_active.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 163px;
+    height: 63px;
+    float: left;
+    margin-left: -6px;
+    margin-top: 5px; 
+}
+
+.last_inactive{
+    background-image:url("../images/last_inactive.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 163px;
+    height: 63px;
+    float: left;
+    margin-left: -6px;
+    margin-top: 5px; 
+}
+
+.green_caption{
+    text-align: center;
+    font-family:"source_sans_pro_semibold";
+}
+
+
+/*-----------------------Ab hier die Optischen Einstellungen f?r die Veranstaltungstabelle (F?r Funktionsweise bitte bootstrap.css kontrollieren)------------------------------*/
+
+
+.noc_table{
+    font-size: 16px;
+    margin-top: 20px;
+    margin-left: 5px;
+}
+
+.noc_info{
+    font-family: "korbregular";
+    font-size: 28px;
+}
+
+
+.reihe{
+    border-bottom: 1px solid #d0dce6;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.reihe_header{
+    color:#2D76B2;
+    font-family: "korbregular"; 
+    border-bottom: 3px solid #d0dce6;
+    font-weight: bold;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.reihe_hinweis{
+    color:#2D76B2;
+    font-family: "korbregular";
+    padding-top: 10px;
+    padding-bottom: 10px; 
+    font-style:italic;
+}
+
+.zelle_label{
+    font-weight: bold;
+}
+
+.zelle_link{
+    color: #2D76B2;
+}
+
+.zelle_link:hover{
+    text-decoration:underline;
+    text-decoration-color:#2D76B2; 
+}
+
+.reihe_button{
+    border: none;
+    height: 66px;
+    background-color: #2d76b2;
+    color: white;
+    float: right;
+}
+
+
+
+/*-----------------------Dies sind die Einstellungen f?r das neue Navigationssystem------------------------------*/
+
+
+.noc_karteikarte{
+    border: none;
+    background: none;
+    padding-right: 15px;
+    border-top: 3px solid #D0DCE6;
+    border-right: 3px solid #D0DCE6;
+    border-radius:  0px 40px 0px 0px;
+}
+
+.menu_trenner{
+    text-align: center;
+}
+
+.menu_trenner img{
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.noc_karteikarte_active{
+    color: #2D76B2;
+    background-color: #F0F0F0;
+}
+
+
+/*--------------------------------Einstellungen f?r den Kalender---------------------------------------------*/
+
+
+.zeitraum{
+    font-family:"source_sans_proregular";
+    color: #5F6266;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #DFE4EA;
+    margin-left: 18px;
+    /*border: 1px solid black;*/
+}
+
+.zeitraum_caption{
+    /*border: 1px solid black;*/
+    color: #2D76B2;
+    padding-bottom: 30px;
+}
+
+/*.vom{
+    color: #5F6266;
+    margin-left: 5px;
+    float: left;
+}
+*/
+
+.datum{
+    float: left;
+    height: 100%;
+    width: 100%;
+    background-image: url(../images/calendar.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size:35px;
+}
+
+.kalender {
+    width: 330px;
+}
+
+
+
+/*--------------------------------Hier befinden sich die Einstellungen f?r den Fixen oberen Teil (Men?, Module und Header)---------------------------------------------*/
+
+.header_fix{
+    position: fixed; 
+    width: 100%;
+    background-color: white;
+}
+
+.module_fix{
+    height: 110px; 
+    overflow: hidden;
+    margin-left: auto;  
+    margin-right: auto; 
+    width: 1000px;
+}
+
+
+
+/*-----------------------------------Hier befindet sich der abschnitt f?r das Kontaktformular---------------------------------------------------------------------------*/
+.kursConMail a{
+    color: #2D76B2;
+}
+
+.kursCap{
+    color: #2F3133;
+    font-size: 28px;
+    font-family: korbregular,"Helvetica","Arial","sans-serif";
+}
+
+.kursConMail a:hover{
+    text-decoration: underline;
+    text-decoration-color: #2D76B2;
+}
+
+.kursConTel{
+    color: #5F6266;
+}
+
+.kursConFax{
+    color: #5F6266;  
+}
+
+.kursConName{
+    color: #5F6266;
+    font-weight: bold;
+}
+
+.kontaktspeichern{
+    float: right;
+    color: #2D76B2;
+    text-decoration: underline;
+}
+
+/*-----------------------------------Hier befindet sich der abschnitt f?r das Kinfo---------------------------------------------------------------------------*/
+
+.kursKontakt{
+    width: 270px;
+    float: right;
+    margin-left: -30px;
+}
+
+.kinfoEintrag{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #D0DCE6;
+    background-image: url(../images/arrowright.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 20px;
+    background-size: 15px;
+}
+
+.kinfoEintrag a{
+    color: #2D76B2;
+}
+
+.kursKinfo{
+    margin-top: 20px;
+}
+
+.infoCap{
+    color: #2F3133;
+    font-size: 28px;
+    font-family: korbregular,"Helvetica","Arial","sans-serif";
+}
+
+#responsiveMenu{
+    display: none;
+}
+
+.nocsidenav{
+    display: none;
+}
+
+/*------------------------- responsive ---------------------------------------------*/
+
+
+
+@media screen and (max-width:1000px) {
+
+    .headerbereich{
+        overflow: hidden;
+        height: 60px;
+    }
+
+    .top_bar_hintergrund, .service{
+        display: none; 
+    }
+
+    .header_content { 
+        margin-top: 0px; 
+
+    }
+
+    .header_schriftzug{
+        margin-top: 10px;
+    }
+
+    .header_img{
+        margin-top: 10px;
+        margin-left: 20px;
+
+    }
+
+    .header_img img {
+        width: 80px;
+        height: 40px;
+    }
+
+    .header_fix{
+        position: relative;
+
+    }
+
+    .module_fix{
+        height: 40px; 
+    }
+
+    .content {
+        padding-top: 0px;
+        width: 100%;
+        font-size: 24px;
+    }
+
+    .content-container2 {
+        font-size: 20px;
+    }
+
+    .headerbereich_small{
+        visibility: hidden;
+        width: 0px;
+        height: 0px;
+
+    } 
+
+    .module_fix{
+        display: none;
+
+
+    }
+
+    .menu_oben{
+        display: none;
+
+    }
+
+    #green_id{
+        display: none;
+    }
+
+    .footer{
+        display: none;
+    }
+
+
+    .content-container2{
+        width: 90%;
+    }    
+    .qrcode{
+        display: none;
+    }
+
+
+    .first_active, .first_inactive, .middle_active, .middle_inactive, .last_active, .last_inactive{
+        float: bottom;
+
+    }
+
+
+    .sidemenu, .sidemenu_leer{
+        /*
+                float: bottom;
+                border: none;
+                width: 100%;
+        */
+        display: none;
+
+    }
+
+    .footer_haftung{
+        width: 90%;
+        text-align: left;
+        margin-left: 0px; 
+        padding-left: 20px;
+
+    }
+
+
+    .footer_impressum{
+        width: 90%;
+        text-align: left;
+        margin-left: 0px; 
+        padding-left: 20px;
+    }
+
+    .footer_thawte{
+        width: 90%;
+        text-align: left;
+        margin-left: 0px; 
+        padding-left: 20px;
+    }
+
+
+
+
+
+
+    /*-------------------- men? Link responsive -------------------*/
+
+
+    .nocsidenav {
+        display: block;
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0px;
+        left: 0;
+        background: rgba(0, 51, 102, 0.95);
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 50px;
+    }
+
+    .nocsidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #f1f1f1;
+        display: block;
+        transition: 0.3s
+    }
+
+    .nocsidenav a:hover, .offcanvas a:focus{
+        color: #33ccff;
+    }
+
+    .nocsidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+
+
+
+    #responsiveMenu{
+        margin-left: 20px;
+        display: block;
+        font-size: 30px;
+        background:  white; 
+        color: rgba(0, 51, 102, 1);
+        height: 50px;
+        width: 50px; 
+    }
+
+    #responsiveMenu a :visited :focus :hover {
+        color: rgba(0, 51, 102, 1);
+
+    }
+
+    .kursKontakt{
+        float: none;
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
+
+}
+
+/*------------------------- drucken ---------------------------------------------*/
+
+@media print {
+
+    html, body {
+        width: 1200px;
+    }
+    body {
+        margin: 0 auto;
+    }
+
+    .headerbereich{
+        overflow: hidden;
+        height: 60px;
+    }
+
+    .top_bar_hintergrund, .service{
+        display: none; 
+    }
+
+    .header_content {
+        margin-top: 0px; 
+        margin-left: 20px;
+
+    }
+
+    .header_schriftzug{
+        margin-top: 0px; 
+    }
+
+
+    .header_img{
+        margin-top: 3px;
+        margin-left: 0px;
+    }
+
+    .header_fix{
+        position: relative;
+
+    }
+
+    .module_fix{
+        height: 40px; 
+    }
+
+    .content {
+        padding-top: 0px;
+        width: 100%;
+    }
+
+
+    .headerbereich_small{
+        visibility: hidden;
+        width: 0px;
+        height: 0px;
+
+    } 
+
+    .module_fix{
+        display: none;
+
+
+    }
+
+    .menu_oben{
+        display: none;
+
+    }
+
+
+    .footer{
+        display: none;
+    }
+
+    .footer_haftung, .footer_impressum, .footer_thawte{
+        display: none;
+    }
+    
+    
+
+    .content-container2{
+        width: 90%;
+    }    
+
+
+
+    .first_active, .first_inactive, .middle_active, .middle_inactive, .last_active, .last_inactive{
+        display: none;
+
+    }
+
+
+    .sidemenu, .sidemenu_leer{
+        display: none;
+    }
+
+    .nocsidenav {
+        display: none;
+    }
+
+
+    #responsiveMenu{
+        display: none;
+    }
+
+    button{
+        display: none;
+    }
+
+    .qrcode{
+        display: none;
+    }
+
+}
+
+
+
+
