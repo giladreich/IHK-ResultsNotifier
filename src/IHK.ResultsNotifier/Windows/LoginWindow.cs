@@ -78,7 +78,7 @@ namespace IHK.ResultsNotifier.Windows
                 config.SetConfigurations(new ConfigurationData(cbxRemember.Checked, user));
 #endif
             currentUser = new User(user);
-            this.InvokeSafe(() => new MainWindow(networkClient).Show(this));
+            this.InvokeSafe(() => new MainWindow(networkClient, user).Show(this));
             loader.Hide();
             this.Visible(false);
         }

@@ -26,6 +26,7 @@ namespace IHK.ResultsNotifier.Windows
         private const int ALERT_COUNT_WHEN_NEW_RESULTS = 8;
 
         private readonly AsyncLock mutex = new AsyncLock();
+        private readonly User user;
 
         private Worker worker;
         private NetworkClient networkClient;
@@ -33,9 +34,10 @@ namespace IHK.ResultsNotifier.Windows
         private Audio audio;
 
 
-        public MainWindow(NetworkClient client)
+        public MainWindow(NetworkClient client, User user)
         {
             InitializeComponent();
+            this.user = user;
             networkClient = client;
             parser = new HtmlParser();
         }
@@ -90,6 +92,13 @@ namespace IHK.ResultsNotifier.Windows
             }
             catch (AuthenticationException ex)
             {
+                // Probably User's session expired. Running another attemp to authenticate the user and retrieve results.
+                try {
+                    await networkClient.AuthenticateUser(user);
+                    if (networkClient.IsAuthenticated)
+                        return await networkClient.GetExamResultsDocument();
+                } catch { /*ignored*/ }
+
                 RequestDataFallback("User authentication lost. Please try to relog." , ex, "INFO",
                     MessageBoxIcon.Exclamation);
             }
