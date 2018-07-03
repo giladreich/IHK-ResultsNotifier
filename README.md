@@ -18,7 +18,7 @@ curl -I "https://apps.ihk-berlin.de/favicon.ico"
 
 At this point, the server has sent us 2 cookies that we'll need to include in the header of the POST request when we posting the login form(Note that the order of the cookies is important):
 ```sh
-// Where REPLACEME_*, add the appropriate information:
+# Where REPLACEME_*, add the appropriate information:
 curl -v -X POST "https://apps.ihk-berlin.de/tibrosBB/azubiHome.jsp" 
 -H "Cookie: TSESSIONID=REPLACEME_SESSION1; TSESSIONID=REPLACEME_SESSION2" 
 -d "login=REPLACEME_USER&pass=REPLACEME_PASS&anmelden="
@@ -33,11 +33,11 @@ For our purpose, we need to retrieve the exam results page, which is `azubiErgeb
 the results page, without first visiting the `azubiErgebnisse.jsp`, the server will destroy our session and log us out automatically.
 The way to access the results page, we use the following commands in the following order:
 ```sh
-// Simulate a visit in order to let the server confirm that we visited this page before we go any further:
+# Simulate a visit in order to let the server confirm that we visited this page before we go any further:
 curl "https://apps.ihk-berlin.de/tibrosBB/azubiPruef.jsp" 
 -H "Cookie: TSESSIONID=REPLACEME_SESSION3; TSESSIONID=REPLACEME_SESSION2"
 
-// Now we are safe to visit here and get what we wanted:
+# Now we are safe to visit here and get what we wanted:
 curl "https://apps.ihk-berlin.de/tibrosBB/azubiErgebnisse.jsp?id=1" 
 -H "Cookie: TSESSIONID=REPLACEME_SESSION3; TSESSIONID=REPLACEME_SESSION2"
 ```
