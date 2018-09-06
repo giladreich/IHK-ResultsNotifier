@@ -124,6 +124,16 @@ namespace IHK.ResultsNotifier.Utils
             if (!IsAuthenticated)
                 throw new AuthenticationException("Cannot get exam results before the user is authenticated.");
 
+            // Triggers the Aktualisieren button just in case the date is greater than the actual ausbildung period.
+            HttpContent payload = new FormUrlEncodedContent(
+                new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("azubvtrg", "1"),
+                    new KeyValuePair<string, string>("abbruch", "")
+                }
+            );
+            HttpResponseMessage btnResp = await SendRequestAsync(() => client.PostAsync(EXAMS_PAGE, payload));
+
             HttpResponseMessage resultsResp = await SendRequestAsync(() => client.GetAsync(EXAMS_RESULTS_PAGE));
 
             return await resultsResp.Content.ReadAsStringAsync();
