@@ -136,12 +136,13 @@ namespace IHK.ResultsNotifier.Windows
 
         private void LoginWindow_KeyPress(object sender, KeyPressEventArgs e)
         {
-            switch (e.KeyChar)
+            Keys pressedKey = (Keys) e.KeyChar;
+            switch (pressedKey)
             {
-                case (char) Keys.Return:
+                case Keys.Return:
                     btnLogin.PerformClick();
                     break;
-                case (char) Keys.Escape:
+                case Keys.Escape:
                     panelBtns.Focus();
                     break;
             }

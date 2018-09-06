@@ -79,7 +79,8 @@ namespace IHK.ResultsNotifier.Windows
         {
             string content = String.Empty;
 #if LOCAL_TEST
-            return File.ReadAllText(@"..\..\..\IHK.ResultsNotifier.Tests\html_content_sample\IHK_Results_Page.html");
+            content = await Task.Run(() => File.ReadAllText(@"..\..\..\IHK.ResultsNotifier.Tests\html_content_sample\IHK_Results_Page.html"));
+            return content;
 #endif
             try
             {

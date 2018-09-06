@@ -9,7 +9,7 @@ namespace IHK.ResultsNotifier.Utils
 {
     public class HtmlParser : IDisposable
     {
-        private const int ROWS    = 6;
+        private const int ROWS    = 7;
         private const int COLUMNS = 4;
 
         private const int HTML_FIRST_RESULT_COLUMN_IDX  = 3;

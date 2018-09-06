@@ -9,7 +9,7 @@ namespace IHK.ResultsNotifier.Controls
 
     public partial class Dashboard : UserControl
     {
-        private const int ROWS    = 6;
+        private const int ROWS    = 7;
         private const int COLUMNS = 4;
 
         public TableData<string> TableData { get; }
